@@ -24,8 +24,9 @@ import {
   Menu as MenuIcon,
   ExitToApp as ExitToAppIcon,
 } from "@mui/icons-material";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { styled } from "@mui/material/styles";
-import {slugs} from "../constant/slugs";
+import { slugs } from "../constant/slugs";
 
 const DrawerCustom = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -111,26 +112,33 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
     },
     {
       id: 2,
+      name: "Quản lý nhân viên",
+      icon: <SupervisorAccountIcon />,
+      link: `${slugs.Employee}`,
+      exact: false,
+    },
+    {
+      id: 3,
       name: "Quản lý khách hàng",
       icon: <MonetizationOnIcon />,
       link: `${slugs.Customer}`,
       exact: false,
     },
     {
-      id: 3,
+      id: 4,
       name: "Thông tin tài khoản",
       icon: <AccountBalanceWalletIcon />,
       link: `${slugs.DetailAccount}`,
       exact: false,
     },
     {
-      id: 4,
+      id: 5,
       name: "Chăm sóc khách hàng",
-      icon: <SupervisorAccountIcon />,
+      icon: <SupportAgentIcon />,
       link: `${slugs.CustomerService}`,
       exact: false,
     },
-    
+
     {
       id: 6,
       name: "Quản lý khác",

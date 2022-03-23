@@ -11,8 +11,12 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import InforField from "./InforField";
+import { useHistory } from "react-router-dom";
+import { slugs } from "../../constant/slugs";
 
 const DetailAccount = () => {
+  const history = useHistory();
+
   return (
     <>
       <Grid
@@ -26,7 +30,14 @@ const DetailAccount = () => {
         <Typography variant="h3">Thông tin tài khoản</Typography>
       </Grid>
 
-      <Paper style={{ height: 400, width: "100%", padding: " 30px" }}>
+      <Paper
+        style={{
+          width: "100%",
+          padding: "30px",
+          marginLeft: "24px",
+          marginRight: "24px",
+        }}
+      >
         <Grid
           container
           direction="row"
@@ -76,6 +87,19 @@ const DetailAccount = () => {
           </Grid>
         </Grid>
       </Paper>
+      <Grid container direction="row" justifyContent="flex-end">
+        <Grid item>
+          <Button
+            onClick={() => history.push(slugs.EditAccount)}
+            variant="contained"
+            color="primary"
+            style={{ margin: "24px" }}
+          >
+            {" "}
+            Update
+          </Button>
+        </Grid>
+      </Grid>
     </>
   );
 };

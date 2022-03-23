@@ -21,30 +21,30 @@ import { makeStyles } from "@mui/styles";
 import _ from "lodash";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import {slugs} from "../constant/slugs";
+import { slugs } from "../constant/slugs";
 
 import MainMenu from "./MainMenu";
 import SearchText from "./SearchText";
 import theme from "../constant/theme";
 
-const drawerWidth = 314;
+const drawerwidth = 314;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
   background: "#fff",
-  zIndex: _.get(theme,'zIndex.drawer') + 1,
+  zIndex: _.get(theme, "zIndex.drawer") + 1,
   transition: theme.transitions.create(["width", "margin"], {
-    easing: _.get(theme,'transitions.easing.sharp'),
-    duration: _.get(theme,'transitions.duration.leavingScreen'),
+    easing: _.get(theme, "transitions.easing.sharp"),
+    duration: _.get(theme, "transitions.duration.leavingScreen"),
   }),
   ...(open
     ? {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerwidth,
+        width: `calc(100% - ${drawerwidth}px)`,
         transition: theme.transitions.create(["width", "margin"], {
-          easing: _.get(theme,'transitions.easing.sharp'),
-          duration: _.get(theme,'transitions.duration.enteringScreen'),
+          easing: _.get(theme, "transitions.easing.sharp"),
+          duration: _.get(theme, "transitions.duration.enteringScreen"),
         }),
       }
     : {
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     background: "white",
     boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1);",
     borderRadius: "12px",
-    color: _.get(theme,'palette.secondary.main'),
+    color: _.get(theme, "palette.secondary.main"),
     whiteSpace: "nowrap",
     width: "360px",
     display: " flex",
@@ -101,18 +101,15 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   const [showModal, setShowModal] = useState(false);
   const [notiNumber, setNotiNumber] = useState(0);
 
-
   const history = useHistory();
   const classes = useStyles(theme);
-
-  
 
   return (
     <>
       <Box sx={{ display: "flex" }}>
         {auth && (
           <AppBar position="absolute" open={open}>
-            <Toolbar >
+            <Toolbar>
               <Grid
                 container
                 justifyContent="space-between"
@@ -134,12 +131,9 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                         </Badge>
                       </IconButton>
                     </Grid>
-                    <Grid item style={{ cursor: "pointer" }} >
+                    <Grid item style={{ cursor: "pointer" }}>
                       <Grid item position="relative">
-                        <Avatar
-                         
-                          onClick={() => setShowProfile(!showProfile)}
-                        />
+                        <Avatar onClick={() => setShowProfile(!showProfile)} />
                         <div
                           className={classes.accountMenu}
                           style={{ display: showProfile ? "flex" : "none" }}
@@ -155,29 +149,30 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                                 borderBottom="1px solid #e2e1e1"
                               >
                                 <Grid item>
-                                  <Avatar
-                                  
-                                    sx={{ bgcolor: "#00837B" }}
-                                  />
+                                  <Avatar sx={{ bgcolor: "#00837B" }} />
                                 </Grid>
                                 <Grid item>
                                   <Grid item container direction="column">
                                     <Grid item fontWeight="bold">
                                       <Typography
                                         variant="h5"
-                                        color={_.get(theme,'palette.secondary.main')}
+                                        color={_.get(
+                                          theme,
+                                          "palette.secondary.main"
+                                        )}
                                       >
                                         {" "}
-                                        
                                       </Typography>
                                     </Grid>
                                     <Grid item>
                                       <Typography
                                         variant="caption"
-                                        color={_.get(theme,'palette.secondary.main')}
+                                        color={_.get(
+                                          theme,
+                                          "palette.secondary.main"
+                                        )}
                                         fontSize={14}
-                                      >
-                                      </Typography>
+                                      ></Typography>
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -194,12 +189,15 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                               >
                                 <LockIcon
                                   style={{
-                                    color: _.get(theme,'palette.secondary.main'),
+                                    color: _.get(
+                                      theme,
+                                      "palette.secondary.main"
+                                    ),
                                   }}
                                 />
                                 <Typography
                                   variant="subtitle2"
-                                  color={_.get(theme,'palette.secondary.main')}
+                                  color={_.get(theme, "palette.secondary.main")}
                                 >
                                   Đổi mật khẩu
                                 </Typography>
@@ -214,12 +212,15 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                               >
                                 <Logout
                                   style={{
-                                    color: _.get(theme,'palette.secondary.main'),
+                                    color: _.get(
+                                      theme,
+                                      "palette.secondary.main"
+                                    ),
                                   }}
                                 />
                                 <Typography
                                   variant="subtitle2"
-                                  color={_.get(theme,'palette.secondary.main')}
+                                  color={_.get(theme, "palette.secondary.main")}
                                 >
                                   Đăng xuất
                                 </Typography>
@@ -233,7 +234,7 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                 </Grid>
               </Grid>
             </Toolbar>
-{/* 
+            {/* 
             <ConfirmModal
               showModal={showModal}
               setShowModal={setShowModal}
@@ -287,9 +288,9 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
         )}
 
         <MainMenu
-          drawerWidth={drawerWidth}
+          drawerwidth={drawerwidth}
           open={open}
-        //   toggleDrawer={toggleDrawer}
+          //   toggleDrawer={toggleDrawer}
           setAuth={setAuth}
         />
 

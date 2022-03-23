@@ -16,6 +16,8 @@ import DetailAccount from "./pages/DetailAccount";
 import { ThemeProvider } from "@mui/material/styles";
 import SendEmail from "./pages/Service/MailService";
 import Service from "./pages/Service";
+import EditAccount from "./pages/EditAccount";
+import Employees from "./pages/Emloyees";
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -45,7 +47,11 @@ function App() {
             <Layout setSearchText={setSearchText} searchText={searchText}>
               <Route exact path={slugs.Home} render={() => <Home />} />
               <Route exact path={slugs.Customer} render={() => <Customer />} />
-              <Route exact path={slugs.Service} render={() => <Service />} />
+              <Route
+                exact
+                path={slugs.CustomerService}
+                render={() => <Service />}
+              />
               <Route
                 exact
                 path={slugs.MailService}
@@ -56,6 +62,12 @@ function App() {
                 path={slugs.DetailAccount}
                 render={() => <DetailAccount />}
               />
+              <Route
+                exact
+                path={slugs.EditAccount}
+                render={() => <EditAccount />}
+              />
+              <Route exact path={slugs.Employee} render={() => <Employees />} />
             </Layout>
           </Switch>
         </Router>

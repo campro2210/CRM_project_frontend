@@ -1,5 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -12,20 +13,41 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useHistory } from "react-router-dom";
+import { useHistory, Navigate } from "react-router-dom";
+import { isUserLoggedIn, login } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { slugs } from "../constant/slugs";
 
 const theme = createTheme();
 
 export default function SignIn() {
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const history = useHistory();
+  const [error, setError] = useState(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const user = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+    dispatch(login(user));
+
+    console.log(user);
+
+    if (auth.authenticate) {
+      history.push(slugs.Home);
+      console.log("bc");
+    } else {
+      setError(true);
+    }
   };
+
+  if (error) {
+    alert("Đăng nhập không thành công");
+  }
 
   return (
     <ThemeProvider theme={theme}>

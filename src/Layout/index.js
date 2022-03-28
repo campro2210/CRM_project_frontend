@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
+import ModalConfirm from "../components/ModalConfirm";
 import _ from "lodash";
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -26,8 +27,10 @@ import { slugs } from "../constant/slugs";
 import MainMenu from "./MainMenu";
 import SearchText from "./SearchText";
 import theme from "../constant/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../actions";
 
-const drawerwidth = 314;
+const drawerWidth = 314;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -40,8 +43,8 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open
     ? {
-        marginLeft: drawerwidth,
-        width: `calc(100% - ${drawerwidth}px)`,
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(["width", "margin"], {
           easing: _.get(theme, "transitions.easing.sharp"),
           duration: _.get(theme, "transitions.duration.enteringScreen"),
@@ -101,8 +104,17 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   const [showModal, setShowModal] = useState(false);
   const [notiNumber, setNotiNumber] = useState(0);
 
+  const dispatch = useDispatch();
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
   const history = useHistory();
   const classes = useStyles(theme);
+
+  const handleLogout = () => {
+    dispatch(signout());
+  };
 
   return (
     <>
@@ -234,63 +246,21 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                 </Grid>
               </Grid>
             </Toolbar>
-            {/* 
-            <ConfirmModal
-              showModal={showModal}
-              setShowModal={setShowModal}
-              onConfirm={handleLogout}
-              title="Đổi mật khẩu"
-              subTitle="Bạn muốn đổi mật khẩu"
-            /> */}
 
-            {/* <Dialog
+            <ModalConfirm
               open={showModal}
-              onClose={() => setShowModal(false)}
-              fullWidth={true}
-              className={classes.dialog}
-            >
-              <Typography
-                variant="h4"
-                color="primary"
-                paddingLeft={5}
-                paddingY={3}
-              >
-                Đăng xuất
-              </Typography>
-              <Typography
-                variant="label1"
-                color="secondary"
-                paddingLeft={5}
-                paddingBottom={5}
-              >
-                Bạn có chắc chắn muốn đăng xuất
-              </Typography>
-              <DialogActions className={classes.dialogActions}>
-                <Button
-                  onClick={() => setShowModal(false)}
-                  variant="contained"
-                  color="grey"
-                  size="small"
-                >
-                  Quay lại
-                </Button>
-                <Button
-                  onClick={handleLogout}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                >
-                  Xác nhận
-                </Button>
-              </DialogActions>
-            </Dialog> */}
+              handleClose={() => setShowModal(false)}
+              title="Đăng xuất"
+              description="Bạn có muốn đăng xuất!"
+              submit={handleLogout}
+            ></ModalConfirm>
           </AppBar>
         )}
 
         <MainMenu
-          drawerwidth={drawerwidth}
+          drawerWidth={drawerWidth}
           open={open}
-          //   toggleDrawer={toggleDrawer}
+          toggleDrawer={toggleDrawer}
           setAuth={setAuth}
         />
 

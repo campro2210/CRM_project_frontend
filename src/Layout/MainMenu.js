@@ -6,7 +6,6 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   Toolbar,
   Grid,
   Link as LinkMaterial,
@@ -24,6 +23,7 @@ import {
   Menu as MenuIcon,
   ExitToApp as ExitToAppIcon,
 } from "@mui/icons-material";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { styled } from "@mui/material/styles";
 import { slugs } from "../constant/slugs";
@@ -144,6 +144,20 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       name: "Quản lý khác",
       icon: <EventNoteIcon />,
       link: `${slugs.setting}`,
+      exact: false,
+    },
+    {
+      id: 7,
+      name: "Đăng xuất",
+      icon: <ExitToAppIcon />,
+      link: `${slugs.SignIn}`,
+      exact: false,
+    },
+    {
+      id: 8,
+      name: "Đăng kí",
+      icon: <AppRegistrationIcon />,
+      link: `${slugs.SignUp}`,
       exact: false,
     },
     // {

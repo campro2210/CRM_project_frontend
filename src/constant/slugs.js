@@ -1,5 +1,5 @@
 export const slugs = {
-  Home: "/",
+  Home: "/dashboard",
   SignIn: "/signin",
   SignUp: "/signup",
   Customer: "/customer",
@@ -16,5 +16,7 @@ export const slugs = {
 
   CustomerService: "/service",
   MailService: "/service/mail",
+  Feedback: "/service/feedback",
+  DetailFeedBack: "/service/feedback/detail/:id",
   ChatService: "/service/chat",
 };

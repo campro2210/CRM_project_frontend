@@ -18,9 +18,11 @@ import SendEmail from "./pages/Service/MailService";
 import Service from "./pages/Service";
 import EditAccount from "./pages/EditAccount";
 import Employees from "./pages/Emloyees";
+import Feedback from "./pages/Service/Feedback";
+import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 
 function App() {
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState(true);
 
   const [searchText, setSearchText] = useState("");
 
@@ -34,17 +36,17 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
-            <Route
-              exact
-              path={slugs.SignIn}
-              render={() => <SignIn setAuth={setAuth} />}
-            />
+            <Route exact path={slugs.SignIn} render={() => <SignIn />} />
             <Route
               exact
               path={slugs.SignUp}
               render={() => <SignUp setAuth={setAuth} />}
             />
-            <Layout setSearchText={setSearchText} searchText={searchText}>
+            <Layout
+              setSearchText={setSearchText}
+              auth={auth}
+              searchText={searchText}
+            >
               <Route exact path={slugs.Home} render={() => <Home />} />
               <Route exact path={slugs.Customer} render={() => <Customer />} />
               <Route
@@ -56,6 +58,12 @@ function App() {
                 exact
                 path={slugs.MailService}
                 render={() => <SendEmail />}
+              />
+              <Route exact path={slugs.Feedback} render={() => <Feedback />} />
+              <Route
+                exact
+                path={slugs.DetailFeedBack}
+                render={() => <DetailFeedBack />}
               />
               <Route
                 exact

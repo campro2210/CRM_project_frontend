@@ -34,7 +34,13 @@ const MatEdit = ({ index }) => {
 
 const Employees = () => {
   const [data, setData] = useState([
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
+    {
+      id: 1,
+      lastName: "Snow",
+      firstName: "Jon",
+      age: 35,
+      _id: "ádadsasdasasd",
+    },
     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
     { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
     { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },

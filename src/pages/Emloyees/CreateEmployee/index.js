@@ -1,4 +1,4 @@
-import FieldInfor from "./FieldInfor";
+import FieldInfor from "../../EditAccount/FieldInfor";
 import {
   Grid,
   Typography,
@@ -12,23 +12,31 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 
-const EditAccount = () => {
+const CreateEmployee = () => {
   const {
     control,
     handleSubmit,
     getValues,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      address: "",
+      phone_number: "",
+    },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = (values) => {
+    console.log(values);
+  };
   return (
     <>
       <Grid style={{ padding: "30px", marginLeft: "24px" }}>
         <Typography variant="h4" color="secondary">
           {" "}
-          Chỉnh sửa thông tin cá nhân
+          Tạo mới nhân viên
         </Typography>
       </Grid>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -112,7 +120,7 @@ const EditAccount = () => {
               style={{ margin: "24px" }}
             >
               {" "}
-              Update
+              Tạo mới
             </Button>
           </Grid>
         </Grid>
@@ -120,5 +128,4 @@ const EditAccount = () => {
     </>
   );
 };
-
-export default EditAccount;
+export default CreateEmployee;

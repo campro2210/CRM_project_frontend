@@ -9,10 +9,13 @@ import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import { useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { signup } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
 
@@ -20,10 +23,20 @@ const theme = createTheme();
 
 export default function SignUp() {
   const history = useHistory();
+
+  const dispatch = useDispatch();
+  const [isValid, setIsValid] = useState(false);
+
+  const handleCheckValidEmail = (e) => {
+    if (e.target.value) {
+      setIsValid(true);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const newUser = {
       FisrtName: data.get("firstName"),
       LastName: data.get("lastName"),
       email: data.get("email"),
@@ -31,7 +44,9 @@ export default function SignUp() {
       address: data.get("address"),
       gender: data.get("gender"),
       birthday: moment(data.get("birthday")).format("l"),
-    });
+    };
+    console.log(newUser);
+    dispatch(signup(newUser));
   };
 
   return (
@@ -87,6 +102,7 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  onChange={(e) => handleCheckValidEmail(e)}
                   autoComplete="email"
                 />
               </Grid>
@@ -104,9 +120,9 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="adress"
-                  label="Adress"
-                  name="adress"
+                  id="address"
+                  label="Address"
+                  name="address"
                   //   autoComplete="email"
                 />
               </Grid>

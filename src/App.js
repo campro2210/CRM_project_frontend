@@ -20,11 +20,22 @@ import EditAccount from "./pages/EditAccount";
 import Employees from "./pages/Emloyees";
 import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
+import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 
 function App() {
   const [auth, setAuth] = useState(true);
 
   const [searchText, setSearchText] = useState("");
+
+  const PrivateRoute = ({ component, path, exact, render = undefined }) => {
+    const condition = localStorage.getItem("token");
+
+    return condition ? (
+      <Route path={path} exact component={component} render={render} />
+    ) : (
+      <Redirect to="/signin" />
+    );
+  };
 
   useEffect(() => {
     if (window.localStorage.getItem("refresh_token")) {
@@ -47,35 +58,52 @@ function App() {
               auth={auth}
               searchText={searchText}
             >
-              <Route exact path={slugs.Home} render={() => <Home />} />
-              <Route exact path={slugs.Customer} render={() => <Customer />} />
-              <Route
+              <PrivateRoute exact path={slugs.Home} render={() => <Home />} />
+              <PrivateRoute
+                exact
+                path={slugs.Customer}
+                render={() => <Customer />}
+              />
+              <PrivateRoute
                 exact
                 path={slugs.CustomerService}
                 render={() => <Service />}
               />
-              <Route
+              <PrivateRoute
                 exact
                 path={slugs.MailService}
                 render={() => <SendEmail />}
               />
-              <Route exact path={slugs.Feedback} render={() => <Feedback />} />
-              <Route
+              <PrivateRoute
+                exact
+                path={slugs.Feedback}
+                render={() => <Feedback />}
+              />
+              <PrivateRoute
                 exact
                 path={slugs.DetailFeedBack}
                 render={() => <DetailFeedBack />}
               />
-              <Route
+              <PrivateRoute
                 exact
                 path={slugs.DetailAccount}
                 render={() => <DetailAccount />}
               />
-              <Route
+              <PrivateRoute
                 exact
                 path={slugs.EditAccount}
                 render={() => <EditAccount />}
               />
-              <Route exact path={slugs.Employee} render={() => <Employees />} />
+              <PrivateRoute
+                exact
+                path={slugs.Employee}
+                render={() => <Employees />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.CreateEmployee}
+                render={() => <CreateEmployee />}
+              />
             </Layout>
           </Switch>
         </Router>

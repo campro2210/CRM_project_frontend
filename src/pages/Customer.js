@@ -11,26 +11,7 @@ import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import theme from "../constant/theme";
 import { ThemeProvider } from "@mui/material/styles";
-
-const MatEdit = ({ index }) => {
-  const handleEditClick = () => {
-    // some action
-  };
-
-  return (
-    <FormControlLabel
-      control={
-        <IconButton
-          color="secondary"
-          aria-label="add an alarm"
-          onClick={handleEditClick}
-        >
-          <EditIcon style={{ color: "#333" }} />
-        </IconButton>
-      }
-    />
-  );
-};
+import TableComponent from "../components/TableComponent";
 
 const Customer = () => {
   const [data, setData] = useState([
@@ -46,50 +27,44 @@ const Customer = () => {
   ]);
 
   const [dataTable, setDataTable] = useState(data);
+  const [skip, setSkip] = useState(0);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { name: "id", label: "ID", width: 90 },
     {
-      field: "firstName",
-      headerName: "First name",
+      name: "firstName",
+      label: "First name",
       width: 150,
       editable: true,
     },
     {
-      field: "lastName",
-      headerName: "Last name",
+      name: "lastName",
+      label: "Last name",
       width: 150,
       editable: true,
     },
     {
-      field: "age",
-      headerName: "Age",
+      name: "age",
+      label: "Age",
       type: "number",
       width: 110,
       editable: true,
     },
     {
-      field: "fullName",
-      headerName: "Full name",
+      name: "fullName",
+      label: "Full name",
       description: "This column has a value getter and is not sortable.",
       sortable: false,
       width: 160,
-      valueGetter: (params) =>
-        `${params.row.firstName || ""} ${params.row.lastName || ""}`,
     },
     {
-      field: "actions",
-      headerName: "Actions",
+      name: "actions",
+      label: "Actions",
       sortable: false,
       width: 140,
       disableClickEventBubbling: true,
-      renderCell: (params) => {
-        return (
-          <div style={{ cursor: "pointer" }}>
-            <MatEdit index={params.row.id} />
-          </div>
-        );
-      },
     },
   ];
   return (
@@ -105,13 +80,18 @@ const Customer = () => {
         <Typography variant="h3">Quản lý khách hàng</Typography>
       </Grid>
       <Paper style={{ height: 400, width: "100%", padding: " 30px" }}>
-        <DataGrid
-          rows={data}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          disableSelectionOnClick
+        <TableComponent
+          column={columns}
+          data={data}
+          count={data.length}
+          //  onRowClick={handleEditUser}
+          setSkip={setSkip}
+          loading={false}
+          setPage={setPageIndex}
+          pageIndex={pageIndex}
+          pagination={true}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
         />
       </Paper>
     </>

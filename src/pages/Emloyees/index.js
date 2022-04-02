@@ -4,35 +4,19 @@ import {
   FormControlLabel,
   IconButton,
   Typography,
+  Button,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import EditIcon from "@mui/icons-material/Edit";
+import { slugs } from "../../constant/slugs";
 
 import { useState } from "react";
 import TableComponent from "../../components/TableComponent";
-
-const MatEdit = ({ index }) => {
-  const handleEditClick = () => {
-    // some action
-  };
-
-  return (
-    <FormControlLabel
-      control={
-        <IconButton
-          color="secondary"
-          aria-label="add an alarm"
-          onClick={handleEditClick}
-        >
-          <EditIcon style={{ color: "#333" }} />
-        </IconButton>
-      }
-    />
-  );
-};
+import { useHistory } from "react-router-dom";
 
 const Employees = () => {
+  const history = useHistory();
   const [data, setData] = useState([
     {
       id: 1,
@@ -86,8 +70,22 @@ const Employees = () => {
         paddingBottom="32px"
         paddingLeft="24px"
         marginLeft="16px"
+        direction="row"
+        justifyContent="space-between"
       >
-        <Typography variant="h3">Quản lý nhân viên</Typography>
+        <Grid item>
+          <Typography variant="h3">Quản lý nhân viên</Typography>
+        </Grid>
+        <Grid item style={{ marginRight: "24px", paddingTop: "24px" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => history.push(slugs.CreateEmployee)}
+          >
+            {" "}
+            Tạo mới nhân viên
+          </Button>
+        </Grid>
       </Grid>
       <Paper style={{ width: "100%", margin: " 30px" }}>
         <TableComponent

@@ -10,13 +10,12 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
-import InforField from "./InforField";
+import InforField from "../../DetailAccount/InforField";
 import { useHistory } from "react-router-dom";
 import { slugs } from "../../constant/slugs";
 
-const DetailAccount = () => {
+const DetailEmployee = () => {
   const history = useHistory();
-
   return (
     <>
       <Grid
@@ -47,7 +46,7 @@ const DetailAccount = () => {
           <Grid item xs={5}>
             <InforField
               fieldName={"Tên khách hàng"}
-              value={"Huynhf vu haong cam"}
+              value={"Huỳnh Vũ Hoàng Cầm"}
             />
           </Grid>
           <Grid item xs={5}>
@@ -100,4 +99,4 @@ const DetailAccount = () => {
     </>
   );
 };
-export default DetailAccount;
+export default DetailEmployee;

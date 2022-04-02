@@ -39,15 +39,10 @@ export default function SignIn() {
 
     if (auth.authenticate) {
       history.push(slugs.Home);
-      console.log("bc");
     } else {
       setError(true);
     }
   };
-
-  if (error) {
-    alert("Đăng nhập không thành công");
-  }
 
   return (
     <ThemeProvider theme={theme}>

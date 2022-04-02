@@ -132,11 +132,11 @@ const TableComponent = ({
         columns={column}
         components={{ TableBody: BodyComponent }}
         options={{
-          filter: false,
-          download: false,
-          search: false,
+          filter: true,
+          download: true,
+          search: true,
           print: false,
-          viewColumns: false,
+          viewColumns: true,
           selectableRows: selectableRows,
           selectableRowsHeader: selectableRowsHeader,
           fixedHeader: false,

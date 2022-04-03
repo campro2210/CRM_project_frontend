@@ -14,8 +14,19 @@ import { slugs } from "../../constant/slugs";
 import { useState } from "react";
 import TableComponent from "../../components/TableComponent";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getEmployee } from "../../actions/admin.action";
+import _ from "underscore";
 
 const Employees = () => {
+  const employee = useSelector((state) => state.admin, _.isEqual);
+  console.log(employee);
+  const dispatch = useDispatch();
+  const getEmployees = () => {
+    dispatch(getEmployee());
+  };
+  getEmployees();
+
   const history = useHistory();
   const [data, setData] = useState([
     {

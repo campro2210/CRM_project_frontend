@@ -102,7 +102,7 @@ const TableComponent = ({
   pageIndex = 0,
   setPage,
   setSkip,
-  autoPagination = false,
+  autoPagination = true,
   rowsPerPage = 10,
   setRowsPerPage,
   loading = true,
@@ -117,12 +117,13 @@ const TableComponent = ({
     [loading]
   );
 
-  const handlePageChnage = (e, newPage) => {
+  const handlePageChange = (e, newPage) => {
     setPage(newPage);
     setSkip(newPage * rowsPerPage);
   };
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
+    console.log(event.target.value);
     setPage(0);
   };
   return (
@@ -158,15 +159,15 @@ const TableComponent = ({
         }}
       />
 
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={count}
-        onPageChange={handlePageChnage}
+        onPageChange={handlePageChange}
         page={pageIndex}
         rowsPerPage={rowsPerPage}
         rowsPerPageOptions={[10, 20]}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
+        onRowsPerPageChange={(e) => handleChangeRowsPerPage(e)}
+      /> */}
     </ThemeProvider>
   );
 };

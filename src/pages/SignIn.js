@@ -17,6 +17,7 @@ import { useHistory, Navigate } from "react-router-dom";
 import { isUserLoggedIn, login } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { slugs } from "../constant/slugs";
+import swal from "sweetalert";
 
 const theme = createTheme();
 
@@ -41,6 +42,11 @@ export default function SignIn() {
       history.push(slugs.Home);
     } else {
       setError(true);
+      swal({
+        title: "Thông báo",
+        text: "Đăng nhập không thành công!",
+        icon: "warning",
+      });
     }
   };
 

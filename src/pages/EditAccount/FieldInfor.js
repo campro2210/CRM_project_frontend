@@ -32,8 +32,10 @@ const FieldInfor = (props) => {
             name={fieldName}
             render={({ field }) => (
               <TextField
+                {...props}
                 placeholder={placeholder}
                 fullWidth
+                label={""}
                 type={inputType}
                 size="small"
                 {...field}

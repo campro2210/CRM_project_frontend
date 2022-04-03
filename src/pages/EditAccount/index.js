@@ -38,7 +38,6 @@ const EditAccount = () => {
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
               <FieldInfor
-                placeholder="abcxyz"
                 label=" FirstName"
                 fieldName="firstName"
                 control={control}
@@ -46,7 +45,6 @@ const EditAccount = () => {
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
-                placeholder="abcxyz"
                 label=" Last name"
                 fieldName="lastName"
                 control={control}
@@ -56,6 +54,7 @@ const EditAccount = () => {
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
               <FieldInfor
+                disabled={true}
                 placeholder="abcxyz"
                 label=" Email"
                 fieldName="email"

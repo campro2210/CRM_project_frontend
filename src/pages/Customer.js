@@ -24,6 +24,12 @@ const Customer = () => {
     { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
     { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 10, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 11, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 12, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 13, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 14, lastName: "Roxie", firstName: "Harvey", age: 65 },
+    { id: 15, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ]);
 
   const [dataTable, setDataTable] = useState(data);

@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  Grid,
-  Paper,
-  TextField,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
 import { accounts } from "../../../constant/InitData";
 import SelectComponent from "../../../components/SelectComponent";
 
@@ -20,6 +11,12 @@ const SendEmail = () => {
     <>
       <Grid container justifyContent="center">
         <Grid item xs={8}>
+          <Grid style={{ padding: "30px 30px 30px 0" }}>
+            <Typography variant="h3" color="secondary">
+              {" "}
+              Dịch vụ gửi mail
+            </Typography>
+          </Grid>
           <Paper style={{ width: "100%", padding: "50px" }}>
             <Grid xs={12} marginBottom="24px">
               <SelectComponent
@@ -48,6 +45,20 @@ const SendEmail = () => {
               />
             </Grid>
           </Paper>
+
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            marginTop="24px"
+          >
+            <Grid item>
+              <Button type="submit" variant="contained" color="primary">
+                {" "}
+                Send email
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>

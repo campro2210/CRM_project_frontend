@@ -37,15 +37,15 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const newUser = {
-      FisrtName: data.get("firstName"),
-      LastName: data.get("lastName"),
+      fisrtName: data.get("firstName"),
+      lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
       address: data.get("address"),
-      gender: data.get("gender"),
-      birthday: moment(data.get("birthday")).format("l"),
+      sex: data.get("gender"),
+      ddate_of_birth: moment(data.get("birthday")).format("YYYY-MM-DD"),
     };
-    console.log(newUser);
+    // console.log(newUser);
     dispatch(signup(newUser));
   };
 

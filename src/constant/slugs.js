@@ -21,4 +21,6 @@ export const slugs = {
   Feedback: "/service/feedback",
   DetailFeedBack: "/service/feedback/detail/:id",
   ChatService: "/service/chat",
+
+  discuss:"/discuss"
 };

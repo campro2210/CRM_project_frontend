@@ -2,12 +2,7 @@ import { authConstants } from "../actions/constants";
 
 const initState = {
   token: null,
-  user: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    picture: "",
-  },
+  user: {},
   authenticate: false,
   authenticating: false,
   loading: false,

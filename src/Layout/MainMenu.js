@@ -34,8 +34,10 @@ const DrawerCustom = styled(MuiDrawer, {
   "& .MuiDrawer-paper": {
     background: "#00837B",
     color: "#fff",
-    position: "relative",
+    position: "fixed",
     whiteSpace: "nowrap",
+    height: "100vh",
+
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -61,6 +63,7 @@ const DrawerCustom = styled(MuiDrawer, {
       alignItems: "center",
       "& > div": {
         color: "#fff",
+        marginRight: "24px",
         "& > span": {
           fontWeight: "bold",
         },
@@ -82,13 +85,12 @@ const DrawerCustom = styled(MuiDrawer, {
 
     ...(open
       ? {
-          "& ul > li > a > div:first-child": {
+          "& ul > li > a > div:first-of-type": {
             minWidth: "unset",
-            padding: `0 ${theme.spacing(2)} 0 0`,
           },
         }
       : {
-          "& ul > li > a > div:first-child": {
+          "& ul > li > a > div:first-of-type": {
             minWidth: "unset",
           },
           "& ul > li > a > div:last-child": {
@@ -146,20 +148,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       link: `${slugs.setting}`,
       exact: false,
     },
-    {
-      id: 7,
-      name: "Đăng xuất",
-      icon: <ExitToAppIcon />,
-      link: `${slugs.SignIn}`,
-      exact: false,
-    },
-    {
-      id: 8,
-      name: "Đăng kí",
-      icon: <AppRegistrationIcon />,
-      link: `${slugs.SignUp}`,
-      exact: false,
-    },
+
     // {
     //   id: 7,
     //   name: "Đăng xuất",
@@ -201,7 +190,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       >
         {open ? (
           <Fragment>
-            <img alt="ecoe" style={{ paddingLeft: "16px" }} />
+            <img alt="logo" style={{ paddingLeft: "16px" }} />
             <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon style={{ color: "#fff" }} />
             </IconButton>

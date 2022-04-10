@@ -9,6 +9,7 @@ export const slugs = {
 
   Employee: "/employee",
   CreateEmployee: "/employee/create",
+  DetailEmployee: "/employee/detail/:id",
 
   DetailAccount: "/account/detail/:id",
   EditAccount: "/account/edit/:id",

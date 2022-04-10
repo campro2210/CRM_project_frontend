@@ -11,11 +11,23 @@ import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
 import InforField from "../../DetailAccount/InforField";
-import { useHistory } from "react-router-dom";
-import { slugs } from "../../constant/slugs";
+import { useHistory, useParams } from "react-router-dom";
+import { slugs } from "../../../constant/slugs";
+import { useDispatch, useSelector } from "react-redux";
+import { getDetailEmployee } from "../../../actions/admin.action";
 
 const DetailEmployee = () => {
+  const employeeInfor = useSelector((state) => state.admin.employee);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const handleDetailEmployee = async () => {
+      await dispatch(getDetailEmployee());
+    };
+    handleDetailEmployee();
+  }, [dispatch]);
   const history = useHistory();
+  const email = useParams();
+  console.log(employeeInfor);
   return (
     <>
       <Grid
@@ -84,6 +96,12 @@ const DetailEmployee = () => {
         </Grid>
       </Paper>
       <Grid container direction="row" justifyContent="flex-end">
+        <Grid item>
+          <Button variant="contained" color="grey" style={{ margin: "24px" }}>
+            {" "}
+            Delete
+          </Button>
+        </Grid>
         <Grid item>
           <Button
             onClick={() => history.push(slugs.EditAccount)}

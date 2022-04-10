@@ -9,9 +9,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import EditIcon from "@mui/icons-material/Edit";
-import theme from "../constant/theme";
+import theme from "../../constant/theme";
 import { ThemeProvider } from "@mui/material/styles";
-import TableComponent from "../components/TableComponent";
+import TableComponent from "../../components/TableComponent";
+import { useHistory } from "react-router-dom";
+import { slugs } from "../../constant/slugs";
 
 const Customer = () => {
   const [data, setData] = useState([
@@ -36,6 +38,7 @@ const Customer = () => {
   const [skip, setSkip] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const history = useHistory();
 
   const columns = [
     { name: "id", label: "ID", width: 90 },
@@ -73,6 +76,10 @@ const Customer = () => {
       disableClickEventBubbling: true,
     },
   ];
+
+  const handleEditUser = (user) => {
+    console.log(user);
+  };
   return (
     <>
       <Grid
@@ -80,17 +87,30 @@ const Customer = () => {
         spacing={2}
         paddingTop="32px"
         paddingBottom="32px"
-        paddingLeft="24px"
-        marginLeft="16px"
+        padding="30px 24px"
+        margin=" 16px"
+        direction="row"
+        justifyContent="space-between"
       >
-        <Typography variant="h3">Quản lý khách hàng</Typography>
+        <Grid item>
+          <Typography variant="h3">Quản lý khách hàng</Typography>
+        </Grid>
+        <Grid item>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => history.push(slugs.CreateCustomer)}
+          >
+            Tạo mới khách hàng
+          </Button>
+        </Grid>
       </Grid>
-      <Paper style={{ height: 400, width: "100%", padding: " 30px" }}>
+      <Paper style={{ width: "100%", padding: " 30px" }}>
         <TableComponent
           column={columns}
           data={data}
           count={data.length}
-          //  onRowClick={handleEditUser}
+          onRowClick={handleEditUser}
           setSkip={setSkip}
           loading={false}
           setPage={setPageIndex}

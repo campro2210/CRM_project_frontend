@@ -11,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 import Customer from "./pages/Customer";
+import CreateCustomer from "./pages/Customer/CreateCustomer";
 import Layout from "./Layout";
 import DetailAccount from "./pages/DetailAccount";
 import { ThemeProvider } from "@mui/material/styles";
@@ -21,6 +22,7 @@ import Employees from "./pages/Emloyees";
 import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
+import DetailEmployee from "./pages/Emloyees/DetailEmployee";
 
 function App() {
   const [auth, setAuth] = useState(true);
@@ -66,6 +68,11 @@ function App() {
               />
               <PrivateRoute
                 exact
+                path={slugs.CreateCustomer}
+                render={() => <CreateCustomer />}
+              />
+              <PrivateRoute
+                exact
                 path={slugs.CustomerService}
                 render={() => <Service />}
               />
@@ -103,6 +110,11 @@ function App() {
                 exact
                 path={slugs.CreateEmployee}
                 render={() => <CreateEmployee />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.DetailEmployee}
+                render={() => <DetailEmployee />}
               />
             </Layout>
           </Switch>

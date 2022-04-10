@@ -11,64 +11,71 @@ import { DataGrid } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import { slugs } from "../../constant/slugs";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableComponent from "../../components/TableComponent";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getEmployee } from "../../actions/admin.action";
-import _ from "underscore";
 
 const Employees = () => {
-  const employee = useSelector((state) => state.admin, _.isEqual);
-  console.log(employee);
+  const employee = useSelector((state) => state.admin);
+  console.log(employee.employees);
   const dispatch = useDispatch();
-  const getEmployees = () => {
-    dispatch(getEmployee());
-  };
-  getEmployees();
+
+  useEffect(() => {
+    const getEmployees = async () => {
+      await dispatch(getEmployee());
+    };
+
+    getEmployees();
+  }, [dispatch]);
 
   const history = useHistory();
-  const [data, setData] = useState([
-    {
-      id: 1,
-      lastName: "Snow",
-      firstName: "Jon",
-      age: 35,
-      _id: "ádadsasdasasd",
-    },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-  ]);
+  const [data, setData] = useState(
+    employee.employees.map((item, index) => ({
+      _id: item._id,
+      id: index + 1,
+      name: item.firstName + " " + item.lastName,
+      email: item.email,
+      phoneNumber: item.phone_number,
+      department: item.room_name,
+    }))
+  );
 
   const [dataTable, setDataTable] = useState(data);
   const [skip, setSkip] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleEditUser = (rowData, rowMeta) => {
+  const handleDetailUser = (rowData, rowMeta) => {
+    history.push(`/employee/detail/${rowData[0]}`);
     console.log(rowData);
     console.log(rowMeta);
   };
 
   const columns = [
+    {
+      name: "_id",
+      options: {
+        display: false,
+      },
+    },
     { name: "id", label: "ID" },
     {
-      name: "firstName",
-      label: "First name",
+      name: "name",
+      label: "Name",
     },
     {
-      name: "lastName",
-      label: "Last name",
+      name: "email",
+      label: "Email",
     },
     {
-      name: "age",
-      label: "Age",
+      name: "phoneNumber",
+      label: "Phone number",
+    },
+    {
+      name: "department",
+      label: "Department",
     },
   ];
   console.log(dataTable.length);
@@ -103,7 +110,7 @@ const Employees = () => {
           column={columns}
           data={data}
           count={dataTable.length}
-          onRowClick={handleEditUser}
+          onRowClick={handleDetailUser}
           setSkip={setSkip}
           loading={false}
           setPage={setPageIndex}

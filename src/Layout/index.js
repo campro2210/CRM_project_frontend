@@ -282,7 +282,9 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
             paddingBottom: "80px",
           }}
         >
-          <Grid container>{children}</Grid>
+          <Grid container pl={`${open ? "314px" : "71px"}`}>
+            {children}
+          </Grid>
         </Box>
       </Box>
     </>

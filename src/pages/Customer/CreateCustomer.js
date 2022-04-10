@@ -1,4 +1,4 @@
-import FieldInfor from "../../EditAccount/FieldInfor";
+import FieldInfor from "../EditAccount/FieldInfor";
 import {
   Grid,
   Typography,
@@ -12,26 +12,21 @@ import {
 } from "@mui/material";
 import { useState, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import SelectComponent from "../../../components/SelectComponent";
-// import { departments } from "../../../constant/InitData";
 import { useDispatch, useSelector } from "react-redux";
-import { slugs } from "../../../constant/slugs";
-import { getDepartment, createEmployee } from "../../../actions/admin.action";
+import { slugs } from "../../constant/slugs";
+import { createUser } from "../../actions/admin.action";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
-const CreateEmployee = () => {
+const CreateCustomer = () => {
   const history = useHistory();
-  const departments = useSelector((state) => state.admin.department);
   const dispatch = useDispatch();
-  useEffect(() => {
-    const getDepartments = async () => {
-      await dispatch(getDepartment());
-    };
-    getDepartments();
-  }, [dispatch]);
-  console.log(departments);
-  const [selectedDepartment, setSelectedDepartment] = useState({});
+
   const [sex, setSex] = useState("female");
+  const [birthDay, setBirthDay] = useState();
   const {
     control,
     handleSubmit,
@@ -48,30 +43,29 @@ const CreateEmployee = () => {
   });
 
   const onSubmit = (values) => {
-    const newEmployee = {
+    const newCustomer = {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
       phone: values.phone_number,
-      department: selectedDepartment,
       password: values.password,
       sex: sex,
     };
-    console.log(newEmployee);
+    console.log(newCustomer);
 
-    dispatch(createEmployee(newEmployee))
+    dispatch(createUser(newCustomer))
       .then(() => {
         swal({
           title: "Thông báo",
-          text: "Tạo nhân viên thành công!",
+          text: "Tạo khách hàng thành công!",
           icon: "success",
         });
-        history.push(slugs.Employee);
+        history.push(slugs.Customer);
       })
       .catch(() => {
         swal({
           title: "Thông báo",
-          text: " không thành công!",
+          text: " Tạo khách hàng không thành công!",
           icon: "warning",
         });
       });
@@ -125,31 +119,37 @@ const CreateEmployee = () => {
           >
             <Grid
               item
-              xs={5}
               container
               direction="row"
-              alignItems="center"
               justifyContent="space-between"
+              xs={5}
+              alignItems="center"
             >
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <Typography variant="body1" color="secondary">
-                  {" "}
-                  Department
+                  Birthday
                 </Typography>
               </Grid>
-              <Grid item xs={7} marginRight="34px">
-                <SelectComponent
-                  dataList={departments}
-                  selectedFieldName="name"
-                  selectedFieldValue="_id"
-                  selectedItem={selectedDepartment}
-                  setSelectedItem={(value) => setSelectedDepartment(value)}
-                  onChange
-                  placeholder="Chọn phong ban"
-                  multiple={false}
-                  size="small"
-                  width={"100%"}
-                />
+              <Grid item xs={7} marginRight="36px">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    openTo="year"
+                    views={["year", "month", "day"]}
+                    inputFormat="dd/MM/yyyy"
+                    value={birthDay}
+                    onChange={(newValue) => {
+                      setBirthDay(newValue);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        helperText={null}
+                        size="small"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
             </Grid>
             <Grid item xs={5}>
@@ -203,4 +203,4 @@ const CreateEmployee = () => {
     </>
   );
 };
-export default CreateEmployee;
+export default CreateCustomer;

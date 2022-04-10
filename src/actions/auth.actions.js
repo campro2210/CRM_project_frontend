@@ -8,14 +8,15 @@ export const login = (Employee) => {
       ...Employee,
     });
     if (res.status === 200) {
-      const { token, Employee } = res.data;
+      const { token, Account } = res.data;
+      console.log(res.data);
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(Employee));
+      localStorage.setItem("user", JSON.stringify(Account));
       dispatch({
         type: authConstants.LOGIN_SUCCESS,
         payload: {
           token,
-          Employee,
+          Account,
         },
       });
     } else {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import io from 'socket.io-client'
 import {
   BrowserRouter as Router,
   Route,
@@ -23,6 +24,7 @@ import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
+const socket = io.connect("http://localhost:5000")
 
 function App() {
   const [auth, setAuth] = useState(true);

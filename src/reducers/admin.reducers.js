@@ -66,6 +66,20 @@ export default (state = initState, action) => {
         employee: action.payload,
         loading: false,
       });
+
+    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST:
+      return(state ={
+        ...state,
+        loading: true
+      })
+    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_SUCCESS:
+      return(
+        state ={
+          ...state,
+          employee: action.payload,
+          loading: false
+        }
+      )
     default:
       return state;
   }

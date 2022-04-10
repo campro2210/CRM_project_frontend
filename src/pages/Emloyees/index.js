@@ -15,19 +15,32 @@ import { useState, useEffect } from "react";
 import TableComponent from "../../components/TableComponent";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployee } from "../../actions/admin.action";
+import { getEmployee,getEmployeeBySlug } from "../../actions/admin.action";
+
+
 
 const Employees = () => {
-  const employee = useSelector((state) => state.admin);
-  console.log(employee.employees);
   const dispatch = useDispatch();
+
+  // ----------------------------------TEST-----------------------------
+  const getEmployeeById = async () =>{
+    await dispatch(getEmployeeBySlug("62496aa0389ffa985acb9b37"))
+  }
+  const employeeById = useSelector((state) => state.admin);
+  console.log(employeeById.employee)
+ // ---------------------------------------------------------------
+
+
+
+  const employee = useSelector((state) => state.admin);
+  console.log(employee);
 
   useEffect(() => {
     const getEmployees = async () => {
       await dispatch(getEmployee());
     };
-
     getEmployees();
+    getEmployeeById()
   }, [dispatch]);
 
   const history = useHistory();

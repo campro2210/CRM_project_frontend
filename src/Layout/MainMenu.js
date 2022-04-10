@@ -22,6 +22,8 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
   ExitToApp as ExitToAppIcon,
+  SendIcon as SendIcon
+
 } from "@mui/icons-material";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
@@ -85,18 +87,18 @@ const DrawerCustom = styled(MuiDrawer, {
 
     ...(open
       ? {
-          "& ul > li > a > div:first-of-type": {
-            minWidth: "unset",
-          },
-        }
+        "& ul > li > a > div:first-of-type": {
+          minWidth: "unset",
+        },
+      }
       : {
-          "& ul > li > a > div:first-of-type": {
-            minWidth: "unset",
-          },
-          "& ul > li > a > div:last-child": {
-            display: "none",
-          },
-        }),
+        "& ul > li > a > div:first-of-type": {
+          minWidth: "unset",
+        },
+        "& ul > li > a > div:last-child": {
+          display: "none",
+        },
+      }),
   },
 }));
 
@@ -140,6 +142,13 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       link: `${slugs.CustomerService}`,
       exact: false,
     },
+    {
+      id: 8,
+      name: "Trò Chuyện",
+      // icon: <SendIcon />,
+      link: `${slugs.discuss}`,
+      exact: false,
+    },
 
     {
       id: 6,
@@ -148,6 +157,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       link: `${slugs.setting}`,
       exact: false,
     },
+
 
     // {
     //   id: 7,
@@ -221,7 +231,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                   matchPath(location.pathname, { path: item.link }),
                   "isExact"
                 ) ||
-                item?.exact ===
+                  item?.exact ===
                   _.get(
                     matchPath(location.pathname, { path: item.link }),
                     "isExact"
@@ -243,7 +253,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                         matchPath(location.pathname, { path: item.link }),
                         "isExact"
                       ) ||
-                      item?.exact ===
+                        item?.exact ===
                         _.get(
                           matchPath(location.pathname, { path: item.link }),
                           "isExact"
@@ -274,7 +284,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                         matchPath(location.pathname, { path: item.link }),
                         "isExact"
                       ) ||
-                      item?.exact ===
+                        item?.exact ===
                         _.get(
                           matchPath(location.pathname, { path: item.link }),
                           "isExact"

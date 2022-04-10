@@ -14,19 +14,21 @@ import InforField from "../../DetailAccount/InforField";
 import { useHistory, useParams } from "react-router-dom";
 import { slugs } from "../../../constant/slugs";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailEmployee } from "../../../actions/admin.action";
+import { getEmployeeBySlug } from "../../../actions/admin.action";
 
 const DetailEmployee = () => {
   const employeeInfor = useSelector((state) => state.admin.employee);
   const dispatch = useDispatch();
+  const id = useParams();
   useEffect(() => {
     const handleDetailEmployee = async () => {
-      await dispatch(getDetailEmployee());
+      await dispatch(getEmployeeBySlug(id.id));
     };
     handleDetailEmployee();
   }, [dispatch]);
+
   const history = useHistory();
-  const email = useParams();
+
   console.log(employeeInfor);
   return (
     <>
@@ -58,11 +60,14 @@ const DetailEmployee = () => {
           <Grid item xs={5}>
             <InforField
               fieldName={"Tên khách hàng"}
-              value={"Huỳnh Vũ Hoàng Cầm"}
+              value={employeeInfor.firstName + " " + employeeInfor.lastName}
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Số điện thoại"} value={"09828411427"} />
+            <InforField
+              fieldName={"Số điện thoại"}
+              value={employeeInfor.phone_number}
+            />
           </Grid>
         </Grid>
         <Grid
@@ -72,10 +77,13 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"gioi tinh"} value={"nam"} />
+            <InforField fieldName={"gioi tinh"} value={employeeInfor.sex} />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Ngay sinh"} value={"22-10-2000"} />
+            <InforField
+              fieldName={"Phòng ban"}
+              value={employeeInfor.room_name}
+            />
           </Grid>
         </Grid>
         <Grid
@@ -91,7 +99,7 @@ const DetailEmployee = () => {
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"email"} value={"Huynh Vu Hoang Cam"} />
+            <InforField fieldName={"Email"} value={employeeInfor.email} />
           </Grid>
         </Grid>
       </Paper>

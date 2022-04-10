@@ -24,6 +24,7 @@ import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
+import Discuss from "./pages/Discuss";
 const socket = io.connect("http://localhost:5000")
 
 function App() {
@@ -117,6 +118,11 @@ function App() {
                 exact
                 path={slugs.DetailEmployee}
                 render={() => <DetailEmployee />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.discuss}
+                render={() => <Discuss  socket={socket}/>}
               />
             </Layout>
           </Switch>

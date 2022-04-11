@@ -39,7 +39,6 @@ const DetailEmployee = () => {
   console.log(employeeInfor);
 
   const handleDeleteEmployee = () => {
-    console.log(dataEmployee.email);
     dispatch(deleteEmployee(dataEmployee.email))
       .then(() => {
         swal({

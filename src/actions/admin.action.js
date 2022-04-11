@@ -103,8 +103,9 @@ export const getEmployeeBySlug = (_id) => {
 
 export const deleteEmployee = (email) => {
   return async (dispatch) => {
+    console.log(email)
     dispatch({ type: adminConstants.ADMIN_DELETE_EMPLOYEE_REQUEST });
-    const res = await axios.post("/admin/delete-employee/", email);
+    const res = await axios.post("/admin/delete-employee", {email: email});
     if (res.status === 200) {
       console.log(res.data);
       dispatch({

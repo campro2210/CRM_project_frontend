@@ -22,9 +22,9 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Menu as MenuIcon,
   ExitToApp as ExitToAppIcon,
-  SendIcon as SendIcon
-
+  SendIcon as SendIcon,
 } from "@mui/icons-material";
+import ChatIcon from "@mui/icons-material/Chat";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { styled } from "@mui/material/styles";
@@ -87,18 +87,18 @@ const DrawerCustom = styled(MuiDrawer, {
 
     ...(open
       ? {
-        "& ul > li > a > div:first-of-type": {
-          minWidth: "unset",
-        },
-      }
+          "& ul > li > a > div:first-of-type": {
+            minWidth: "unset",
+          },
+        }
       : {
-        "& ul > li > a > div:first-of-type": {
-          minWidth: "unset",
-        },
-        "& ul > li > a > div:last-child": {
-          display: "none",
-        },
-      }),
+          "& ul > li > a > div:first-of-type": {
+            minWidth: "unset",
+          },
+          "& ul > li > a > div:last-child": {
+            display: "none",
+          },
+        }),
   },
 }));
 
@@ -145,7 +145,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
     {
       id: 8,
       name: "Trò Chuyện",
-      // icon: <SendIcon />,
+      icon: <ChatIcon />,
       link: `${slugs.discuss}`,
       exact: false,
     },
@@ -157,7 +157,6 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
       link: `${slugs.setting}`,
       exact: false,
     },
-
 
     // {
     //   id: 7,
@@ -231,7 +230,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                   matchPath(location.pathname, { path: item.link }),
                   "isExact"
                 ) ||
-                  item?.exact ===
+                item?.exact ===
                   _.get(
                     matchPath(location.pathname, { path: item.link }),
                     "isExact"
@@ -253,7 +252,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                         matchPath(location.pathname, { path: item.link }),
                         "isExact"
                       ) ||
-                        item?.exact ===
+                      item?.exact ===
                         _.get(
                           matchPath(location.pathname, { path: item.link }),
                           "isExact"
@@ -284,7 +283,7 @@ const MainMenu = ({ drawerWidth, open, toggleDrawer, setAuth }) => {
                         matchPath(location.pathname, { path: item.link }),
                         "isExact"
                       ) ||
-                        item?.exact ===
+                      item?.exact ===
                         _.get(
                           matchPath(location.pathname, { path: item.link }),
                           "isExact"

@@ -24,7 +24,7 @@ import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
-import Discuss from "./pages/Discuss";
+import Discuss from "./pages/Discuss/index";
 const socket = io.connect("http://localhost:5000");
 
 function App() {

@@ -20,7 +20,7 @@ import { getEmployee, getEmployeeBySlug } from "../../actions/admin.action";
 const Employees = () => {
   const dispatch = useDispatch();
 
-  const employee = useSelector((state) => state.admin);
+  const employee = useSelector((state) => state.admin.employees);
   console.log(employee);
 
   useEffect(() => {
@@ -31,26 +31,39 @@ const Employees = () => {
   }, [dispatch]);
 
   const history = useHistory();
-  const [data, setData] = useState(
-    employee.employees.map((item, index) => ({
-      _id: item._id,
-      id: index + 1,
-      name: item.firstName + " " + item.lastName,
-      email: item.email,
-      phoneNumber: item.phone_number,
-      department: item.room_name,
-    }))
-  );
+  // const [data, setData] = useState(
+  //   employee.employees.map((item, index) => ({
+  //     _id: item._id,
+  //     id: index + 1,
+  //     name: item.firstName + " " + item.lastName,
+  //     email: item.email,
+  //     phoneNumber: item.phone_number,
+  //     department: item.room_name,
+  //   }))
+  // );
 
-  const [dataTable, setDataTable] = useState(data);
+  const [dataTable, setDataTable] = useState([]);
+
+  useEffect(() => {
+    setDataTable(
+      employee.map((item, index) => ({
+        _id: item._id,
+        id: index + 1,
+        name: item.firstName + " " + item.lastName,
+        email: item.email,
+        phoneNumber: item.phone_number,
+        department: item.room_name,
+      }))
+    );
+  }, [employee]);
+
+  console.log(dataTable);
   const [skip, setSkip] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleDetailUser = (rowData, rowMeta) => {
     history.push(`/employee/detail/${rowData[0]}`);
-    console.log(rowData);
-    console.log(rowMeta);
   };
 
   const columns = [
@@ -78,7 +91,6 @@ const Employees = () => {
       label: "Department",
     },
   ];
-  console.log(dataTable.length);
   return (
     <>
       <Grid
@@ -108,7 +120,7 @@ const Employees = () => {
       <Paper style={{ width: "100%", margin: " 30px" }}>
         <TableComponent
           column={columns}
-          data={data}
+          data={dataTable}
           count={dataTable.length}
           onRowClick={handleDetailUser}
           setSkip={setSkip}

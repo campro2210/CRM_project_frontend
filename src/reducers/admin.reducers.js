@@ -55,31 +55,27 @@ export default (state = initState, action) => {
         ...state,
         loading: false,
       });
-    case adminConstants.ADMIN_GET_DETAIL_EMPLOYEE_REQUEST:
+    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST:
       return (state = {
         ...state,
         loading: true,
       });
-    case adminConstants.ADMIN_GET_DETAIL_EMPLOYEE_SUCCESS:
+    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_SUCCESS:
       return (state = {
         ...state,
         employee: action.payload,
         loading: false,
       });
-
-    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST:
-      return(state ={
+    case adminConstants.ADMIN_DELETE_EMPLOYEE_REQUEST:
+      return (state = {
         ...state,
-        loading: true
-      })
-    case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_SUCCESS:
-      return(
-        state ={
-          ...state,
-          employee: action.payload,
-          loading: false
-        }
-      )
+        loading: true,
+      });
+    case adminConstants.ADMIN_DELETE_EMPLOYEE_SUCCESS:
+      return (state = {
+        ...state,
+        loading: false,
+      });
     default:
       return state;
   }

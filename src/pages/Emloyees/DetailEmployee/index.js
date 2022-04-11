@@ -14,10 +14,15 @@ import InforField from "../../DetailAccount/InforField";
 import { useHistory, useParams } from "react-router-dom";
 import { slugs } from "../../../constant/slugs";
 import { useDispatch, useSelector } from "react-redux";
-import { getEmployeeBySlug } from "../../../actions/admin.action";
+import {
+  getEmployeeBySlug,
+  deleteEmployee,
+} from "../../../actions/admin.action";
+import swal from "sweetalert";
 
 const DetailEmployee = () => {
   const employeeInfor = useSelector((state) => state.admin.employee);
+  const [dataEmployee, setDataEmployee] = useState({});
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
@@ -28,8 +33,31 @@ const DetailEmployee = () => {
   }, [dispatch]);
 
   const history = useHistory();
-
+  useEffect(() => {
+    setDataEmployee(employeeInfor);
+  }, [employeeInfor]);
   console.log(employeeInfor);
+
+  const handleDeleteEmployee = () => {
+    console.log(dataEmployee.email);
+    dispatch(deleteEmployee(dataEmployee.email))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: " Xóa nhân viên thành công!",
+          icon: "success",
+        });
+        history.push(slugs.Employee);
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: " Xóa nhân viên không thành công!",
+          icon: "warning",
+        });
+      });
+  };
+  console.log(dataEmployee);
   return (
     <>
       <Grid
@@ -60,13 +88,13 @@ const DetailEmployee = () => {
           <Grid item xs={5}>
             <InforField
               fieldName={"Tên khách hàng"}
-              value={employeeInfor.firstName + " " + employeeInfor.lastName}
+              value={dataEmployee.firstName + " " + dataEmployee.lastName}
             />
           </Grid>
           <Grid item xs={5}>
             <InforField
               fieldName={"Số điện thoại"}
-              value={employeeInfor.phone_number}
+              value={dataEmployee.phone_number}
             />
           </Grid>
         </Grid>
@@ -77,12 +105,12 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"gioi tinh"} value={employeeInfor.sex} />
+            <InforField fieldName={"gioi tinh"} value={dataEmployee.sex} />
           </Grid>
           <Grid item xs={5}>
             <InforField
               fieldName={"Phòng ban"}
-              value={employeeInfor.room_name}
+              value={dataEmployee.room_name}
             />
           </Grid>
         </Grid>
@@ -99,13 +127,18 @@ const DetailEmployee = () => {
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Email"} value={employeeInfor.email} />
+            <InforField fieldName={"Email"} value={dataEmployee.email} />
           </Grid>
         </Grid>
       </Paper>
       <Grid container direction="row" justifyContent="flex-end">
         <Grid item>
-          <Button variant="contained" color="grey" style={{ margin: "24px" }}>
+          <Button
+            variant="contained"
+            onClick={handleDeleteEmployee}
+            color="grey"
+            style={{ margin: "24px" }}
+          >
             {" "}
             Delete
           </Button>

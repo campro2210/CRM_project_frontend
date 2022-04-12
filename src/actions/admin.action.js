@@ -85,6 +85,39 @@ export const createUser = (user) => {
   };
 };
 
+export const getUser = () => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_USER_REQUEST });
+    const res = await axios.get("/admin/get-all-user");
+
+    if (res.status === 200) {
+      console.log(res.data);
+      dispatch({
+        type: adminConstants.ADMIN_GET_USER_SUCCESS,
+        payload: res.data,
+      });
+    } else {
+      dispatch({ type: adminConstants.ADMIN_GET_USER_FAILURE });
+    }
+  };
+};
+
+export const getCustomerBySlug = (_id) => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_USER_BY_SLUG_REQUEST });
+    const res = await axios.post(`/admin/get-user/${_id}`);
+    if (res.status === 200) {
+      console.log(res.data);
+      dispatch({
+        type: adminConstants.ADMIN_GET_USER_BY_SLUG_SUCCESS,
+        payload: res.data,
+      });
+    } else {
+      dispatch({ type: adminConstants.ADMIN_GET_USER_BY_SLUG_FAILURE });
+    }
+  };
+};
+
 export const getEmployeeBySlug = (_id) => {
   return async (dispatch) => {
     dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST });
@@ -101,11 +134,27 @@ export const getEmployeeBySlug = (_id) => {
   };
 };
 
+export const deleteCustomer = (email) => {
+  return async (dispatch) => {
+    console.log(email);
+    dispatch({ type: adminConstants.ADMIN_DELETE_USER_REQUEST });
+    const res = await axios.post("/admin/delete-user", { email: email });
+    if (res.status === 200) {
+      console.log(res.data);
+      dispatch({
+        type: adminConstants.ADMIN_DELETE_USER_SUCCESS,
+      });
+    } else {
+      dispatch({ type: adminConstants.ADMIN_DELETE_USER_FAILURE });
+    }
+  };
+};
+
 export const deleteEmployee = (email) => {
   return async (dispatch) => {
-    console.log(email)
+    console.log(email);
     dispatch({ type: adminConstants.ADMIN_DELETE_EMPLOYEE_REQUEST });
-    const res = await axios.post("/admin/delete-employee", {email: email});
+    const res = await axios.post("/admin/delete-employee", { email: email });
     if (res.status === 200) {
       console.log(res.data);
       dispatch({

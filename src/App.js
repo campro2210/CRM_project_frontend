@@ -25,6 +25,7 @@ import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
 import Discuss from "./pages/Discuss/index";
+import DetailCustomer from "./pages/Customer/DetailCustomer";
 const socket = io.connect("http://localhost:5000");
 
 function App() {
@@ -68,6 +69,11 @@ function App() {
                 exact
                 path={slugs.Customer}
                 render={() => <Customer />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.DetailCustomer}
+                render={() => <DetailCustomer />}
               />
               <PrivateRoute
                 exact

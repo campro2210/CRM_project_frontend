@@ -4,7 +4,8 @@ const initState = {
   department: [],
   employees: [],
   employee: {},
-  user: [],
+  users: [],
+  user: {},
   loading: false,
   error: false,
   message: "",
@@ -53,6 +54,28 @@ export default (state = initState, action) => {
     case adminConstants.ADMIN_CREATE_USER_SUCCESS:
       return (state = {
         ...state,
+        loading: false,
+      });
+    case adminConstants.ADMIN_GET_USER_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      });
+    case adminConstants.ADMIN_GET_USER_SUCCESS:
+      return (state = {
+        ...state,
+        users: action.payload,
+        loading: false,
+      });
+    case adminConstants.ADMIN_GET_USER_BY_SLUG_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      });
+    case adminConstants.ADMIN_GET_USER_BY_SLUG_SUCCESS:
+      return (state = {
+        ...state,
+        user: action.payload,
         loading: false,
       });
     case adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST:

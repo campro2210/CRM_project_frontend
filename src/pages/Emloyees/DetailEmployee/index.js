@@ -86,7 +86,7 @@ const DetailEmployee = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"Tên khách hàng"}
+              fieldName={"Tên nhân viên"}
               value={dataEmployee.firstName + " " + dataEmployee.lastName}
             />
           </Grid>
@@ -104,12 +104,12 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"gioi tinh"} value={dataEmployee.sex} />
+            <InforField fieldName={"Giới tính"} value={dataEmployee.sex} />
           </Grid>
           <Grid item xs={5}>
             <InforField
               fieldName={"Phòng ban"}
-              value={dataEmployee.room_name}
+              value={(dataEmployee.room && dataEmployee.room.name) ? (dataEmployee.room.name) : ""}
             />
           </Grid>
         </Grid>
@@ -119,12 +119,12 @@ const DetailEmployee = () => {
           justifyContent="space-between"
           style={{ marginBottom: " 24px" }}
         >
-          <Grid item xs={5}>
+          {/* <Grid item xs={5}>
             <InforField
               fieldName={"dia chi"}
               value={"12 nguyen van bao, TPHCM"}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={5}>
             <InforField fieldName={"Email"} value={dataEmployee.email} />
           </Grid>

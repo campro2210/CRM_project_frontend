@@ -35,6 +35,7 @@ export const getDepartment = () => {
 
 export const createEmployee = (employee) => {
   return async (dispatch) => {
+    console.log(employee)
     dispatch({ type: adminConstants.ADMIN_CREATE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/create-employee", {
       ...employee,

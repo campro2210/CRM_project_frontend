@@ -29,7 +29,6 @@ const CreateEmployee = () => {
     };
     getDepartments();
   }, [dispatch]);
-  console.log(departments);
   const [selectedDepartment, setSelectedDepartment] = useState({});
   const [sex, setSex] = useState("female");
   const {
@@ -52,8 +51,8 @@ const CreateEmployee = () => {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
-      phone: values.phone_number,
-      department: selectedDepartment,
+      phone_number: values.phone_number,
+      room: selectedDepartment,
       password: values.password,
       sex: sex,
     };
@@ -145,7 +144,7 @@ const CreateEmployee = () => {
                   selectedItem={selectedDepartment}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
                   onChange
-                  placeholder="Chọn phong ban"
+                  placeholder="Chọn Phòng Ban"
                   multiple={false}
                   size="small"
                   width={"100%"}

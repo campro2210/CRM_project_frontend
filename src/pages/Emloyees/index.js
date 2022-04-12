@@ -52,7 +52,7 @@ const Employees = () => {
         name: item.firstName + " " + item.lastName,
         email: item.email,
         phoneNumber: item.phone_number,
-        department: item.room_name,
+        department: (item.room && item.room.name) ? (item.room.name) : "",
       }))
     );
   }, [employee]);

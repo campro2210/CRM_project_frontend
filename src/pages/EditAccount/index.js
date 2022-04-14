@@ -1,4 +1,5 @@
 import FieldInfor from "./FieldInfor";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Typography,
@@ -11,18 +12,40 @@ import {
   Button,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateEmployee,
+  getEmployeeBySlug
+} from "../../actions/admin.action";
 
 const EditAccount = () => {
+  const employee = useSelector(state => state.admin.employee)
+  console.log(employee)
+  const dispatch = useDispatch()
+  const id = useParams();
   const {
     control,
     handleSubmit,
+    register,
     getValues,
+    setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
-  });
+    defaultValues: {
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone_number: employee.phone_number
 
-  const onSubmit = () => {};
+    },
+  });
+  const onSubmit = () => { };
+
+  useEffect(() => {
+    dispatch(getEmployeeBySlug(id.id))
+  },[dispatch])
+
   return (
     <>
       <Grid style={{ padding: "30px", marginLeft: "24px" }}>
@@ -40,6 +63,7 @@ const EditAccount = () => {
               <FieldInfor
                 label=" FirstName"
                 fieldName="firstName"
+                // value={{...register(employee.firstName)}}
                 control={control}
               />
             </Grid>
@@ -47,6 +71,7 @@ const EditAccount = () => {
               <FieldInfor
                 label=" Last name"
                 fieldName="lastName"
+                // value={employee.lastName}
                 control={control}
               />
             </Grid>

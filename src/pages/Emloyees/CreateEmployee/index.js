@@ -56,7 +56,6 @@ const CreateEmployee = () => {
       password: values.password,
       sex: sex,
     };
-    console.log(newEmployee);
 
     dispatch(createEmployee(newEmployee))
       .then(() => {

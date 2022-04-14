@@ -8,7 +8,6 @@ export const signup = (user) => {
       ...user,
     });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: userConstants.USER_REGISTER_SUCCESS,
         payload: {},

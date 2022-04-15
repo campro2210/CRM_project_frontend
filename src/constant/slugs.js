@@ -1,4 +1,5 @@
 export const slugs = {
+  Landing: "/",
   Home: "/dashboard",
   SignIn: "/signin",
   SignUp: "/signup",
@@ -22,5 +23,5 @@ export const slugs = {
   DetailFeedBack: "/service/feedback/detail/:id",
   ChatService: "/service/chat",
 
-  discuss:"/discuss"
+  discuss: "/discuss",
 };

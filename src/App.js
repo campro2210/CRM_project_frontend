@@ -10,7 +10,7 @@ import { slugs } from "./constant/slugs";
 import theme from "./constant/theme";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Customer";
 import CreateCustomer from "./pages/Customer/CreateCustomer";
 import Layout from "./Layout";
@@ -24,7 +24,10 @@ import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
+import UpdateEmployee from "./pages/Emloyees/UpdateEmployee";
 import Discuss from "./pages/Discuss/index";
+import DetailCustomer from "./pages/Customer/DetailCustomer";
+import Landing from "./pages/Landing";
 const socket = io.connect("http://localhost:5000");
 
 function App() {
@@ -52,6 +55,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
+            <Route exact path={slugs.Landing} render={() => <Landing />} />
             <Route exact path={slugs.SignIn} render={() => <SignIn />} />
             <Route
               exact
@@ -63,11 +67,20 @@ function App() {
               auth={auth}
               searchText={searchText}
             >
-              <PrivateRoute exact path={slugs.Home} render={() => <Home />} />
+              <PrivateRoute
+                exact
+                path={slugs.Home}
+                render={() => <Dashboard />}
+              />
               <PrivateRoute
                 exact
                 path={slugs.Customer}
                 render={() => <Customer />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.DetailCustomer}
+                render={() => <DetailCustomer />}
               />
               <PrivateRoute
                 exact
@@ -118,6 +131,11 @@ function App() {
                 exact
                 path={slugs.DetailEmployee}
                 render={() => <DetailEmployee />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.UpdateEmployee}
+                render={() => <UpdateEmployee />}
               />
               <PrivateRoute
                 exact

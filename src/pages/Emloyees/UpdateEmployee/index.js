@@ -1,9 +1,8 @@
-import FieldInfor from "./FieldInfor";
+import FieldInfor from "../../EditAccount/FieldInfor";
 import React, { useEffect, useState } from "react";
 import {
   Grid,
   Typography,
-  TextField,
   Paper,
   FormLabel,
   Radio,
@@ -11,20 +10,20 @@ import {
   FormControlLabel,
   Button,
 } from "@mui/material";
-import SelectComponent from "../../components/SelectComponent";
-import { Controller, useForm } from "react-hook-form";
+import SelectComponent from "../../../components/SelectComponent";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateEmployee,
   getEmployeeBySlug,
   getDepartment,
-} from "../../actions/admin.action";
+} from "../../../actions/admin.action";
 import _ from "lodash";
 
-const EditAccount = () => {
-  const userLogin = useSelector((state) => state.auth.user);
-  console.log(userLogin);
+const UpdateEmployee = () => {
+  const employee = useSelector((state) => state.admin.employee);
+  console.log(employee);
   const dispatch = useDispatch();
   const id = useParams();
   const {
@@ -34,31 +33,42 @@ const EditAccount = () => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone_number: employee.phone_number,
+    },
+  });
+
   const [gender, setGender] = useState();
   const [selectedDepartment, setSelectedDepartment] = useState();
 
   useEffect(() => {
-    if (userLogin) {
-      setValue("firstName", _.get(userLogin, "firstName", ""));
-      setValue("lastName", userLogin.lastName, "");
-      setValue("email", userLogin.email, "");
-      setValue("phone_number", userLogin.phone_number, "");
+    if (employee) {
+      setValue("firstName", employee.firstName, "");
+      setValue("lastName", employee.lastName, "");
+      setValue("email", employee.email, "");
+      setValue("phone_number", employee.phone_number, "");
 
-      setGender(userLogin.sex);
-      setSelectedDepartment(userLogin.room._id);
+      setGender(employee.sex);
+      setSelectedDepartment(_.get(employee, "room._id", ""));
     }
-  }, [userLogin]);
+  }, [employee]);
 
   const onSubmit = () => {};
 
   useEffect(() => {
+    dispatch(getEmployeeBySlug(id.id));
+
     const getDepartments = async () => {
       await dispatch(getDepartment());
     };
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
+  console.log({ gender: gender, department: selectedDepartment });
 
   return (
     <>
@@ -131,6 +141,7 @@ const EditAccount = () => {
                   selectedFieldValue="_id"
                   selectedItem={selectedDepartment}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
+                  defaultValue={selectedDepartment}
                   onChange
                   placeholder="Chọn Phòng Ban"
                   multiple={false}
@@ -143,21 +154,18 @@ const EditAccount = () => {
               <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue={userLogin.gender}
                 value={gender}
                 name="gender"
                 onChange={(e) => setGender(e.target.value)}
                 row
               >
                 <FormControlLabel
-                  value="female"
-                  control={<Radio />}
                   label="Female"
+                  control={<Radio defaultChecked={gender} value="female" />}
                 />
                 <FormControlLabel
-                  value="male"
-                  control={<Radio />}
                   label="Male"
+                  control={<Radio defaultChecked={gender} value="male" />}
                 />
               </RadioGroup>
             </Grid>
@@ -182,4 +190,4 @@ const EditAccount = () => {
   );
 };
 
-export default EditAccount;
+export default UpdateEmployee;

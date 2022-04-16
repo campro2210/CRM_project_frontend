@@ -1,62 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Paper, FormControlLabel } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { AddCircleOutlined } from "@mui/icons-material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { DataGrid } from "@mui/x-data-grid";
-import _ from "lodash";
-import SearchIcon from "@mui/icons-material/Search";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import TextField from "@mui/material/TextField";
-import EditIcon from "@mui/icons-material/Edit";
-import InforField from "../../DetailAccount/InforField";
+
+import InforField from "../DetailAccount/InforField";
 import { useHistory, useParams } from "react-router-dom";
-import { slugs } from "../../../constant/slugs";
+import { slugs } from "../../constant/slugs";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getEmployeeBySlug,
-  deleteEmployee,
-} from "../../../actions/admin.action";
+import { getCustomerBySlug, deleteCustomer } from "../../actions/admin.action";
 import swal from "sweetalert";
+import moment from "moment";
 
-const DetailEmployee = () => {
-  const employeeInfor = useSelector((state) => state.admin.employee);
-
-  const [dataEmployee, setDataEmployee] = useState({});
+const DetailCustomer = () => {
+  const userInfor = useSelector((state) => state.admin.user);
+  const [dataUser, setDataUser] = useState({});
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
     const handleDetailEmployee = async () => {
-      await dispatch(getEmployeeBySlug(id.id));
+      await dispatch(getCustomerBySlug(id.id));
     };
     handleDetailEmployee();
   }, [dispatch]);
 
   const history = useHistory();
   useEffect(() => {
-    setDataEmployee(employeeInfor);
-  }, [employeeInfor]);
-  console.log(employeeInfor);
+    setDataUser(userInfor);
+  }, [userInfor]);
+  console.log(userInfor);
 
   const handleDeleteEmployee = () => {
-    dispatch(deleteEmployee(dataEmployee.email))
+    dispatch(deleteCustomer(dataUser.email))
       .then(() => {
         swal({
           title: "Thông báo",
-          text: " Xóa nhân viên thành công!",
+          text: " Xóa khách hàng thành công!",
           icon: "success",
         });
-        history.push(slugs.Employee);
+        history.push(slugs.Customer);
       })
       .catch(() => {
         swal({
           title: "Thông báo",
-          text: " Xóa nhân viên không thành công!",
+          text: " Xóa khách hàng không thành công!",
           icon: "warning",
         });
       });
   };
+  console.log(dataUser);
   return (
     <>
       <Grid
@@ -86,14 +76,14 @@ const DetailEmployee = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"Tên nhân viên"}
-              value={dataEmployee.firstName + " " + dataEmployee.lastName}
+              fieldName={"Tên khách hàng"}
+              value={dataUser.firstName + " " + dataUser.lastName}
             />
           </Grid>
           <Grid item xs={5}>
             <InforField
               fieldName={"Số điện thoại"}
-              value={dataEmployee.phone_number}
+              value={dataUser.phone_number}
             />
           </Grid>
         </Grid>
@@ -104,16 +94,12 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Giới tính"} value={dataEmployee.sex} />
+            <InforField fieldName={"Giới tính"} value={dataUser.sex} />
           </Grid>
           <Grid item xs={5}>
             <InforField
-              fieldName={"Phòng ban"}
-              value={
-                dataEmployee.room && dataEmployee.room.name
-                  ? dataEmployee.room.name
-                  : ""
-              }
+              fieldName={"Ngày sinh"}
+              value={moment(dataUser.date_of_birth).format("l")}
             />
           </Grid>
         </Grid>
@@ -124,7 +110,10 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Email"} value={dataEmployee.email} />
+            <InforField fieldName={"Địa chỉ"} value={dataUser.address} />
+          </Grid>
+          <Grid item xs={5}>
+            <InforField fieldName={"Email"} value={dataUser.email} />
           </Grid>
         </Grid>
       </Paper>
@@ -142,7 +131,7 @@ const DetailEmployee = () => {
         </Grid>
         <Grid item>
           <Button
-            onClick={() => history.push(`/employee/update/${id.id}`)}
+            onClick={() => history.push(slugs.EditAccount)}
             variant="contained"
             color="primary"
             style={{ margin: "24px" }}
@@ -155,4 +144,4 @@ const DetailEmployee = () => {
     </>
   );
 };
-export default DetailEmployee;
+export default DetailCustomer;

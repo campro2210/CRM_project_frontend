@@ -105,6 +105,7 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   const [notiNumber, setNotiNumber] = useState(0);
 
   const dispatch = useDispatch();
+  const userLogin = useSelector((state) => state.auth.user);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -187,7 +188,11 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                                           "palette.secondary.main"
                                         )}
                                         fontSize={14}
-                                      ></Typography>
+                                      >
+                                        {userLogin.firstName +
+                                          " " +
+                                          userLogin.lastName}
+                                      </Typography>
                                     </Grid>
                                   </Grid>
                                 </Grid>

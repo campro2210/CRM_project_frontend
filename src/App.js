@@ -24,6 +24,7 @@ import Feedback from "./pages/Service/Feedback";
 import DetailFeedBack from "./pages/Service/Feedback/DetailFeedBack";
 import CreateEmployee from "./pages/Emloyees/CreateEmployee";
 import DetailEmployee from "./pages/Emloyees/DetailEmployee";
+import UpdateEmployee from "./pages/Emloyees/UpdateEmployee";
 import Discuss from "./pages/Discuss/index";
 import DetailCustomer from "./pages/Customer/DetailCustomer";
 import Landing from "./pages/Landing";
@@ -130,6 +131,11 @@ function App() {
                 exact
                 path={slugs.DetailEmployee}
                 render={() => <DetailEmployee />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.UpdateEmployee}
+                render={() => <UpdateEmployee />}
               />
               <PrivateRoute
                 exact

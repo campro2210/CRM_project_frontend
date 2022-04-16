@@ -1,8 +1,8 @@
 import FieldInfor from "../../EditAccount/FieldInfor";
+import React, { useEffect, useState } from "react";
 import {
   Grid,
   Typography,
-  TextField,
   Paper,
   FormLabel,
   Radio,
@@ -10,77 +10,72 @@ import {
   FormControlLabel,
   Button,
 } from "@mui/material";
-import { useState, useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
 import SelectComponent from "../../../components/SelectComponent";
-// import { departments } from "../../../constant/InitData";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { slugs } from "../../../constant/slugs";
-import { getDepartment, createEmployee } from "../../../actions/admin.action";
-import { useHistory } from "react-router-dom";
-import swal from "sweetalert";
-const CreateEmployee = () => {
-  const history = useHistory();
-  const departments = useSelector((state) => state.admin.department);
+import {
+  updateEmployee,
+  getEmployeeBySlug,
+  getDepartment,
+} from "../../../actions/admin.action";
+import _ from "lodash";
+
+const UpdateEmployee = () => {
+  const employee = useSelector((state) => state.admin.employee);
+  console.log(employee);
   const dispatch = useDispatch();
+  const id = useParams();
+  const {
+    control,
+    handleSubmit,
+    register,
+    getValues,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone_number: employee.phone_number,
+    },
+  });
+
+  const [gender, setGender] = useState();
+  const [selectedDepartment, setSelectedDepartment] = useState();
+
   useEffect(() => {
+    if (employee) {
+      setValue("firstName", employee.firstName, "");
+      setValue("lastName", employee.lastName, "");
+      setValue("email", employee.email, "");
+      setValue("phone_number", employee.phone_number, "");
+
+      setGender(employee.sex);
+      setSelectedDepartment(_.get(employee, "room._id", ""));
+    }
+  }, [employee]);
+
+  const onSubmit = () => {};
+
+  useEffect(() => {
+    dispatch(getEmployeeBySlug(id.id));
+
     const getDepartments = async () => {
       await dispatch(getDepartment());
     };
     getDepartments();
   }, [dispatch]);
-  const [selectedDepartment, setSelectedDepartment] = useState({});
-  const [sex, setSex] = useState("female");
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      address: "",
-      phone_number: "",
-    },
-  });
-
-  const onSubmit = (values) => {
-    const newEmployee = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      email: values.email,
-      phone_number: values.phone_number,
-      room: selectedDepartment,
-      password: values.password,
-      sex: sex,
-    };
-
-    dispatch(createEmployee(newEmployee))
-      .then(() => {
-        swal({
-          title: "Thông báo",
-          text: "Tạo nhân viên thành công!",
-          icon: "success",
-        });
-        history.push(slugs.Employee);
-      })
-      .catch(() => {
-        swal({
-          title: "Thông báo",
-          text: " không thành công!",
-          icon: "warning",
-        });
-      });
-  };
+  const departments = useSelector((state) => state.admin.department);
+  console.log({ gender: gender, department: selectedDepartment });
 
   return (
     <>
       <Grid style={{ padding: "30px", marginLeft: "24px" }}>
         <Typography variant="h4" color="secondary">
           {" "}
-          Tạo mới nhân viên
+          Chỉnh sửa thông tin cá nhân
         </Typography>
       </Grid>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -92,6 +87,7 @@ const CreateEmployee = () => {
               <FieldInfor
                 label=" FirstName"
                 fieldName="firstName"
+                // value={{...register(employee.firstName)}}
                 control={control}
               />
             </Grid>
@@ -99,28 +95,31 @@ const CreateEmployee = () => {
               <FieldInfor
                 label=" Last name"
                 fieldName="lastName"
+                // value={employee.lastName}
                 control={control}
               />
             </Grid>
           </Grid>
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
-              <FieldInfor label=" Email" fieldName="email" control={control} />
+              <FieldInfor
+                disabled={true}
+                placeholder="abcxyz"
+                label=" Email"
+                fieldName="email"
+                control={control}
+              />
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
+                placeholder="abcxyz"
                 label=" Phone number"
                 fieldName="phone_number"
                 control={control}
               />
             </Grid>
           </Grid>
-          <Grid
-            direction="row"
-            container
-            justifyContent="space-between"
-            marginBottom="12px"
-          >
+          <Grid direction="row" container justifyContent="space-between">
             <Grid
               item
               xs={5}
@@ -142,6 +141,7 @@ const CreateEmployee = () => {
                   selectedFieldValue="_id"
                   selectedItem={selectedDepartment}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
+                  defaultValue={selectedDepartment}
                   onChange
                   placeholder="Chọn Phòng Ban"
                   multiple={false}
@@ -154,33 +154,21 @@ const CreateEmployee = () => {
               <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="female"
-                onChange={(e) => setSex(e.target.value)}
+                value={gender}
                 name="gender"
+                onChange={(e) => setGender(e.target.value)}
                 row
               >
                 <FormControlLabel
-                  value="female"
-                  control={<Radio />}
                   label="Female"
+                  control={<Radio defaultChecked={gender} value="female" />}
                 />
                 <FormControlLabel
-                  value="male"
-                  control={<Radio />}
                   label="Male"
+                  control={<Radio defaultChecked={gender} value="male" />}
                 />
               </RadioGroup>
             </Grid>
-          </Grid>
-          <Grid direction="row" container justifyContent="space-between">
-            <Grid item xs={5}>
-              <FieldInfor
-                label="Password"
-                fieldName="password"
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={5}></Grid>
           </Grid>
         </Paper>
 
@@ -193,7 +181,7 @@ const CreateEmployee = () => {
               style={{ margin: "24px" }}
             >
               {" "}
-              Tạo mới
+              Update
             </Button>
           </Grid>
         </Grid>
@@ -201,4 +189,5 @@ const CreateEmployee = () => {
     </>
   );
 };
-export default CreateEmployee;
+
+export default UpdateEmployee;

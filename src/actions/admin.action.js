@@ -1,5 +1,5 @@
 import axios from "../helpers/axios";
-import { adminConstants, userConstants } from "./constants";
+import { adminConstants } from "./constants";
 
 export const getEmployee = () => {
   return async (dispatch) => {
@@ -7,7 +7,6 @@ export const getEmployee = () => {
     const res = await axios.get("/admin/get-all-employee");
 
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_EMPLOYEE_SUCCESS,
         payload: res.data,
@@ -35,13 +34,11 @@ export const getDepartment = () => {
 
 export const createEmployee = (employee) => {
   return async (dispatch) => {
-    console.log(employee)
     dispatch({ type: adminConstants.ADMIN_CREATE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/create-employee", {
       ...employee,
     });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_CREATE_EMPLOYEE_SUCCESS,
         payload: res.data,
@@ -57,7 +54,6 @@ export const getDetailEmployee = () => {
     dispatch({ type: adminConstants.ADMIN_GET_DETAIL_EMPLOYEE_REQUEST });
     const res = await axios.get("/admin/get-employee/:slug");
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_DETAIL_EMPLOYEE_SUCCESS,
         payload: res.data,
@@ -75,7 +71,6 @@ export const createUser = (user) => {
       ...user,
     });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_CREATE_USER_SUCCESS,
         payload: res.data,
@@ -124,7 +119,6 @@ export const getEmployeeBySlug = (_id) => {
     dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_REQUEST });
     const res = await axios.get(`/admin/get-employee/${_id}`);
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_EMPLOYEE_BY_SLUG_SUCCESS,
         payload: res.data.Employee,
@@ -153,16 +147,20 @@ export const deleteCustomer = (email) => {
 
 export const deleteEmployee = (email) => {
   return async (dispatch) => {
-    console.log(email);
     dispatch({ type: adminConstants.ADMIN_DELETE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/delete-employee", { email: email });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_DELETE_EMPLOYEE_SUCCESS,
       });
     } else {
       dispatch({ type: adminConstants.ADMIN_DELETE_EMPLOYEE_FAILURE });
     }
+  };
+};
+
+export const updateEmployee = (employee) => {
+  return async (dispatch) => {
+    console.log(employee);
   };
 };

@@ -8,6 +8,8 @@ const theme = createTheme({
     },
     secondary: {
       main: "#0A2240",
+      light: "#fff5f8",
+      pink: "FF3366",
     },
     warning: {
       main: "#E07E37",
@@ -25,9 +27,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           boxShadow: "none",
-
         },
-
       },
     },
     MuiButton: {
@@ -144,17 +144,16 @@ const theme = createTheme({
           backgroundColor: "#000",
         },
       },
-
     },
     MuiTableCell: {
       styleOverrides: {
         root: {
           "&.MuiTableCell-paddingCheckbox": {
-            backgroundColor: "#333"
-          }
-        }
-      }
-    }
+            backgroundColor: "#333",
+          },
+        },
+      },
+    },
   },
 });
 export default theme;

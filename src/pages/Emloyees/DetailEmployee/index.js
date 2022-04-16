@@ -22,6 +22,7 @@ import swal from "sweetalert";
 
 const DetailEmployee = () => {
   const employeeInfor = useSelector((state) => state.admin.employee);
+
   const [dataEmployee, setDataEmployee] = useState({});
   const dispatch = useDispatch();
   const id = useParams();
@@ -56,7 +57,6 @@ const DetailEmployee = () => {
         });
       });
   };
-  console.log(dataEmployee);
   return (
     <>
       <Grid
@@ -109,7 +109,11 @@ const DetailEmployee = () => {
           <Grid item xs={5}>
             <InforField
               fieldName={"Phòng ban"}
-              value={(dataEmployee.room && dataEmployee.room.name) ? (dataEmployee.room.name) : ""}
+              value={
+                dataEmployee.room && dataEmployee.room.name
+                  ? dataEmployee.room.name
+                  : ""
+              }
             />
           </Grid>
         </Grid>
@@ -119,12 +123,6 @@ const DetailEmployee = () => {
           justifyContent="space-between"
           style={{ marginBottom: " 24px" }}
         >
-          {/* <Grid item xs={5}>
-            <InforField
-              fieldName={"dia chi"}
-              value={"12 nguyen van bao, TPHCM"}
-            />
-          </Grid> */}
           <Grid item xs={5}>
             <InforField fieldName={"Email"} value={dataEmployee.email} />
           </Grid>
@@ -144,7 +142,7 @@ const DetailEmployee = () => {
         </Grid>
         <Grid item>
           <Button
-            onClick={() => history.push(slugs.EditAccount)}
+            onClick={() => history.push(`/employee/update/${id.id}`)}
             variant="contained"
             color="primary"
             style={{ margin: "24px" }}

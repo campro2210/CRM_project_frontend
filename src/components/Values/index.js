@@ -21,7 +21,7 @@ function Values() {
       <Container sx={{ mt: 15, mb: 30, display: "flex", position: "relative" }}>
         <Box
           component="img"
-          src="https://images.unsplash.com/photo-1554034483-04fda0d3507b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+          src="https://raw.githubusercontent.com/mui/material-ui/master/docs/public/static/themes/onepirate/appCurvyLines.png"
           alt="curvy lines"
           sx={{ pointerEvents: "none", position: "absolute", top: -180 }}
         />
@@ -30,7 +30,7 @@ function Values() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/images/settings.png"
+                src="/images/lock.svg"
                 alt="suitcase"
                 sx={{ height: 55 }}
               />
@@ -52,7 +52,7 @@ function Values() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues2.svg"
+                src="/images/cloud.svg"
                 alt="graph"
                 sx={{ height: 55 }}
               />

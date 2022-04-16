@@ -21,7 +21,6 @@ const Employees = () => {
   const dispatch = useDispatch();
 
   const employee = useSelector((state) => state.admin.employees);
-  console.log(employee);
 
   useEffect(() => {
     const getEmployees = async () => {
@@ -57,7 +56,6 @@ const Employees = () => {
     );
   }, [employee]);
 
-  console.log(dataTable);
   const [skip, setSkip] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

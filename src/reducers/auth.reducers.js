@@ -10,7 +10,6 @@ const initState = {
   message: "",
 };
 export default (state = initState, action) => {
-  console.log(action);
   switch (action.type) {
     case authConstants.LOGIN_REQUEST:
       return (state = {
@@ -20,7 +19,7 @@ export default (state = initState, action) => {
     case authConstants.LOGIN_SUCCESS:
       return (state = {
         ...state,
-        user: action.payload.user,
+        user: action.payload.Account,
         token: action.payload.token,
         authenticate: true,
         authenticating: false,

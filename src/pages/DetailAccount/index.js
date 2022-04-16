@@ -13,9 +13,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import InforField from "./InforField";
 import { useHistory } from "react-router-dom";
 import { slugs } from "../../constant/slugs";
+import { useSelector } from "react-redux";
 
 const DetailAccount = () => {
   const history = useHistory();
+  const userLogin = useSelector((state) => state.auth.user);
+  console.log(userLogin);
 
   return (
     <>

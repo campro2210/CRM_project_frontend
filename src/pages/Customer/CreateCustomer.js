@@ -51,8 +51,6 @@ const CreateCustomer = () => {
       password: values.password,
       sex: sex,
     };
-    console.log(newCustomer);
-
     dispatch(createUser(newCustomer))
       .then(() => {
         swal({

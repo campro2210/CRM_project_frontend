@@ -35,15 +35,11 @@ function Values() {
                 sx={{ height: 55 }}
               />
               <Typography variant="h6" sx={{ my: 5 }}>
-                The best luxury hotels
+                The best management service
               </Typography>
               <Typography variant="h5">
                 {
-                  "From the latest trendy boutique hotel to the iconic palace with XXL pool"
-                }
-
-                {
-                  ", go for a mini-vacation just a few subway stops away from your home."
+                  "Easier to management relationship of your company, we provier for you the optimal way "
                 }
               </Typography>
             </Box>
@@ -57,14 +53,16 @@ function Values() {
                 sx={{ height: 55 }}
               />
               <Typography variant="h6" sx={{ my: 5 }}>
-                New experiences
+                Authentication vs Authorization
               </Typography>
               <Typography variant="h5">
                 {
-                  "Privatize a pool, take a Japanese bath or wake up in 900m2 of garden… "
+                  "In my opinion, most important things about a management app are authorization and authentication. "
                 }
 
-                {"your Sundays will not be alike."}
+                {
+                  "It 's luckily, because my App have authentication with JWT and authorization with many different role "
+                }
               </Typography>
             </Box>
           </Grid>
@@ -77,11 +75,13 @@ function Values() {
                 sx={{ height: 55 }}
               />
               <Typography variant="h6" sx={{ my: 5 }}>
-                Exclusive rates
+                statistic
               </Typography>
               <Typography variant="h5">
-                {"By registering, you will access specially negotiated rates "}
-                {"that you will not find anywhere else."}
+                {
+                  "We provider for you a general vision about your company by many type chart. "
+                }
+                {"We hope you'll love it."}
               </Typography>
             </Box>
           </Grid>

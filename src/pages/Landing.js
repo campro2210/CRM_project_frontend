@@ -13,6 +13,9 @@ const Landing = () => {
     title: "",
     content: "",
   });
+  const handleSubmit = () => {
+    console.log(feedback);
+  };
   return (
     <>
       <AppBar />
@@ -82,6 +85,18 @@ const Landing = () => {
             </Grid>
           </Grid>
           <Grid item xs={5}></Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="flex-end"
+          marginTop="24px"
+        >
+          <Grid item>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+              Submit
+            </Button>
+          </Grid>
         </Grid>
       </Container>
       <Footer />

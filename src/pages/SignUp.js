@@ -18,8 +18,9 @@ import { signup } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
-
-const theme = createTheme();
+import AppBar from "../components/AppBar";
+import theme from "../constant/theme";
+import swal from "sweetalert";
 
 export default function SignUp() {
   const history = useHistory();
@@ -46,155 +47,167 @@ export default function SignUp() {
       ddate_of_birth: moment(data.get("birthday")).format("YYYY-MM-DD"),
     };
     // console.log(newUser);
-    dispatch(signup(newUser));
+    dispatch(signup(newUser))
+      .then(() => history.push(`signup/otp/${newUser.email}`))
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: " Đăng kí không thành công!",
+          icon: "warning",
+        });
+      });
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
+    <>
+      <AppBar />
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
           <Box
-            component="form"
-            // noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  onChange={(e) => handleCheckValidEmail(e)}
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="phone-number"
-                  label="Phone number"
-                  name="phone-number"
-                  //   autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="address"
-                  label="Address"
-                  name="address"
-                  //   autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="date"
-                  label="Birthday"
-                  type="date"
-                  name="birthday"
-                  fullWidth
-                  defaultValue={"2017-05-24"}
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormLabel id="demo-radio-buttons-group-label">
-                  Gender
-                </FormLabel>
-                <RadioGroup
-                  aria-labelledby="demo-radio-buttons-group-label"
-                  defaultValue="female"
-                  name="gender"
-                  row
-                >
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio />}
-                    label="Female"
-                  />
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio />}
-                    label="Male"
-                  />
-                </RadioGroup>
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign up
+            </Typography>
+            <Box
+              component="form"
+              // noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
             >
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link
-                  href="#"
-                  variant="body2"
-                  onClick={() => history.push("signin")}
-                >
-                  Already have an account? Sign in
-                </Link>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    onChange={(e) => handleCheckValidEmail(e)}
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="phone-number"
+                    label="Phone number"
+                    name="phone-number"
+                    //   autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="address"
+                    label="Address"
+                    name="address"
+                    //   autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="date"
+                    label="Birthday"
+                    type="date"
+                    name="birthday"
+                    fullWidth
+                    defaultValue={"2017-05-24"}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    Gender
+                  </FormLabel>
+                  <RadioGroup
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    defaultValue="female"
+                    name="gender"
+                    row
+                  >
+                    <FormControlLabel
+                      value="female"
+                      control={<Radio />}
+                      label="Female"
+                    />
+                    <FormControlLabel
+                      value="male"
+                      control={<Radio />}
+                      label="Male"
+                    />
+                  </RadioGroup>
+                </Grid>
               </Grid>
-            </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign Up
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link
+                    href="#"
+                    variant="body2"
+                    onClick={() => history.push("/signin")}
+                  >
+                    Already have an account? Sign in
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </ThemeProvider>
+    </>
   );
 }

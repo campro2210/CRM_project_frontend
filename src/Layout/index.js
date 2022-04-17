@@ -116,7 +116,7 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   const handleLogout = () => {
     dispatch(signout());
     if (!localStorage.getItem("token")) {
-      history.push("/signin");
+      history.push("/admin/signin");
     }
   };
 

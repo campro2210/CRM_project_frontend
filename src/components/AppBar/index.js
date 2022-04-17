@@ -21,7 +21,7 @@ function AppBar() {
             variant="h6"
             underline="none"
             color="inherit"
-            href="/premium-themes/onepirate/"
+            href="/"
             sx={{ fontSize: 24 }}
           >
             {"onepirate"}
@@ -33,7 +33,7 @@ function AppBar() {
                   color="inherit"
                   variant="h4"
                   underline="none"
-                  href="/premium-themes/onepirate/sign-in/"
+                  href="/signin"
                   sx={rightLink}
                 >
                   {"Sign In"}
@@ -41,7 +41,7 @@ function AppBar() {
                 <Link
                   variant="h4"
                   underline="none"
-                  href="/premium-themes/onepirate/sign-up/"
+                  href="/signup"
                   sx={{ ...rightLink, color: "secondary.main" }}
                 >
                   {"Sign Up"}

@@ -17,8 +17,8 @@ import { useSelector } from "react-redux";
 
 const DetailAccount = () => {
   const history = useHistory();
-  const userLogin = useSelector((state) => state.auth.user);
-  console.log(userLogin);
+  const userLogin = useSelector((state) => state.auth);
+  console.log({userLogin: userLogin});
 
   return (
     <>

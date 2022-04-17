@@ -161,6 +161,17 @@ export const deleteEmployee = (email) => {
 
 export const updateEmployee = (employee) => {
   return async (dispatch) => {
-    console.log(employee);
+    dispatch({ type: adminConstants.ADMIN_UPDATE_EMPLOYEE_REQUEST })
+    const res = await axios.post("/api/admin/update-employee", { ...employee })
+    if (res.status === 200) {
+      dispatch({
+        type: adminConstants.ADMIN_UPDATE_EMPLOYEE_SUCCESS,
+        // payload: res.data
+      })
+    } else (
+      dispatch({
+        type: adminConstants.ADMIN_UPDATE_EMPLOYEE_FAILURE,
+      })
+    )
   };
 };

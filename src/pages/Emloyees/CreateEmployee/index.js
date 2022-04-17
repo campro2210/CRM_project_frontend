@@ -22,6 +22,7 @@ import swal from "sweetalert";
 const CreateEmployee = () => {
   const history = useHistory();
   const departments = useSelector((state) => state.admin.department);
+  console.log(departments)
   const dispatch = useDispatch();
   useEffect(() => {
     const getDepartments = async () => {
@@ -137,9 +138,11 @@ const CreateEmployee = () => {
               </Grid>
               <Grid item xs={7} marginRight="34px">
                 <SelectComponent
-                  dataList={departments}
+                  // dataList={departments.forEach = (element =>{
+                  // //  (element.room !== "") ? ((element.room == 1) ? "Marketing" : (element.room == 2) ? "CSKH" : "") :""
+                  // })}
                   selectedFieldName="name"
-                  selectedFieldValue="_id"
+                  selectedFieldValue="room"
                   selectedItem={selectedDepartment}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
                   onChange

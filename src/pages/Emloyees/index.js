@@ -21,7 +21,7 @@ const Employees = () => {
   const dispatch = useDispatch();
 
   const employee = useSelector((state) => state.admin.employees);
-
+  console.log(employee)
   useEffect(() => {
     const getEmployees = async () => {
       await dispatch(getEmployee());
@@ -51,7 +51,9 @@ const Employees = () => {
         name: item.firstName + " " + item.lastName,
         email: item.email,
         phoneNumber: item.phone_number,
-        department: (item.room && item.room.name) ? (item.room.name) : "",
+        department: (item.room && item.room.room)
+          ? ((item.room.room == 1) ? "Marketing" : (item.room.room == 2) ? "CSKH" : "")
+          : ""
       }))
     );
   }, [employee]);

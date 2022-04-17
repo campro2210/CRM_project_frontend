@@ -99,6 +99,16 @@ export default (state = initState, action) => {
         ...state,
         loading: false,
       });
+    case adminConstants.ADMIN_UPDATE_EMPLOYEE_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      });
+    case adminConstants.ADMIN_UPDATE_EMPLOYEE_SUCCESS:
+      return (state = {
+        ...state,
+        loading: false,
+      });
     default:
       return state;
   }

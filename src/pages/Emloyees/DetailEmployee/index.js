@@ -24,6 +24,7 @@ const DetailEmployee = () => {
   const employeeInfor = useSelector((state) => state.admin.employee);
 
   const [dataEmployee, setDataEmployee] = useState({});
+  console.log(dataEmployee)
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
@@ -37,7 +38,6 @@ const DetailEmployee = () => {
   useEffect(() => {
     setDataEmployee(employeeInfor);
   }, [employeeInfor]);
-  console.log(employeeInfor);
 
   const handleDeleteEmployee = () => {
     dispatch(deleteEmployee(dataEmployee.email))
@@ -104,15 +104,18 @@ const DetailEmployee = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Giới tính"} value={dataEmployee.sex} />
+            <InforField
+              fieldName={"Giới tính"}
+              value={
+                (dataEmployee.sex == 1) ? "Male" : (dataEmployee.sex == 2) ? "Female" : ""
+              }
+            />
           </Grid>
           <Grid item xs={5}>
             <InforField
               fieldName={"Phòng ban"}
               value={
-                dataEmployee.room && dataEmployee.room.name
-                  ? dataEmployee.room.name
-                  : ""
+                dataEmployee.room ? dataEmployee.room.room_name : ""
               }
             />
           </Grid>

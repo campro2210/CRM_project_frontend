@@ -23,7 +23,7 @@ import _ from "lodash";
 
 const UpdateEmployee = () => {
   const employee = useSelector((state) => state.admin.employee);
-  console.log(employee);
+  console.log(employee)
   const dispatch = useDispatch();
   const id = useParams();
   const {
@@ -44,7 +44,6 @@ const UpdateEmployee = () => {
 
   const [gender, setGender] = useState();
   const [selectedDepartment, setSelectedDepartment] = useState();
-
   useEffect(() => {
     if (employee) {
       setValue("firstName", employee.firstName, "");
@@ -57,7 +56,9 @@ const UpdateEmployee = () => {
     }
   }, [employee]);
 
-  const onSubmit = () => {};
+  const onSubmit = (values) => {
+    console.log(values);
+  };
 
   useEffect(() => {
     dispatch(getEmployeeBySlug(id.id));
@@ -68,7 +69,14 @@ const UpdateEmployee = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-  console.log({ gender: gender, department: selectedDepartment });
+  // console.log(departments)
+  // console.log({ gender: gender, department: selectedDepartment });
+
+  const handleUpdate = () =>{
+    const employeeUpdate  = {
+
+    }
+  }
 
   return (
     <>
@@ -137,7 +145,7 @@ const UpdateEmployee = () => {
               <Grid item xs={7} marginRight="34px">
                 <SelectComponent
                   dataList={departments}
-                  selectedFieldName="name"
+                  selectedFieldName="room_name"
                   selectedFieldValue="_id"
                   selectedItem={selectedDepartment}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
@@ -155,7 +163,7 @@ const UpdateEmployee = () => {
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 value={gender}
-                name="gender"
+                name="Gender"
                 onChange={(e) => setGender(e.target.value)}
                 row
               >
@@ -179,6 +187,7 @@ const UpdateEmployee = () => {
               variant="contained"
               color="primary"
               style={{ margin: "24px" }}
+              // onClick = {() => handleUpdate()}
             >
               {" "}
               Update

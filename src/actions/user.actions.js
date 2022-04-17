@@ -1,5 +1,5 @@
 import axios from "../helpers/axios";
-import { authConstants, userConstants } from "./constants";
+import { userConstants } from "./constants";
 
 export const signup = (user) => {
   return async (dispatch) => {
@@ -23,3 +23,19 @@ export const signup = (user) => {
     // }
   };
 };
+export const VerifyOtp = (otp) => {
+  return async (dispatch) => {
+    dispatch({ type: userConstants.USER_VERIFY_OTP_REQUEST });
+    const res = await axios.post("/verify", { ...otp });
+    if (res.status === 200) {
+      dispatch({
+        type: userConstants.USER_REGISTER_SUCCESS,
+        payload: {},
+      });
+    }
+  };
+};
+
+// export createFeedback =() => {
+
+// }

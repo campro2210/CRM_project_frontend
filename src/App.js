@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { slugs } from "./constant/slugs";
 import theme from "./constant/theme";
-import SignIn from "./pages/SignIn";
+import AdminSignIn from "./pages/AdminSignIn";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Customer";
@@ -28,6 +28,8 @@ import UpdateEmployee from "./pages/Emloyees/UpdateEmployee";
 import Discuss from "./pages/Discuss/index";
 import DetailCustomer from "./pages/Customer/DetailCustomer";
 import Landing from "./pages/Landing";
+import SignIn from "./pages/SignIn";
+import VerifyOtp from "./pages/VerifyOtp";
 const socket = io.connect("http://localhost:5000");
 
 function App() {
@@ -41,7 +43,7 @@ function App() {
     return condition ? (
       <Route path={path} exact component={component} render={render} />
     ) : (
-      <Redirect to="/signin" />
+      <Redirect to="/admin/signin" />
     );
   };
 
@@ -56,12 +58,18 @@ function App() {
         <Router>
           <Switch>
             <Route exact path={slugs.Landing} render={() => <Landing />} />
+            <Route
+              exact
+              path={slugs.AdminSignIn}
+              render={() => <AdminSignIn />}
+            />
             <Route exact path={slugs.SignIn} render={() => <SignIn />} />
             <Route
               exact
               path={slugs.SignUp}
               render={() => <SignUp setAuth={setAuth} />}
             />
+            <Route exact path={slugs.VerifyOtp} render={() => <VerifyOtp />} />
             <Layout
               setSearchText={setSearchText}
               auth={auth}

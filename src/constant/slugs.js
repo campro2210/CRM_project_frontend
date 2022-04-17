@@ -1,8 +1,11 @@
 export const slugs = {
   Landing: "/",
   Home: "/dashboard",
-  SignIn: "/signin",
   SignUp: "/signup",
+  VerifyOtp: "/signup/otp/:email",
+  SignIn: "/signin",
+
+  AdminSignIn: "/admin/signin",
   Customer: "/customer",
   CreateCustomer: "/customer/create",
   EditCustomer: "/customer/edit/:id",

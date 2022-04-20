@@ -19,6 +19,15 @@ import theme from "../constant/theme";
 
 const SignIn = () => {
   const history = useHistory();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const user = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+    console.log(user);
+  };
   return (
     <>
       <AppBar />
@@ -41,7 +50,7 @@ const SignIn = () => {
             </Typography>
             <Box
               component="form"
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               noValidate
               sx={{ mt: 1 }}
             >

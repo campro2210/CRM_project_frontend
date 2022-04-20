@@ -1,8 +1,10 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import AppAppBar from "./AppAppBar";
 import Toolbar from "../Toolbar";
+import { Typography } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 const rightLink = {
   fontSize: 16,
@@ -11,7 +13,13 @@ const rightLink = {
 };
 
 function AppBar() {
-  const abc = false;
+  const history = useHistory();
+  const [abc, setAbc] = useState(true);
+
+  const handleLoggout = () => {
+    setAbc(false);
+    history.push("signin");
+  };
   return (
     <div>
       <AppAppBar position="fixed">
@@ -50,23 +58,20 @@ function AppBar() {
             )}
             {abc && (
               <>
-                <Link
-                  color="inherit"
-                  variant="h4"
-                  underline="none"
-                  href="/premium-themes/onepirate/sign-in/"
-                  sx={rightLink}
+                <Typography
+                  variant="h5"
+                  onClick={() => history.push("/user/:id")}
+                  marginRight="24px"
                 >
                   {`Hello,...`}
-                </Link>
-                <Link
-                  variant="h4"
-                  underline="none"
-                  href="/premium-themes/onepirate/sign-up/"
-                  sx={{ ...rightLink, color: "secondary.main" }}
+                </Typography>
+                <Typography
+                  variant="h5"
+                  color="secondary"
+                  onClick={handleLoggout}
                 >
                   {"Sign Out"}
-                </Link>
+                </Typography>
               </>
             )}
           </Box>

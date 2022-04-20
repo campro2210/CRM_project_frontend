@@ -29,21 +29,19 @@ export default function BackgroundSection() {
         variant="h4"
         sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}
       >
-        Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+        Discover the solution to help you increase your revenue by at least 20%,
+        save 30% in cost and processing time!
       </Typography>
       <Button
         color="secondary"
         variant="contained"
         size="large"
         component="a"
-        href="/premium-themes/onepirate/sign-up/"
+        href="/sign-up"
         sx={{ minWidth: 200 }}
       >
-        Register
+        Register now
       </Button>
-      <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
-        Discover the experience
-      </Typography>
     </BackgroundSectionLayout>
   );
 }

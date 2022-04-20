@@ -2,7 +2,8 @@ import * as React from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Container, Button, Typography } from "@mui/material";
+import { ReactComponent as Lock } from "../../img/lock.svg";
+import { Container, Button, Typography, SvgIcon, Icon } from "@mui/material";
 
 const item = {
   display: "flex",
@@ -54,7 +55,8 @@ function HowItWorks() {
           variant="h2"
           marked="center"
           component="h2"
-          borderBottom="5px solid FF3366"
+          paddingBottom="12px"
+          borderBottom="5px solid Pink"
           sx={{ mb: 14 }}
         >
           How it works
@@ -64,12 +66,13 @@ function HowItWorks() {
             <Grid item xs={12} md={4}>
               <Box sx={item}>
                 <Box sx={number}>1.</Box>
-                <Box
+                {/* <Box
                   component="img"
                   src="/static/themes/onepirate/1.svg"
                   alt="suitcase"
                   sx={image}
-                />
+                /> */}
+
                 <Typography variant="h5" align="center">
                   The first, you must create a account by the way sign up in my
                   system
@@ -79,12 +82,12 @@ function HowItWorks() {
             <Grid item xs={12} md={4}>
               <Box sx={item}>
                 <Box sx={number}>2.</Box>
-                <Box
+                {/* <Box
                   component="img"
                   src="/static/themes/onepirate/productHowItWorks2.svg"
                   alt="graph"
                   sx={image}
-                />
+                /> */}
                 <Typography variant="h5" align="center">
                   Now, you can sign in then become a member of this community
                 </Typography>
@@ -93,12 +96,12 @@ function HowItWorks() {
             <Grid item xs={12} md={4}>
               <Box sx={item}>
                 <Box sx={number}>3.</Box>
-                <Box
+                {/* <Box
                   component="img"
-                  src="/static/themes/onepirate/productHowItWorks3.svg"
+                  src="/public/img/lock.svg"
                   alt="clock"
                   sx={image}
-                />
+                /> */}
                 <Typography variant="h5" align="center">
                   {"You can send your question . "}
                   {

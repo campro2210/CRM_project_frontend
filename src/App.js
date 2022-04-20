@@ -30,10 +30,13 @@ import DetailCustomer from "./pages/Customer/DetailCustomer";
 import Landing from "./pages/Landing";
 import SignIn from "./pages/SignIn";
 import VerifyOtp from "./pages/VerifyOtp";
+import DetailUserAccount from "./pages/DetailUserAccount";
+import UpdateUserAccount from "./pages/UpdateUserAccount";
+
 const socket = io.connect("http://localhost:5000");
 
 function App() {
-  const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(false);
 
   const [searchText, setSearchText] = useState("");
 
@@ -58,6 +61,16 @@ function App() {
         <Router>
           <Switch>
             <Route exact path={slugs.Landing} render={() => <Landing />} />
+            <Route
+              exact
+              path={slugs.DetailUser}
+              render={() => <DetailUserAccount />}
+            />
+            <Route
+              exact
+              path={slugs.UpdateUser}
+              render={() => <UpdateUserAccount />}
+            />
             <Route
               exact
               path={slugs.AdminSignIn}

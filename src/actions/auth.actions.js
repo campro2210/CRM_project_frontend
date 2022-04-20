@@ -1,5 +1,5 @@
 import axios from "../helpers/axios";
-import { authConstants } from "./constants";
+import { authConstants, userConstants } from "./constants";
 
 export const login = (Employee) => {
   return async (dispatch) => {
@@ -16,7 +16,7 @@ export const login = (Employee) => {
         payload: {
           token,
           Account,
-         
+
         },
       });
     } else {
@@ -73,3 +73,22 @@ export const signout = () => {
     });
   };
 };
+
+export const user_signin = (user) => {
+  return async (dispatch) => {
+    if (user) {
+      console.log(user)
+      dispatch({ type: authConstants.LOGIN_REQUEST })
+      const res = await axios.post("/signin", { ...user })
+      if (res.status == 200) {
+        const { token, user } = res.data
+        localStorage.setItem("customer_token", token);
+        localStorage.setItem("customer", JSON.stringify(user));
+        dispatch({
+          type: userConstants.USER_SIGNIN_SUCCESS,
+          payload: { token, user }
+        })
+      }
+    }
+  }
+}

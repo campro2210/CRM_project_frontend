@@ -14,10 +14,11 @@ const rightLink = {
 
 function AppBar() {
   const history = useHistory();
-  const [abc, setAbc] = useState(true);
+  const token = localStorage.getItem("customer_token")
+  // const [abc, setAbc] = useState(true);
 
   const handleLoggout = () => {
-    setAbc(false);
+    // setAbc(false);
     history.push("signin");
   };
   return (
@@ -35,7 +36,7 @@ function AppBar() {
             {"onepirate"}
           </Link>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            {!abc && (
+            {!token && (
               <>
                 <Link
                   color="inherit"
@@ -56,7 +57,7 @@ function AppBar() {
                 </Link>
               </>
             )}
-            {abc && (
+            {token && (
               <>
                 <Typography
                   variant="h5"

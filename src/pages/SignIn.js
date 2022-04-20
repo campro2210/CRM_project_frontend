@@ -16,8 +16,13 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useHistory, Navigate } from "react-router-dom";
 import theme from "../constant/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { user_signin } from "../actions/auth.actions";
 
 const SignIn = () => {
+  const auth = useSelector(state => state.auth)
+  console.log(auth)
+  const dispatch = useDispatch()
   const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -26,7 +31,7 @@ const SignIn = () => {
       email: data.get("email"),
       password: data.get("password"),
     };
-    console.log(user);
+    dispatch(user_signin(user))
   };
   return (
     <>
@@ -92,7 +97,7 @@ const SignIn = () => {
                   <Link
                     href="#"
                     variant="body2"
-                    onClick={() => history.push("/signup")}
+                    // onClick={() => history.push("/signup")}
                   >
                     {"Don't have an account? Sign Up"}
                   </Link>

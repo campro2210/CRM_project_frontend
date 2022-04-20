@@ -1,8 +1,9 @@
-import { authConstants } from "../actions/constants";
+import { authConstants, userConstants } from "../actions/constants";
 
 const initState = {
   token: null,
   user: {},
+  userAuthenticate: false,
   authenticate: false,
   authenticating: false,
   loading: false,
@@ -24,6 +25,18 @@ export default (state = initState, action) => {
         authenticate: true,
         authenticating: false,
       });
+    case userConstants.USER_SIGNIN_REQUEST:
+      return (state = {
+        ...state,
+        authenticating: true,
+      })
+    case userConstants.USER_SIGNIN_SUCCESS:
+      return(state ={
+        user: action.payload.user,
+        token: action.payload.token,
+        userAuthenticate: true,
+        authenticating: false,
+      })
     case authConstants.LOGOUT_REQUEST:
       return (state = {
         ...state,

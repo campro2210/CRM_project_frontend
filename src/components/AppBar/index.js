@@ -5,7 +5,8 @@ import AppAppBar from "./AppAppBar";
 import Toolbar from "../Toolbar";
 import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
+import { user_signOut } from "../../actions/index";
 const rightLink = {
   fontSize: 16,
   color: "common.white",
@@ -13,12 +14,13 @@ const rightLink = {
 };
 
 function AppBar() {
+  const dispatch = useDispatch()
   const history = useHistory();
   const token = localStorage.getItem("customer_token")
   // const [abc, setAbc] = useState(true);
 
   const handleLoggout = () => {
-    // setAbc(false);
+    dispatch(user_signOut())
     history.push("signin");
   };
   return (

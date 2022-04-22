@@ -3,6 +3,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../constant/theme";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { user_verify } from "../actions/index";
 import {
   TextField,
   Container,
@@ -14,15 +16,16 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const VerifyOtp = () => {
+  const dispatch = useDispatch()
   const [otpCode, setOtpCode] = useState("");
   const email = useParams();
-  console.log(email);
+  
   const handleSubmit = () => {
     const otp = {
       email: email.email,
       otp: otpCode,
     };
-    console.log(otp);
+    dispatch(user_verify(otp))
   };
   return (
     <>

@@ -1,5 +1,5 @@
 import axios from "../helpers/axios";
-import { userConstants } from "./constants";
+import { authConstants, userConstants } from "./constants";
 
 export const signup = (user) => {
   return async (dispatch) => {
@@ -23,7 +23,7 @@ export const signup = (user) => {
     // }
   };
 };
-export const VerifyOtp = (otp) => {
+export const user_verify = (otp) => {
   return async (dispatch) => {
     dispatch({ type: userConstants.USER_VERIFY_OTP_REQUEST });
     const res = await axios.post("/verify", { ...otp });
@@ -36,6 +36,11 @@ export const VerifyOtp = (otp) => {
   };
 };
 
-// export createFeedback =() => {
-
-// }
+export const user_signOut = () => {
+  return async (dispatch) => {
+    dispatch({type: authConstants.LOGOUT_REQUEST})
+    window.localStorage.removeItem("customer")
+    window.localStorage.removeItem("customer_token")
+    dispatch({type: authConstants.LOGOUT_SUCCESS})
+  }
+}

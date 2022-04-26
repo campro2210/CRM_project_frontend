@@ -38,9 +38,36 @@ export const user_verify = (otp) => {
 
 export const user_signOut = () => {
   return async (dispatch) => {
-    dispatch({type: authConstants.LOGOUT_REQUEST})
+    dispatch({ type: authConstants.LOGOUT_REQUEST })
     window.localStorage.removeItem("customer")
     window.localStorage.removeItem("customer_token")
-    dispatch({type: authConstants.LOGOUT_SUCCESS})
+    dispatch({ type: authConstants.LOGOUT_SUCCESS })
+  }
+}
+
+export const getUserCyclical = (token) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: userConstants.USER_GET_USER_REQUEST })
+      if (token) {
+        const res = await axios.post("/getUserByToken", { token: token });
+        if (res.status === 200) {
+          console.log(res.data.user)
+          dispatch({
+            type: userConstants.USER_GET_USER_SUCCESS,
+            payload: res.data
+          })
+
+        }
+        else (
+          console.log("error")
+        )
+      }
+
+    } catch (error) {
+
+    }
+
+
   }
 }

@@ -32,12 +32,25 @@ import SignIn from "./pages/SignIn";
 import VerifyOtp from "./pages/VerifyOtp";
 import DetailUserAccount from "./pages/DetailUserAccount";
 import UpdateUserAccount from "./pages/UpdateUserAccount";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserCyclical } from "./actions";
 
 const socket = io.connect("http://localhost:5000");
 
 function App() {
-  const [auth, setAuth] = useState(false);
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  let token = window.localStorage.getItem("customer_token")
+  useEffect(() => {
+    if (token) {
+      dispatch(getUserCyclical(token))
+      // setInterval(function () {
+      //   dispatch(getUserCyclical(token))
+      // }, 5000);
+    }
+  },[])
 
+  const [auth, setAuth] = useState(false);
   const [searchText, setSearchText] = useState("");
 
   const PrivateRoute = ({ component, path, exact, render = undefined }) => {

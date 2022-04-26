@@ -7,6 +7,7 @@ import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { user_signOut } from "../../actions/index";
+import { useEffect } from "react";
 const rightLink = {
   fontSize: 16,
   color: "common.white",
@@ -16,12 +17,10 @@ const rightLink = {
 function AppBar() {
   const dispatch = useDispatch()
   const history = useHistory();
-  const token = localStorage.getItem("customer_token")
-  // const [abc, setAbc] = useState(true);
-
+  const customer = localStorage.getItem("customer")
   const handleLoggout = () => {
     dispatch(user_signOut())
-    history.push("signin");
+    history.push("/");
   };
   return (
     <div>
@@ -38,7 +37,7 @@ function AppBar() {
             {"onepirate"}
           </Link>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            {!token && (
+            {!customer && (
               <>
                 <Link
                   color="inherit"
@@ -59,14 +58,14 @@ function AppBar() {
                 </Link>
               </>
             )}
-            {token && (
+            {customer && (
               <>
                 <Typography
                   variant="h5"
                   onClick={() => history.push("/user/:id")}
                   marginRight="24px"
                 >
-                  {`Hello,...`}
+                  {`Hello, ${(JSON.parse(customer)).fullName}`}
                 </Typography>
                 <Typography
                   variant="h5"

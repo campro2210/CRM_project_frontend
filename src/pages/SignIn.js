@@ -21,7 +21,6 @@ import { user_signin } from "../actions/auth.actions";
 
 const SignIn = () => {
   const auth = useSelector(state => state.auth)
-  console.log(auth)
   const dispatch = useDispatch()
   const history = useHistory();
   const handleSubmit = (event) => {
@@ -33,6 +32,10 @@ const SignIn = () => {
     };
     dispatch(user_signin(user))
   };
+  const token = localStorage.getItem("customer_token")
+  if (token) {
+    history.push("/");
+  }
   return (
     <>
       <AppBar />
@@ -97,7 +100,6 @@ const SignIn = () => {
                   <Link
                     href="#"
                     variant="body2"
-                    // onClick={() => history.push("/signup")}
                   >
                     {"Don't have an account? Sign Up"}
                   </Link>

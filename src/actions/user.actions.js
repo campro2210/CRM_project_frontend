@@ -67,7 +67,9 @@ export const getUserCyclical = (token) => {
     } catch (error) {
 
     }
-
-
   }
+}
+
+export const userSendMail = (mail) => {
+  console.log(mail)
 }

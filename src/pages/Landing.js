@@ -7,14 +7,18 @@ import BackgroundSection from "../components/BackgroundSection";
 import Values from "../components/Values";
 import HowItWorks from "../components/HowItWork";
 import Footer from "../components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import { userSendMail } from "../actions/user.actions";
+
 const Landing = () => {
+  const dispatch = useDispatch()
   const [feedback, setFeedback] = useState({
     email: "",
     title: "",
     content: "",
   });
   const handleSubmit = () => {
-    console.log(feedback);
+    dispatch(userSendMail("feedback"))
   };
   return (
     <>

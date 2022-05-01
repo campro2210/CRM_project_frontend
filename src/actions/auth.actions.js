@@ -1,4 +1,4 @@
-import axios from "../helpers/axios";
+import { axiosInstance as axios } from "../helpers/axios";
 import { authConstants, userConstants } from "./constants";
 import { useHistory, Navigate } from "react-router-dom";
 

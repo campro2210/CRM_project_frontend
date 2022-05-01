@@ -15,10 +15,15 @@ const Landing = () => {
   const [feedback, setFeedback] = useState({
     email: "",
     title: "",
-    content: "",
+    message: "",
   });
-  const handleSubmit = () => {
-    dispatch(userSendMail("feedback"))
+  const handleSubmit = (e) => {
+    dispatch(userSendMail(feedback))
+    setFeedback({
+      ...feedback,
+      title: "",
+      message: "",
+    })
   };
   return (
     <>
@@ -61,6 +66,7 @@ const Landing = () => {
             <Grid item>
               <TextField
                 label={"Email"}
+                value={feedback.email}
                 onChange={(e) =>
                   setFeedback({ ...feedback, email: e.target.value })
                 }
@@ -70,6 +76,7 @@ const Landing = () => {
             <Grid item>
               <TextField
                 label={"Title"}
+                value={feedback.title}
                 onChange={(e) =>
                   setFeedback({ ...feedback, title: e.target.value })
                 }
@@ -78,11 +85,12 @@ const Landing = () => {
             </Grid>
             <Grid item>
               <TextField
-                label={"Content"}
+                label={"Message"}
+                value={feedback.message}
                 multiline
                 rows={5}
                 onChange={(e) =>
-                  setFeedback({ ...feedback, content: e.target.value })
+                  setFeedback({ ...feedback, message: e.target.value })
                 }
                 fullWidth
               />
@@ -97,7 +105,7 @@ const Landing = () => {
           marginTop="24px"
         >
           <Grid item>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button variant="contained" color="primary" onClick={(e) => handleSubmit(e)}>
               Submit
             </Button>
           </Grid>

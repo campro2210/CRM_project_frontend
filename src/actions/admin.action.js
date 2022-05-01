@@ -1,4 +1,4 @@
-import axios from "../helpers/axios";
+import {axiosInstance as axios} from "../helpers/axios";
 import { adminConstants } from "./constants";
 
 export const getEmployee = () => {

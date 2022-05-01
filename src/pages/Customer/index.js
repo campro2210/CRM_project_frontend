@@ -32,7 +32,7 @@ const Customer = () => {
         name: item.firstName + " " + item.lastName,
         email: item.email,
         phoneNumber: item.phone_number,
-        birthday: moment(item.day_of_birth).format("L"),
+        birthday: moment(item.day_of_birth).format("YYYY-MM-DD"),
       }))
     );
   }, [users]);
@@ -64,7 +64,7 @@ const Customer = () => {
       label: "Phone number",
     },
     {
-      name: "birthday",
+      // name: "birthday",
       label: "Day of birth",
     },
   ];

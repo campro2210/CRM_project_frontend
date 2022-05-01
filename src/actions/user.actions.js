@@ -1,10 +1,11 @@
-import axios from "../helpers/axios";
+// import axios from "../helpers/axios";
+import { axiosUser } from "../helpers/axios"
 import { authConstants, userConstants } from "./constants";
 
 export const signup = (user) => {
   return async (dispatch) => {
     dispatch({ type: userConstants.USER_REGISTER_REQUEST });
-    const res = await axios.post("/signup", {
+    const res = await axiosUser.post("/signup", {
       ...user,
     });
     if (res.status === 200) {
@@ -26,7 +27,7 @@ export const signup = (user) => {
 export const user_verify = (otp) => {
   return async (dispatch) => {
     dispatch({ type: userConstants.USER_VERIFY_OTP_REQUEST });
-    const res = await axios.post("/verify", { ...otp });
+    const res = await axiosUser.post("/verify", { ...otp });
     if (res.status === 200) {
       dispatch({
         type: userConstants.USER_REGISTER_SUCCESS,
@@ -50,7 +51,7 @@ export const getUserCyclical = (token) => {
     try {
       dispatch({ type: userConstants.USER_GET_USER_REQUEST })
       if (token) {
-        const res = await axios.post("/getUserByToken", { token: token });
+        const res = await axiosUser.post("/getUserByToken", { token: token });
         if (res.status === 200) {
           console.log(res.data.user)
           dispatch({
@@ -71,5 +72,11 @@ export const getUserCyclical = (token) => {
 }
 
 export const userSendMail = (mail) => {
-  console.log(mail)
-}
+  return async (dispath) => {
+    dispath({ type: userConstants.USER_SEND_MAIL_REQUEST })
+    if (mail) {
+      console.log({...mail})
+      const res = await axiosUser.post("/send-mail", { ...mail });
+    }
+  }
+};

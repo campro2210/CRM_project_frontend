@@ -1,9 +1,10 @@
-import axios from "../helpers/axios";
+import { axiosInstance as axios } from "../helpers/axios";
 import { authConstants, userConstants } from "./constants";
 import { useHistory, Navigate } from "react-router-dom";
 
 export const login = (Employee) => {
   return async (dispatch) => {
+    console.log(Employee)
     dispatch({ type: authConstants.LOGIN_REQUEST });
     const res = await axios.post("/admin/signin", {
       ...Employee,

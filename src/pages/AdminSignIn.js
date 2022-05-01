@@ -47,7 +47,10 @@ export default function AdminSignIn() {
       });
     }
   };
-
+  const token = localStorage.getItem("token");
+  if (token) {
+    history.push(slugs.Home);
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

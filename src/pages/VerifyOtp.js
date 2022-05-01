@@ -13,19 +13,37 @@ import {
   Avatar,
   Button,
 } from "@mui/material/";
+import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const VerifyOtp = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [otpCode, setOtpCode] = useState("");
   const email = useParams();
-  
+  const history = useHistory();
+
   const handleSubmit = () => {
     const otp = {
       email: email.email,
       otp: otpCode,
     };
     dispatch(user_verify(otp))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Đăng kí thành thành công! Giờ hãy đăng nhập bằng tài khoản của bạn",
+          icon: "success",
+        });
+        history.push("/admin/signin");
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Mã OTP không chính xác, vui lòng nhập lại",
+          icon: "warning",
+        });
+      });
   };
   return (
     <>

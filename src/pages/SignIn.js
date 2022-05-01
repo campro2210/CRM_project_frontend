@@ -18,10 +18,11 @@ import { useHistory, Navigate } from "react-router-dom";
 import theme from "../constant/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { user_signin } from "../actions/auth.actions";
+import swal from "sweetalert";
 
 const SignIn = () => {
-  const auth = useSelector(state => state.auth)
-  const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,8 +32,18 @@ const SignIn = () => {
       password: data.get("password"),
     };
     dispatch(user_signin(user))
+      .then(() => {
+        history.push("/");
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Đăng nhập không thành công!",
+          icon: "warning",
+        });
+      });
   };
-  const token = localStorage.getItem("customer_token")
+  const token = localStorage.getItem("customer_token");
   if (token) {
     history.push("/");
   }
@@ -97,10 +108,7 @@ const SignIn = () => {
               <Grid container>
                 <Grid item xs></Grid>
                 <Grid item>
-                  <Link
-                    href="#"
-                    variant="body2"
-                  >
+                  <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

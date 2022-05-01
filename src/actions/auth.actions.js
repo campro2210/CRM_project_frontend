@@ -77,18 +77,18 @@ export const signout = () => {
 export const user_signin = (user) => {
   return async (dispatch) => {
     if (user) {
-      console.log(user)
-      dispatch({ type: authConstants.LOGIN_REQUEST })
-      const res = await axios.post("/signin", { ...user })
+      console.log(user);
+      dispatch({ type: authConstants.LOGIN_REQUEST });
+      const res = await axios.post("/signin", { ...user });
       if (res.status == 200) {
-        const { token, user } = res.data
+        const { token, user } = res.data;
         localStorage.setItem("customer_token", token);
         localStorage.setItem("customer", JSON.stringify(user));
         dispatch({
           type: userConstants.USER_SIGNIN_SUCCESS,
-          payload: { token, user }
-        })
+          payload: { token, user },
+        });
       }
     }
-  }
-}
+  };
+};

@@ -91,11 +91,12 @@ const SelectComponent = ({
   };
 
   return (
-    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }}>
+    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }} required>
       <Select
         multiple={multiple}
         size={size}
         style={style}
+        defaultValue={defaultValue}
         displayEmpty
         value={selectedItem}
         onChange={handleChange}

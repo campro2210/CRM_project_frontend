@@ -1,5 +1,6 @@
-import FieldInfor from "../../EditAccount/FieldInfor";
+import FieldInfor from "../EditAccount/FieldInfor";
 import React, { useEffect, useState } from "react";
+import { slugs } from "../../constant/slugs";
 import {
   Grid,
   Typography,
@@ -8,25 +9,34 @@ import {
   Radio,
   RadioGroup,
   FormControlLabel,
+  TextField,
   Button,
   FormControl,
 } from "@mui/material";
-import SelectComponent from "../../../components/SelectComponent";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateEmployee,
-  getEmployeeBySlug,
-  getDepartment,
-} from "../../../actions/admin.action";
+import { updateUser, getUserBySlug } from "../../actions/admin.action";
 import _ from "lodash";
+import moment from "moment";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import swal from "sweetalert";
 
-const UpdateEmployee = () => {
-  const employee = useSelector((state) => state.admin.employee);
-  console.log(employee);
+const EditCustomer = () => {
+  const userInfor = useSelector((state) => state.admin.user);
   const dispatch = useDispatch();
   const id = useParams();
+  useEffect(() => {
+    const handleDetailUser = async () => {
+      await dispatch(getUserBySlug(id.id));
+    };
+    handleDetailUser();
+  }, [dispatch]);
+
+  const history = useHistory();
+
   const {
     control,
     handleSubmit,
@@ -36,48 +46,56 @@ const UpdateEmployee = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-      phone_number: employee.phone_number,
+      firstName: userInfor.firstName,
+      lastName: userInfor.lastName,
+      email: userInfor.email,
+      phone_number: userInfor.phone_number,
     },
   });
 
   const [gender, setGender] = useState();
-  const [selectedDepartment, setSelectedDepartment] = useState();
+  const [birthday, setBirthday] = useState();
   useEffect(() => {
-    if (employee) {
-      setValue("firstName", employee.firstName, "");
-      setValue("lastName", employee.lastName, "");
-      setValue("email", employee.email, "");
-      setValue("phone_number", employee.phone_number, "");
+    if (userInfor) {
+      setValue("firstName", userInfor.firstName, "");
+      setValue("lastName", userInfor.lastName, "");
+      setValue("email", userInfor.email, "");
+      setValue("phone_number", userInfor.phone_number, "");
 
-      setGender(employee.sex);
-      setSelectedDepartment(_.get(employee, "room", ""));
+      setGender(userInfor.sex);
+      //   setBirthday(moment(userInfor.date_of_birth).format("YYYY-MM-DD"));
+      setBirthday(userInfor.date_of_birth);
     }
-  }, [employee]);
+  }, [userInfor]);
+  console.log(birthday);
 
   const onSubmit = (values) => {
-    console.log(values);
-    console.log(selectedDepartment, gender);
-  };
-
-  useEffect(() => {
-    dispatch(getEmployeeBySlug(id.id));
-
-    const getDepartments = async () => {
-      await dispatch(getDepartment());
+    const userToUpdate = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      phone_number: values.phone_number,
+      email: values.email,
+      sex: gender,
+      date_of_birth: birthday,
     };
-    getDepartments();
-  }, [dispatch]);
-  const departments = useSelector((state) => state.admin.department);
-  console.log(departments);
-  // console.log({ gender: gender, department: selectedDepartment });
-
-  const handleUpdate = () => {
-    const employeeUpdate = {};
+    console.log(userToUpdate);
+    dispatch(updateUser(userToUpdate))
+      .then(() => {
+        history.push(slugs.Customer);
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật user thành công!",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật user thất bại!",
+          icon: "warning",
+        });
+      });
   };
-  console.log(selectedDepartment, gender);
 
   const genderList = [
     { id: 1, name: "Male" },
@@ -145,21 +163,29 @@ const UpdateEmployee = () => {
               <Grid item xs={4}>
                 <Typography variant="body1" color="secondary">
                   {" "}
-                  Department
+                  Birthday
                 </Typography>
               </Grid>
               <Grid item xs={7} marginRight="34px">
-                <SelectComponent
-                  dataList={departments}
-                  selectedFieldName="room_name"
-                  selectedFieldValue="room"
-                  selectedItem={selectedDepartment?.room}
-                  setSelectedItem={setSelectedDepartment}
-                  noPlaceholder={true}
-                  multiple={false}
-                  size="small"
-                  width={"100%"}
-                />
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  <DatePicker
+                    openTo="year"
+                    views={["year", "month", "day"]}
+                    inputFormat="dd/MM/yyyy"
+                    value={birthday}
+                    onChange={(newValue) => {
+                      setBirthday(newValue);
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        helperText={null}
+                        size="small"
+                        fullWidth
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
               </Grid>
             </Grid>
             <Grid item xs={5}>
@@ -194,7 +220,6 @@ const UpdateEmployee = () => {
               variant="contained"
               color="primary"
               style={{ margin: "24px" }}
-              // onClick = {() => handleUpdate()}
             >
               {" "}
               Update
@@ -206,4 +231,4 @@ const UpdateEmployee = () => {
   );
 };
 
-export default UpdateEmployee;
+export default EditCustomer;

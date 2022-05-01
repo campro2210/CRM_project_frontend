@@ -13,6 +13,7 @@ import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Customer from "./pages/Customer";
 import CreateCustomer from "./pages/Customer/CreateCustomer";
+import EditCustomer from "./pages/Customer/EditCustomer";
 import Layout from "./Layout";
 import DetailAccount from "./pages/DetailAccount";
 import { ThemeProvider } from "@mui/material/styles";
@@ -120,6 +121,11 @@ function App() {
                 exact
                 path={slugs.CreateCustomer}
                 render={() => <CreateCustomer />}
+              />
+              <PrivateRoute
+                exact
+                path={slugs.EditCustomer}
+                render={() => <EditCustomer />}
               />
               <PrivateRoute
                 exact

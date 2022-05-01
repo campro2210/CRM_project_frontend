@@ -46,7 +46,7 @@ const EditAccount = () => {
       setValue("phone_number", userLogin.phone_number, "");
 
       setGender(userLogin.sex);
-      setSelectedDepartment(userLogin.room._id);
+      setSelectedDepartment(userLogin.room);
     }
   }, [userLogin]);
 

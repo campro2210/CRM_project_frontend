@@ -35,14 +35,19 @@ export default function AdminSignIn() {
       password: data.get("password"),
     };
     dispatch(login(user));
-    // setError(true);
-    // swal({
-    //   title: "Thông báo",
-    //   text: "Đăng nhập không thành công!",
-    //   icon: "warning",
-    // });
+    const token = localStorage.getItem("token");
+    if (token) {
+      history.push(slugs.Home);
+    } else {
+      setError(true);
+      swal({
+        title: "Thông báo",
+        text: "Đăng nhập không thành công!",
+        icon: "warning",
+      });
+    }
   };
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem("token");
   if (token) {
     history.push(slugs.Home);
   }

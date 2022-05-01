@@ -98,7 +98,7 @@ export const getUser = () => {
   };
 };
 
-export const getCustomerBySlug = (_id) => {
+export const getUserBySlug = (_id) => {
   return async (dispatch) => {
     dispatch({ type: adminConstants.ADMIN_GET_USER_BY_SLUG_REQUEST });
     const res = await axios.post(`/admin/get-user/${_id}`);
@@ -161,17 +161,32 @@ export const deleteEmployee = (email) => {
 
 export const updateEmployee = (employee) => {
   return async (dispatch) => {
-    dispatch({ type: adminConstants.ADMIN_UPDATE_EMPLOYEE_REQUEST })
-    const res = await axios.post("/api/admin/update-employee", { ...employee })
+    dispatch({ type: adminConstants.ADMIN_UPDATE_EMPLOYEE_REQUEST });
+    const res = await axios.post("/api/admin/update-employee", { ...employee });
     if (res.status === 200) {
       dispatch({
         type: adminConstants.ADMIN_UPDATE_EMPLOYEE_SUCCESS,
         // payload: res.data
-      })
-    } else (
+      });
+    } else
       dispatch({
         type: adminConstants.ADMIN_UPDATE_EMPLOYEE_FAILURE,
-      })
-    )
+      });
+  };
+};
+
+export const updateUser = (user) => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_UPDATE_USER_REQUEST });
+    const res = await axios.post("/admin/update-user", { ...user });
+    if (res.status === 200) {
+      dispatch({
+        type: adminConstants.ADMIN_UPDATE_USER_SUCCESS,
+        // payload: res.data
+      });
+    } else
+      dispatch({
+        type: adminConstants.ADMIN_UPDATE_USER_FAILURE,
+      });
   };
 };

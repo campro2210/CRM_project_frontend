@@ -6,7 +6,7 @@ import InforField from "../DetailAccount/InforField";
 import { useHistory, useParams } from "react-router-dom";
 import { slugs } from "../../constant/slugs";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomerBySlug, deleteCustomer } from "../../actions/admin.action";
+import { getUserBySlug, deleteCustomer } from "../../actions/admin.action";
 import swal from "sweetalert";
 import moment from "moment";
 
@@ -16,10 +16,10 @@ const DetailCustomer = () => {
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
-    const handleDetailEmployee = async () => {
-      await dispatch(getCustomerBySlug(id.id));
+    const handleDetailUser = async () => {
+      await dispatch(getUserBySlug(id.id));
     };
-    handleDetailEmployee();
+    handleDetailUser();
   }, [dispatch]);
 
   const history = useHistory();
@@ -94,7 +94,10 @@ const DetailCustomer = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Giới tính"} value={dataUser.sex} />
+            <InforField
+              fieldName={"Giới tính"}
+              value={dataUser.sex == 1 ? "Nam" : "Nữ"}
+            />
           </Grid>
           <Grid item xs={5}>
             <InforField
@@ -131,7 +134,7 @@ const DetailCustomer = () => {
         </Grid>
         <Grid item>
           <Button
-            onClick={() => history.push(slugs.EditAccount)}
+            onClick={() => history.push(`/customer/edit/${id.id}`)}
             variant="contained"
             color="primary"
             style={{ margin: "24px" }}

@@ -28,14 +28,14 @@ export default function AdminSignIn() {
   const [error, setError] = useState(false);
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
       email: data.get("email"),
       password: data.get("password"),
     };
     dispatch(login(user));
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
     if (token) {
       history.push(slugs.Home);
     } else {

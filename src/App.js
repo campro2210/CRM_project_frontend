@@ -38,17 +38,17 @@ import { getUserCyclical } from "./actions";
 const socket = io.connect("http://localhost:5000");
 
 function App() {
-  const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
-  let token = window.localStorage.getItem("customer_token")
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  let token = window.localStorage.getItem("customer_token");
   useEffect(() => {
     if (token) {
-      dispatch(getUserCyclical(token))
+      dispatch(getUserCyclical(token));
       // setInterval(function () {
       //   dispatch(getUserCyclical(token))
       // }, 5000);
     }
-  },[])
+  }, []);
 
   const [auth, setAuth] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -64,7 +64,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (window.localStorage.getItem("refresh_token")) {
+    if (window.localStorage.getItem("token")) {
       setAuth(true);
     }
   }, []);

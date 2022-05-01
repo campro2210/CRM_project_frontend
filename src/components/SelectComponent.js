@@ -91,7 +91,7 @@ const SelectComponent = ({
   };
 
   return (
-    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }} required>
+    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }}>
       <Select
         multiple={multiple}
         size={size}

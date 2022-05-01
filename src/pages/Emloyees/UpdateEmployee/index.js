@@ -9,6 +9,7 @@ import {
   RadioGroup,
   FormControlLabel,
   Button,
+  FormControl,
 } from "@mui/material";
 import SelectComponent from "../../../components/SelectComponent";
 import { useForm } from "react-hook-form";
@@ -52,12 +53,13 @@ const UpdateEmployee = () => {
       setValue("phone_number", employee.phone_number, "");
 
       setGender(employee.sex);
-      setSelectedDepartment(_.get(employee, "room._id", ""));
+      setSelectedDepartment(_.get(employee, "room", ""));
     }
   }, [employee]);
 
   const onSubmit = (values) => {
     console.log(values);
+    console.log(selectedDepartment, gender);
   };
 
   useEffect(() => {
@@ -69,12 +71,18 @@ const UpdateEmployee = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-  // console.log(departments)
+  console.log(departments);
   // console.log({ gender: gender, department: selectedDepartment });
 
   const handleUpdate = () => {
     const employeeUpdate = {};
   };
+  console.log(selectedDepartment, gender);
+
+  const genderList = [
+    { id: 1, name: "Male" },
+    { id: 2, name: "Female" },
+  ];
 
   return (
     <>
@@ -144,12 +152,11 @@ const UpdateEmployee = () => {
                 <SelectComponent
                   dataList={departments}
                   selectedFieldName="room_name"
-                  selectedFieldValue="_id"
+                  selectedFieldValue="room"
                   selectedItem={selectedDepartment}
-                  setSelectedItem={(value) => setSelectedDepartment(value)}
-                  defaultValue={selectedDepartment}
-                  onChange
-                  placeholder="Chọn Phòng Ban"
+                  setSelectedItem={setSelectedDepartment}
+                  noPlaceholder
+                  onChange={(e) => console.log(e)}
                   multiple={false}
                   size="small"
                   width={"100%"}
@@ -157,23 +164,26 @@ const UpdateEmployee = () => {
               </Grid>
             </Grid>
             <Grid item xs={5}>
-              <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                value={gender}
-                name="Gender"
-                onChange={(e) => setGender(e.target.value)}
-                row
-              >
-                <FormControlLabel
-                  label="Female"
-                  control={<Radio defaultChecked={gender} value="female" />}
-                />
-                <FormControlLabel
-                  label="Male"
-                  control={<Radio defaultChecked={gender} value="male" />}
-                />
-              </RadioGroup>
+              <FormControl>
+                <FormLabel id="demo-radio-buttons-group-label">
+                  Gender
+                </FormLabel>
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  value={gender ? gender.toString() : ""}
+                  onChange={(e) => setGender(parseInt(e.target.value))}
+                  row
+                >
+                  {genderList.map((item, index) => (
+                    <FormControlLabel
+                      key={index}
+                      label={item.name}
+                      value={item.id}
+                      control={<Radio />}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             </Grid>
           </Grid>
         </Paper>

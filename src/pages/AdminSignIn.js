@@ -28,26 +28,24 @@ export default function AdminSignIn() {
   const [error, setError] = useState(false);
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
       email: data.get("email"),
       password: data.get("password"),
     };
     dispatch(login(user));
-    const token = localStorage.getItem('token')
-    if (token) {
-      history.push(slugs.Home);
-    } else {
-      setError(true);
-      swal({
-        title: "Thông báo",
-        text: "Đăng nhập không thành công!",
-        icon: "warning",
-      });
-    }
+    // setError(true);
+    // swal({
+    //   title: "Thông báo",
+    //   text: "Đăng nhập không thành công!",
+    //   icon: "warning",
+    // });
   };
-
+  const token = localStorage.getItem('token')
+  if (token) {
+    history.push(slugs.Home);
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

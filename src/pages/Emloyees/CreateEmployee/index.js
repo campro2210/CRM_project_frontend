@@ -19,6 +19,8 @@ import { slugs } from "../../../constant/slugs";
 import { getDepartment, createEmployee } from "../../../actions/admin.action";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
+
+
 const CreateEmployee = () => {
   const history = useHistory();
   const departments = useSelector((state) => state.admin.department);
@@ -138,12 +140,10 @@ const CreateEmployee = () => {
               </Grid>
               <Grid item xs={7} marginRight="34px">
                 <SelectComponent
-                  // dataList={departments.forEach = (element =>{
-                  // //  (element.room !== "") ? ((element.room == 1) ? "Marketing" : (element.room == 2) ? "CSKH" : "") :""
-                  // })}
-                  selectedFieldName="name"
-                  selectedFieldValue="room"
-                  selectedItem={selectedDepartment}
+                  dataList={departments}
+                  selectedFieldName="room_name"
+                  selectedFieldValue="_id"
+                  selectedItem={selectedDepartment?.room}
                   setSelectedItem={(value) => setSelectedDepartment(value)}
                   onChange
                   placeholder="Chọn Phòng Ban"
@@ -163,12 +163,12 @@ const CreateEmployee = () => {
                 row
               >
                 <FormControlLabel
-                  value="female"
+                  value={2}
                   control={<Radio />}
                   label="Female"
                 />
                 <FormControlLabel
-                  value="male"
+                  value={1}
                   control={<Radio />}
                   label="Male"
                 />

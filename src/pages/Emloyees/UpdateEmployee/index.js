@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import SelectComponent from "../../../components/SelectComponent";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  updateEmployee,
+  updateEmployee as update,
   getEmployeeBySlug,
   getDepartment,
 } from "../../../actions/admin.action";
@@ -24,7 +24,7 @@ import _ from "lodash";
 
 const UpdateEmployee = () => {
   const employee = useSelector((state) => state.admin.employee);
-  console.log(employee);
+  console.log(employee)
   const dispatch = useDispatch();
   const id = useParams();
   const {
@@ -43,6 +43,9 @@ const UpdateEmployee = () => {
     },
   });
 
+  const history = useHistory()
+
+
   const [gender, setGender] = useState();
   const [selectedDepartment, setSelectedDepartment] = useState();
   useEffect(() => {
@@ -51,15 +54,27 @@ const UpdateEmployee = () => {
       setValue("lastName", employee.lastName, "");
       setValue("email", employee.email, "");
       setValue("phone_number", employee.phone_number, "");
-
       setGender(employee.sex);
-      setSelectedDepartment(_.get(employee, "room", ""));
+      setSelectedDepartment(_.get(employee.room, "_id", ""));
     }
   }, [employee]);
 
   const onSubmit = (values) => {
-    console.log(values);
-    console.log(selectedDepartment, gender);
+    const employeeToUpdate = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phone_number: values.phone_number,
+      sex: gender,
+      room: selectedDepartment,
+    };
+
+    try {
+      dispatch(update(employeeToUpdate))
+      history.push(`/employee`)
+    } catch (error) {
+
+    }
   };
 
   useEffect(() => {
@@ -71,13 +86,12 @@ const UpdateEmployee = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-  console.log(departments);
+
   // console.log({ gender: gender, department: selectedDepartment });
 
   const handleUpdate = () => {
     const employeeUpdate = {};
   };
-  console.log(selectedDepartment, gender);
 
   const genderList = [
     { id: 1, name: "Male" },
@@ -152,10 +166,11 @@ const UpdateEmployee = () => {
                 <SelectComponent
                   dataList={departments}
                   selectedFieldName="room_name"
-                  selectedFieldValue="room"
+                  selectedFieldValue="_id"
                   selectedItem={selectedDepartment?.room}
                   setSelectedItem={setSelectedDepartment}
-                  noPlaceholder={true}
+                  // noPlaceholder={false}
+                  // placeholder={selectedDepartment?.room_name}
                   multiple={false}
                   size="small"
                   width={"100%"}
@@ -194,7 +209,7 @@ const UpdateEmployee = () => {
               variant="contained"
               color="primary"
               style={{ margin: "24px" }}
-              // onClick = {() => handleUpdate()}
+            // onClick = {() => handleUpdate()}
             >
               {" "}
               Update

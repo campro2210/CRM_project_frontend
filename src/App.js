@@ -34,7 +34,7 @@ import VerifyOtp from "./pages/VerifyOtp";
 import DetailUserAccount from "./pages/DetailUserAccount";
 import UpdateUserAccount from "./pages/UpdateUserAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCyclical } from "./actions";
+import { getUserCyclical, getEmployeeByToken } from "./actions";
 
 const socket = io.connect("http://localhost:5000");
 
@@ -42,12 +42,16 @@ function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   let token = window.localStorage.getItem("customer_token");
+  let employee_token = window.localStorage.getItem("token")
   useEffect(() => {
     if (token) {
       dispatch(getUserCyclical(token));
       // setInterval(function () {
       //   dispatch(getUserCyclical(token))
       // }, 5000);
+    }
+    if (employee_token) {
+      dispatch(getEmployeeByToken(employee_token))
     }
   }, []);
 

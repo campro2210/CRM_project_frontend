@@ -35,7 +35,7 @@ const VerifyOtp = () => {
           text: "Đăng kí thành thành công! Giờ hãy đăng nhập bằng tài khoản của bạn",
           icon: "success",
         });
-        history.push("/admin/signin");
+        history.push("/signin");
       })
       .catch(() => {
         swal({
@@ -79,7 +79,7 @@ const VerifyOtp = () => {
               variant="contained"
               fullWidth
               color="primary"
-              onClick={handleSubmit}
+              onClick={() => handleSubmit()}
               paddingTop="10px"
             >
               Submit

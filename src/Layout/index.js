@@ -43,16 +43,16 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open
     ? {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["width", "margin"], {
-          easing: _.get(theme, "transitions.easing.sharp"),
-          duration: _.get(theme, "transitions.duration.enteringScreen"),
-        }),
-      }
-    : {
-        width: `calc(100% - 72px)`,
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: _.get(theme, "transitions.easing.sharp"),
+        duration: _.get(theme, "transitions.duration.enteringScreen"),
       }),
+    }
+    : {
+      width: `calc(100% - 72px)`,
+    }),
   boxShadow: "none",
 }));
 
@@ -99,13 +99,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
+  const admin = "Admin"
   const [open, setOpen] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [notiNumber, setNotiNumber] = useState(0);
 
   const dispatch = useDispatch();
-  const userLogin = useSelector((state) => state.auth.user);
+  const userLogin = useSelector((state) => state.admin).employee;
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -189,9 +190,9 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                                         )}
                                         fontSize={14}
                                       >
-                                        {userLogin.firstName +
-                                          " " +
-                                          userLogin.lastName}
+                                        {
+                                          (userLogin.firstName !== "" || userLogin.lastName !== "") ? `${userLogin.firstName} ${userLogin.lastName}` : `${admin}`
+                                        }
                                       </Typography>
                                     </Grid>
                                   </Grid>

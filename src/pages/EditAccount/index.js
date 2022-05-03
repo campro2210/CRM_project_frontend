@@ -15,6 +15,7 @@ import SelectComponent from "../../components/SelectComponent";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   updateEmployee,
   getEmployeeBySlug,
@@ -23,10 +24,9 @@ import {
 import _ from "lodash";
 
 const EditAccount = () => {
-  const userLogin = useSelector((state) => state.auth.user);
+  const userLogin = useSelector(state => state.admin).employee
   console.log(userLogin);
   const dispatch = useDispatch();
-  const id = useParams();
   const {
     control,
     handleSubmit,
@@ -46,11 +46,21 @@ const EditAccount = () => {
       setValue("phone_number", userLogin.phone_number, "");
 
       setGender(userLogin.sex);
-      setSelectedDepartment(userLogin.room);
+      setSelectedDepartment(_.get(userLogin.room, "_id", ""));
     }
   }, [userLogin]);
 
-  const onSubmit = () => {};
+  const onSubmit = (values) => {
+    const accountUpdate = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phone_number: values.phone_number,
+      sex: gender,
+      room: selectedDepartment,
+    };
+    console.log(accountUpdate)
+  };
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -59,6 +69,11 @@ const EditAccount = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
+  console.log(departments)
+  const genderList = [
+    { id: 1, name: "Nam" },
+    { id: 2, name: "Nữ" },
+  ];
 
   return (
     <>
@@ -75,7 +90,7 @@ const EditAccount = () => {
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
               <FieldInfor
-                label=" FirstName"
+                label="Họ"
                 fieldName="firstName"
                 // value={{...register(employee.firstName)}}
                 control={control}
@@ -83,7 +98,7 @@ const EditAccount = () => {
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
-                label=" Last name"
+                label="Tên"
                 fieldName="lastName"
                 // value={employee.lastName}
                 control={control}
@@ -94,8 +109,8 @@ const EditAccount = () => {
             <Grid item xs={5}>
               <FieldInfor
                 disabled={true}
-                placeholder="abcxyz"
-                label=" Email"
+                placeholder=""
+                label="Email"
                 fieldName="email"
                 control={control}
               />
@@ -103,7 +118,7 @@ const EditAccount = () => {
             <Grid item xs={5}>
               <FieldInfor
                 placeholder="abcxyz"
-                label=" Phone number"
+                label="Điện thoại"
                 fieldName="phone_number"
                 control={control}
               />
@@ -121,18 +136,19 @@ const EditAccount = () => {
               <Grid item xs={4}>
                 <Typography variant="body1" color="secondary">
                   {" "}
-                  Department
+                  Phòng Ban
                 </Typography>
               </Grid>
               <Grid item xs={7} marginRight="34px">
                 <SelectComponent
                   dataList={departments}
-                  selectedFieldName="name"
+                  selectedFieldName="room_name"
                   selectedFieldValue="_id"
                   selectedItem={selectedDepartment}
-                  setSelectedItem={(value) => setSelectedDepartment(value)}
-                  onChange
-                  placeholder="Chọn Phòng Ban"
+                  setSelectedItem={setSelectedDepartment}
+                  defaultValue = {selectedDepartment}
+                  // onChange
+                  // placeholder="Chọn Phòng Ban"
                   multiple={false}
                   size="small"
                   width={"100%"}
@@ -140,25 +156,23 @@ const EditAccount = () => {
               </Grid>
             </Grid>
             <Grid item xs={5}>
-              <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label">Giới tính</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={userLogin.gender}
-                value={gender}
+                value={gender ? gender.toString() : ""}
                 name="gender"
-                onChange={(e) => setGender(e.target.value)}
+                onChange={(e) => setGender(parseInt(e.target.value))}
                 row
               >
-                <FormControlLabel
-                  value="female"
-                  control={<Radio />}
-                  label="Female"
-                />
-                <FormControlLabel
-                  value="male"
-                  control={<Radio />}
-                  label="Male"
-                />
+                {genderList.map((item, index) => (
+                  <FormControlLabel
+                    key={index}
+                    label={item.name}
+                    value={item.id}
+                    control={<Radio />}
+                  />
+                ))}
               </RadioGroup>
             </Grid>
           </Grid>

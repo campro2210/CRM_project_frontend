@@ -17,8 +17,9 @@ import { useSelector } from "react-redux";
 
 const DetailAccount = () => {
   const history = useHistory();
-  const userLogin = useSelector((state) => state.auth);
-  console.log({userLogin: userLogin});
+
+  const data = useSelector(state => state.admin).employee
+
 
   return (
     <>
@@ -49,12 +50,12 @@ const DetailAccount = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"Tên khách hàng"}
-              value={"Huynhf vu haong cam"}
+              fieldName={"Họ và tên"}
+              value={`${data.firstName} ${data.lastName}`}
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Số điện thoại"} value={"09828411427"} />
+            <InforField fieldName={"Điện thoại"} value={data.phone_number} />
           </Grid>
         </Grid>
         <Grid
@@ -64,10 +65,10 @@ const DetailAccount = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"gioi tinh"} value={"nam"} />
+            <InforField fieldName={"Giới tính"} value={(data.sex == 1) ? "Nam" : (data.sex == 2) ? "Nữ" : ""} />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Ngay sinh"} value={"22-10-2000"} />
+            <InforField fieldName={"Email"} value={data.email} />
           </Grid>
         </Grid>
         <Grid
@@ -77,13 +78,7 @@ const DetailAccount = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField
-              fieldName={"dia chi"}
-              value={"12 nguyen van bao, TPHCM"}
-            />
-          </Grid>
-          <Grid item xs={5}>
-            <InforField fieldName={"email"} value={"Huynh Vu Hoang Cam"} />
+            <InforField fieldName={"Phòng ban"} value={(data.room) ? data.room.room_name : ""} />
           </Grid>
         </Grid>
       </Paper>

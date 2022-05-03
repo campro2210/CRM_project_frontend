@@ -18,6 +18,7 @@ import { createUser } from "../../actions/admin.action";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
+import moment from "moment";
 
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
@@ -43,14 +44,18 @@ const CreateCustomer = () => {
   });
 
   const onSubmit = (values) => {
+    const dateOfBirth = moment(birthDay).format("YYYY-MM-DD")
     const newCustomer = {
       firstName: values.firstName,
       lastName: values.lastName,
       email: values.email,
-      phone: values.phone_number,
+      phone_number: values.phone_number,
       password: values.password,
+      address: values.address,
+      date_of_birth: dateOfBirth,
       sex: sex,
     };
+    // console.log(dateOfBirth)
     dispatch(createUser(newCustomer))
       .then(() => {
         swal({
@@ -109,12 +114,30 @@ const CreateCustomer = () => {
               />
             </Grid>
           </Grid>
+
+
           <Grid
             direction="row"
             container
             justifyContent="space-between"
             marginBottom="12px"
           >
+            <Grid item xs={5}>
+              <FieldInfor
+                label="Address"
+                fieldName="address"
+                control={control}
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <FieldInfor
+                label="Password"
+                fieldName="password"
+                control={control}
+              />
+            </Grid>
+          </Grid>
+          <Grid direction="row" container justifyContent="space-between">
             <Grid
               item
               container
@@ -160,25 +183,16 @@ const CreateCustomer = () => {
                 row
               >
                 <FormControlLabel
-                  value="female"
+                  value="2"
                   control={<Radio />}
                   label="Female"
                 />
                 <FormControlLabel
-                  value="male"
+                  value="1"
                   control={<Radio />}
                   label="Male"
                 />
               </RadioGroup>
-            </Grid>
-          </Grid>
-          <Grid direction="row" container justifyContent="space-between">
-            <Grid item xs={5}>
-              <FieldInfor
-                label="Password"
-                fieldName="password"
-                control={control}
-              />
             </Grid>
             <Grid item xs={5}></Grid>
           </Grid>

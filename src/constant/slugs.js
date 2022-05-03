@@ -18,8 +18,8 @@ export const slugs = {
   DetailEmployee: "/employee/detail/:id",
   UpdateEmployee: "/employee/update/:id",
 
-  DetailAccount: "/account/detail/:id",
-  EditAccount: "/account/edit/:id",
+  DetailAccount: "/account/detail",
+  EditAccount: "/account/edit",
 
   CustomerQuestion: "/feedback",
 

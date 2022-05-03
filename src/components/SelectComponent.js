@@ -44,6 +44,7 @@ const SelectComponent = ({
   selectedFieldValue = "name",
   selectedFieldName = "name",
   defaultValue,
+  displayEmpty,
   padding,
   disabled = false,
   fullwidth = false,
@@ -86,18 +87,17 @@ const SelectComponent = ({
     if (value === placeholder) {
       multiple ? setSelectedItem([]) : setSelectedItem();
     }
-    // setSelectedItem(typeof value === "string" ? value.split(",") : value);
     else setSelectedItem(value);
   };
 
   return (
-    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }} required>
+    <FormControl sx={{ margin: 0, width: fullwidth ? "100%" : width }}>
       <Select
         multiple={multiple}
+        displayEmpty
         size={size}
         style={style}
         defaultValue={defaultValue}
-        displayEmpty
         value={selectedItem}
         onChange={handleChange}
         input={<OutlinedInput />}

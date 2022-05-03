@@ -15,11 +15,11 @@ const rightLink = {
 };
 
 function AppBar() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
-  const customer = localStorage.getItem("customer")
+  const customer = localStorage.getItem("customer");
   const handleLoggout = () => {
-    dispatch(user_signOut())
+    dispatch(user_signOut());
     history.push("/");
   };
   return (
@@ -65,7 +65,7 @@ function AppBar() {
                   onClick={() => history.push("/user/:id")}
                   marginRight="24px"
                 >
-                  {`Hello, ${(JSON.parse(customer)).fullName}`}
+                  {`Hello, ${JSON.parse(customer).fullName}`}
                 </Typography>
                 <Typography
                   variant="h5"

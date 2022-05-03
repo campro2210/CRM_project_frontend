@@ -53,7 +53,7 @@ const UpdateEmployee = () => {
       setValue("phone_number", employee.phone_number, "");
 
       setGender(employee.sex);
-      setSelectedDepartment(_.get(employee, "room", ""));
+      setSelectedDepartment(_.get(employee, "room._id"));
     }
   }, [employee]);
 
@@ -72,8 +72,7 @@ const UpdateEmployee = () => {
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
   console.log(departments);
-  // console.log({ gender: gender, department: selectedDepartment });
-
+  console.log(typeof selectedDepartment);
   const handleUpdate = () => {
     const employeeUpdate = {};
   };
@@ -152,11 +151,11 @@ const UpdateEmployee = () => {
                 <SelectComponent
                   dataList={departments}
                   selectedFieldName="room_name"
-                  selectedFieldValue="room"
-                  selectedItem={selectedDepartment?.room}
-                  setSelectedItem={setSelectedDepartment}
-                  noPlaceholder={true}
-                  multiple={false}
+                  selectedFieldValue="_id"
+                  selectedItem={selectedDepartment}
+                  setSelectedItem={(value) => setSelectedDepartment(value)}
+                  defaultValue={selectedDepartment}
+                  onChange
                   size="small"
                   width={"100%"}
                 />

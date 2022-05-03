@@ -17,8 +17,10 @@ import { useSelector } from "react-redux";
 
 const DetailAccount = () => {
   const history = useHistory();
+
+  const data = localStorage.getItem("employee");
   const userLogin = useSelector((state) => state.auth);
-  console.log({userLogin: userLogin});
+  console.log(data);
 
   return (
     <>
@@ -49,12 +51,12 @@ const DetailAccount = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"Tên khách hàng"}
-              value={"Huynhf vu haong cam"}
+              fieldName={"Tên nhân viên"}
+              value={data.firstName + data.lastName}
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Số điện thoại"} value={"09828411427"} />
+            <InforField fieldName={"Số điện thoại"} value={data.phone_number} />
           </Grid>
         </Grid>
         <Grid
@@ -64,10 +66,10 @@ const DetailAccount = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"gioi tinh"} value={"nam"} />
+            <InforField fieldName={"Giới tính"} value={"nam"} />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Ngay sinh"} value={"22-10-2000"} />
+            <InforField fieldName={"Ngày sinh"} value={"22-10-2000"} />
           </Grid>
         </Grid>
         <Grid

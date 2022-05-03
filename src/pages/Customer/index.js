@@ -25,6 +25,20 @@ const Customer = () => {
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
+<<<<<<< HEAD
+    if (users) {
+      setDataTable(
+        users.map((item, index) => ({
+          _id: item._id,
+          id: index + 1,
+          name: item.firstName + " " + item.lastName,
+          email: item.email,
+          phoneNumber: item.phone_number,
+          birthday: moment(item.date_of_birth).format("DD-MM-YYYY"),
+        }))
+      );
+    }
+=======
     setDataTable(
       users.map((item, index) => ({
         _id: item._id,
@@ -37,6 +51,7 @@ const Customer = () => {
 
       }))
     );
+>>>>>>> 2792b1b18f001ee25cec13ff162bbfc3e972790a
   }, [users]);
   console.log(dataTable);
 

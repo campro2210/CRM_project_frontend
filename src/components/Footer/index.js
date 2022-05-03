@@ -3,6 +3,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import { Container, TextField, Typography } from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
 
 function Copyright() {
   return (
@@ -52,90 +57,84 @@ export default function Footer() {
             <Grid
               container
               direction="column"
-              justifyContent="flex-end"
+              justifyContent="flex-start"
               spacing={2}
               sx={{ height: 120 }}
             >
               <Grid item sx={{ display: "flex" }}>
-                <Box component="a" href="https://mui.com/" sx={iconStyle}>
-                  <img
-                    src="/static/themes/onepirate/appFooterFacebook.png"
-                    alt="Facebook"
-                  />
-                </Box>
-                <Box
-                  component="a"
-                  href="https://twitter.com/MUI_hq"
-                  sx={iconStyle}
-                >
-                  <img src="../assets/image/twitter.svg" alt="Twitter" />
-                </Box>
-              </Grid>
-              <Grid item>
-                <Copyright />
+                <FacebookIcon color="primary" style={{ fontSize: "44px" }} />
+                <TwitterIcon
+                  color="primary"
+                  style={{
+                    fontSize: "44px",
+                    "& :hover": { cursor: "pointer" },
+                  }}
+                />
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Legal
+          <Grid item xs={6} sm={4} md={3} container direction="column" gap={1}>
+            <Typography variant="h5" marked="left" gutterBottom>
+              Contact
             </Typography>
-            <Box component="ul" sx={{ m: 0, listStyle: "none", p: 0 }}>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/terms/">Terms</Link>
-              </Box>
-              <Box component="li" sx={{ py: 0.5 }}>
-                <Link href="/premium-themes/onepirate/privacy/">Privacy</Link>
-              </Box>
-            </Box>
-          </Grid>
-          <Grid item xs={6} sm={8} md={4}>
-            <Typography variant="h6" marked="left" gutterBottom>
-              Language
-            </Typography>
-            <TextField
-              select
-              size="medium"
-              variant="standard"
-              SelectProps={{
-                native: true,
-              }}
-              sx={{ mt: 1, width: 150 }}
+            <Grid
+              item
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              gap={1}
             >
-              {LANGUAGES.map((language) => (
-                <option value={language.code} key={language.code}>
-                  {language.name}
-                </option>
-              ))}
-            </TextField>
+              <Grid item xs="auto">
+                <PhoneIcon color="primary" />
+              </Grid>
+              <Grid item xs={8}>
+                <Typography variant="subtitle" color="gray">
+                  + (84) 0982841427
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid
+              item
+              container
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              gap={1}
+            >
+              <Grid item xs="auto">
+                <EmailIcon color="primary" />
+              </Grid>
+              <Grid item xs={8}>
+                <Typography variant="subtitle" color="gray">
+                  hoangcam2000@gmail.com
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid
+              item
+              container
+              direction="row"
+              justifyContent="flex-start"
+              // alignItems="center"
+              gap={1}
+            >
+              <Grid item xs="auto">
+                <LocationOnIcon color="primary" />
+              </Grid>
+              <Grid item xs={8}>
+                <Typography variant="subtitle" color="gray">
+                  12 Nguyen Van Bao, Ward 4, Go Vap Distrisct, TPHCM City
+                </Typography>
+              </Grid>
+            </Grid>
           </Grid>
+          <Grid item xs={6} sm={8} md={4}></Grid>
           <Grid item>
             <Typography variant="caption">
-              {"Icons made by "}
-              <Link
-                href="https://www.freepik.com"
-                rel="sponsored"
-                title="Freepik"
-              >
-                Freepik
-              </Link>
-              {" from "}
-              <Link
-                href="https://www.flaticon.com"
-                rel="sponsored"
-                title="Flaticon"
-              >
-                www.flaticon.com
-              </Link>
-              {" is licensed by "}
-              <Link
-                href="https://creativecommons.org/licenses/by/3.0/"
-                title="Creative Commons BY 3.0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CC 3.0 BY
-              </Link>
+              The Website was build by Van Minh Hoang & Huynh Vu Hoang Cam
             </Typography>
           </Grid>
         </Grid>

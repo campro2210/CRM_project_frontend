@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { Button, Container, Typography, Grid, TextField } from "@mui/material";
 
@@ -11,19 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { userSendMail } from "../actions/user.actions";
 
 const Landing = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [feedback, setFeedback] = useState({
     email: "",
     title: "",
     message: "",
   });
   const handleSubmit = (e) => {
-    dispatch(userSendMail(feedback))
+    dispatch(userSendMail(feedback));
     setFeedback({
       ...feedback,
       title: "",
       message: "",
-    })
+    });
   };
   return (
     <>
@@ -105,7 +105,11 @@ const Landing = () => {
           marginTop="24px"
         >
           <Grid item>
-            <Button variant="contained" color="primary" onClick={(e) => handleSubmit(e)}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={(e) => handleSubmit(e)}
+            >
               Submit
             </Button>
           </Grid>

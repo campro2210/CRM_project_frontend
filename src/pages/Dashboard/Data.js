@@ -1,4 +1,4 @@
-export const UserData = [
+export const BarData = [
   {
     id: 1,
     year: 2016,
@@ -30,3 +30,5 @@ export const UserData = [
     userLost: 234,
   },
 ];
+
+export const lineData = [65, 59, 80, 81, 56, 55, 40];

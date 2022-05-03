@@ -25,7 +25,9 @@ import DatePicker from "@mui/lab/DatePicker";
 import swal from "sweetalert";
 
 const EditCustomer = () => {
+  const [birthDay, setBirthDay] = useState();
   const userInfor = useSelector((state) => state.admin.user);
+  console.log(userInfor)
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
@@ -50,6 +52,7 @@ const EditCustomer = () => {
       lastName: userInfor.lastName,
       email: userInfor.email,
       phone_number: userInfor.phone_number,
+      address: userInfor.address
     },
   });
 
@@ -61,6 +64,7 @@ const EditCustomer = () => {
       setValue("lastName", userInfor.lastName, "");
       setValue("email", userInfor.email, "");
       setValue("phone_number", userInfor.phone_number, "");
+      setValue("address", userInfor.address, "");
 
       setGender(userInfor.sex);
       //   setBirthday(moment(userInfor.date_of_birth).format("YYYY-MM-DD"));
@@ -70,13 +74,16 @@ const EditCustomer = () => {
   console.log(birthday);
 
   const onSubmit = (values) => {
+    const dateOfBirth = moment(birthDay).format("YYYY-MM-DD")
+
     const userToUpdate = {
       firstName: values.firstName,
       lastName: values.lastName,
       phone_number: values.phone_number,
       email: values.email,
+      address: values.address,
       sex: gender,
-      date_of_birth: birthday,
+      date_of_birth: dateOfBirth,
     };
     console.log(userToUpdate);
     dispatch(updateUser(userToUpdate))
@@ -98,8 +105,8 @@ const EditCustomer = () => {
   };
 
   const genderList = [
-    { id: 1, name: "Male" },
-    { id: 2, name: "Female" },
+    { id: 1, name: "Nam" },
+    { id: 2, name: "Nữ" },
   ];
 
   return (
@@ -107,7 +114,7 @@ const EditCustomer = () => {
       <Grid style={{ padding: "30px", marginLeft: "24px" }}>
         <Typography variant="h4" color="secondary">
           {" "}
-          Chỉnh sửa thông tin cá nhân
+          Chỉnh sửa thông tin cá nhânnn
         </Typography>
       </Grid>
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -117,7 +124,7 @@ const EditCustomer = () => {
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
               <FieldInfor
-                label=" FirstName"
+                label="Họ"
                 fieldName="firstName"
                 // value={{...register(employee.firstName)}}
                 control={control}
@@ -125,7 +132,7 @@ const EditCustomer = () => {
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
-                label=" Last name"
+                label="Tên"
                 fieldName="lastName"
                 // value={employee.lastName}
                 control={control}
@@ -136,62 +143,34 @@ const EditCustomer = () => {
             <Grid item xs={5}>
               <FieldInfor
                 disabled={true}
-                placeholder="abcxyz"
-                label=" Email"
+                placeholder=""
+                label="Email"
                 fieldName="email"
                 control={control}
               />
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
-                placeholder="abcxyz"
-                label=" Phone number"
+                placeholder=""
+                label="Điện thoại"
                 fieldName="phone_number"
                 control={control}
               />
             </Grid>
           </Grid>
           <Grid direction="row" container justifyContent="space-between">
-            <Grid
-              item
-              xs={5}
-              container
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Grid item xs={4}>
-                <Typography variant="body1" color="secondary">
-                  {" "}
-                  Birthday
-                </Typography>
-              </Grid>
-              <Grid item xs={7} marginRight="34px">
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                  <DatePicker
-                    openTo="year"
-                    views={["year", "month", "day"]}
-                    inputFormat="dd/MM/yyyy"
-                    value={birthday}
-                    onChange={(newValue) => {
-                      setBirthday(newValue);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        helperText={null}
-                        size="small"
-                        fullWidth
-                      />
-                    )}
-                  />
-                </LocalizationProvider>
-              </Grid>
+            <Grid item xs={5}>
+              <FieldInfor
+                placeholder=""
+                label="Địa chỉ"
+                fieldName="address"
+                control={control}
+              />
             </Grid>
             <Grid item xs={5}>
               <FormControl>
                 <FormLabel id="demo-radio-buttons-group-label">
-                  Gender
+                  Giới tính
                 </FormLabel>
                 <RadioGroup
                   aria-labelledby="demo-radio-buttons-group-label"
@@ -209,6 +188,47 @@ const EditCustomer = () => {
                   ))}
                 </RadioGroup>
               </FormControl>
+            </Grid>
+          </Grid>
+
+          <Grid direction="row" container justifyContent="space-between">
+            <Grid direction="row" container justifyContent="space-between">
+              <Grid
+                item
+                container
+                direction="row"
+                justifyContent="space-between"
+                xs={5}
+                alignItems="center"
+              >
+                <Grid item xs={4}>
+                  <Typography variant="body1" color="secondary">
+                    Birthday
+                  </Typography>
+                </Grid>
+                <Grid item xs={7} marginRight="36px">
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      openTo="year"
+                      views={["year", "month", "day"]}
+                      inputFormat="dd/MM/yyyy"
+                      value={birthDay}
+                      onChange={(newValue) => {
+                        setBirthDay(newValue);
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          helperText={null}
+                          size="small"
+                          fullWidth
+                        />
+                      )}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+              </Grid>
+              <Grid item xs={5}></Grid>
             </Grid>
           </Grid>
         </Paper>

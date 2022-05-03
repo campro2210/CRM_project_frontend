@@ -9,6 +9,7 @@ const initState = {
   loading: false,
   error: false,
   message: "",
+  feedbacks: []
 };
 
 export default (state = initState, action) => {
@@ -24,6 +25,20 @@ export default (state = initState, action) => {
         loading: false,
         employees: action.payload.Employee,
       });
+
+    case adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      });
+    case adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_SUCCESS:
+      return (state = {
+        ...state,
+        loading: false,
+        employee: action.payload.employeeFind,
+      });
+
+
     case adminConstants.ADMIN_GET_DEPARTMENT_REQUEST:
       return (state = {
         ...state,
@@ -62,6 +77,7 @@ export default (state = initState, action) => {
         loading: true,
       });
     case adminConstants.ADMIN_GET_USER_SUCCESS:
+      console.log(action.payload)
       return (state = {
         ...state,
         users: action.payload,
@@ -109,6 +125,18 @@ export default (state = initState, action) => {
         ...state,
         loading: false,
       });
+
+    case adminConstants.ADMIN_LOAD_FEEDBACK_REQUEST:
+      return(state ={
+        ...state,
+        loading: true
+      })
+      case adminConstants.ADMIN_LOAD_FEEDBACK_SUCCESS:
+        return(state ={
+          ...state,
+          loading: false,
+          feedbacks: action.payload
+        })
     default:
       return state;
   }

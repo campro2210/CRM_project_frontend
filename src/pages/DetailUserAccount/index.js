@@ -12,8 +12,6 @@ const DetailUserAccount = () => {
   const user = useSelector(state => (state.user))
   const data = user.user
   const dateOfBirth = data.date_of_birth
-  // console.log(moment(dateOfBirth).format("YYYY-MM-DD"))
-  // const dateOfBirth = (data && data !== null) ? (data.date_of_birth).split("T")[0] : data.date_of_birth
   return (
     <>
       <AppBar />

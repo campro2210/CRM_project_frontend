@@ -107,7 +107,7 @@ const DetailEmployee = () => {
             <InforField
               fieldName={"Giới tính"}
               value={
-                (dataEmployee.sex == 1) ? "Male" : (dataEmployee.sex == 2) ? "Female" : ""
+                (dataEmployee.sex == 1) ? "Nam" : (dataEmployee.sex == 2) ? "Nữ" : ""
               }
             />
           </Grid>

@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import SelectComponent from "../../../components/SelectComponent";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  updateEmployee,
+  updateEmployee as update,
   getEmployeeBySlug,
   getDepartment,
 } from "../../../actions/admin.action";
@@ -43,6 +43,8 @@ const UpdateEmployee = () => {
     },
   });
 
+  const history = useHistory();
+
   const [gender, setGender] = useState();
   const [selectedDepartment, setSelectedDepartment] = useState();
   useEffect(() => {
@@ -51,15 +53,25 @@ const UpdateEmployee = () => {
       setValue("lastName", employee.lastName, "");
       setValue("email", employee.email, "");
       setValue("phone_number", employee.phone_number, "");
-
       setGender(employee.sex);
       setSelectedDepartment(_.get(employee, "room._id"));
     }
   }, [employee]);
 
   const onSubmit = (values) => {
-    console.log(values);
-    console.log(selectedDepartment, gender);
+    const employeeToUpdate = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      email: values.email,
+      phone_number: values.phone_number,
+      sex: gender,
+      room: selectedDepartment,
+    };
+
+    try {
+      dispatch(update(employeeToUpdate));
+      history.push(`/employee`);
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -76,7 +88,6 @@ const UpdateEmployee = () => {
   const handleUpdate = () => {
     const employeeUpdate = {};
   };
-  console.log(selectedDepartment, gender);
 
   const genderList = [
     { id: 1, name: "Male" },

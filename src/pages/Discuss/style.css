@@ -54,8 +54,8 @@ body {
 }
 
 .chat-window {
-    width: 300px;
-    height: 420px;
+    width: 900px;
+    height: 700px;
 }
 
 .chat-window p {
@@ -64,7 +64,9 @@ body {
 
 .chat-window .chat-header {
     height: 45px;
-    border-radius: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
     background: #263238;
     position: relative;
     cursor: pointer;
@@ -79,7 +81,7 @@ body {
 }
 
 .chat-window .chat-body {
-    height: calc(450px - (45px + 70px));
+    height: calc(700px - (45px + 70px));
     border: 1px solid #263238;
     background: #fff;
 
@@ -107,7 +109,7 @@ body {
     width: auto;
     height: auto;
     min-height: 40px;
-    max-width: 120px;
+    max-width: 200px;
     background-color: #43a047;
     border-radius: 5px;
     color: white;
@@ -115,8 +117,8 @@ body {
     align-items: center;
     margin-right: 5px;
     margin-left: 5px;
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
     overflow-wrap: break-word;
     word-break: break-word;
 }

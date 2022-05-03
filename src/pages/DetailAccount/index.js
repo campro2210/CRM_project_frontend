@@ -18,9 +18,7 @@ import { useSelector } from "react-redux";
 const DetailAccount = () => {
   const history = useHistory();
 
-  const data = localStorage.getItem("employee");
-  const userLogin = useSelector((state) => state.auth);
-  console.log(data);
+  const data = useSelector((state) => state.admin).employee;
 
   return (
     <>
@@ -51,25 +49,12 @@ const DetailAccount = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"Tên nhân viên"}
-              value={data.firstName + data.lastName}
+              fieldName={"Họ và tên"}
+              value={`${data.firstName} ${data.lastName}`}
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"Số điện thoại"} value={data.phone_number} />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          style={{ marginBottom: " 24px" }}
-        >
-          <Grid item xs={5}>
-            <InforField fieldName={"Giới tính"} value={"nam"} />
-          </Grid>
-          <Grid item xs={5}>
-            <InforField fieldName={"Ngày sinh"} value={"22-10-2000"} />
+            <InforField fieldName={"Điện thoại"} value={data.phone_number} />
           </Grid>
         </Grid>
         <Grid
@@ -80,12 +65,25 @@ const DetailAccount = () => {
         >
           <Grid item xs={5}>
             <InforField
-              fieldName={"dia chi"}
-              value={"12 nguyen van bao, TPHCM"}
+              fieldName={"Giới tính"}
+              value={data.sex == 1 ? "Nam" : data.sex == 2 ? "Nữ" : ""}
             />
           </Grid>
           <Grid item xs={5}>
-            <InforField fieldName={"email"} value={"Huynh Vu Hoang Cam"} />
+            <InforField fieldName={"Email"} value={data.email} />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          style={{ marginBottom: " 24px" }}
+        >
+          <Grid item xs={5}>
+            <InforField
+              fieldName={"Phòng ban"}
+              value={data.room ? data.room.room_name : ""}
+            />
           </Grid>
         </Grid>
       </Paper>

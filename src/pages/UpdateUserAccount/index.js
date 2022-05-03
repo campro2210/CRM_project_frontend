@@ -8,18 +8,34 @@ import {
   FormLabel,
   Radio,
   RadioGroup,
+  TextField,
+  FormControl,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import FieldInfor from "../EditAccount/FieldInfor";
+import moment from "moment";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
 
 const UpdateUserAccount = () => {
+  const genderList = [
+    { id: 1, name: "Nam" },
+    { id: 2, name: "Nữ" },
+  ];
+  const [birthday, setBirthday] = useState();
+
+  const data = useSelector((state) => state.user.user);
+
   const [gender, setGender] = useState();
+  const history = useHistory();
+
   const {
     control,
     handleSubmit,
@@ -27,11 +43,42 @@ const UpdateUserAccount = () => {
     setValue,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone_number: data.phone_number,
+      address: data.address,
+    },
   });
 
+  useEffect(() => {
+    if (data) {
+      setValue("firstName", data.firstName, "");
+      setValue("lastName", data.lastName, "");
+      setValue("email", data.email, "");
+      setValue("phone_number", data.phone_number, "");
+      setValue("address", data.address, "");
+
+      setGender(data.sex);
+      //   setBirthday(moment(userInfor.date_of_birth).format("YYYY-MM-DD"));
+      setBirthday(data.date_of_birth);
+    }
+  }, [data]);
+
   const onSubmit = (values) => {
-    console.log(values);
+    const dateOfBirth = moment(birthday).format("YYYY-MM-DD");
+
+    const userToUpdate = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      phone_number: values.phone_number,
+      email: values.email,
+      address: values.address,
+      sex: gender,
+      date_of_birth: dateOfBirth,
+    };
+    console.log({ userToUpdate });
   };
   return (
     <>
@@ -99,32 +146,52 @@ const UpdateUserAccount = () => {
                 >
                   <Grid item xs={4}>
                     <Typography variant="body1" color="secondary">
-                      {" "}
-                      Department
+                      Birthday
                     </Typography>
                   </Grid>
-                  <Grid item xs={7} marginRight="34px"></Grid>
+                  <Grid item xs={7} marginRight="36px">
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                      <DatePicker
+                        openTo="year"
+                        views={["year", "month", "day"]}
+                        inputFormat="dd/MM/yyyy"
+                        value={birthday}
+                        onChange={(newValue) => {
+                          setBirthday(newValue);
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            helperText={null}
+                            size="small"
+                            fullWidth
+                          />
+                        )}
+                      />
+                    </LocalizationProvider>
+                  </Grid>
                 </Grid>
                 <Grid item xs={5}>
-                  <FormLabel id="demo-radio-buttons-group-label">
-                    Gender
-                  </FormLabel>
-                  <RadioGroup
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    value={gender}
-                    name="Gender"
-                    onChange={(e) => setGender(e.target.value)}
-                    row
-                  >
-                    <FormControlLabel
-                      label="Female"
-                      control={<Radio defaultChecked={gender} value="female" />}
-                    />
-                    <FormControlLabel
-                      label="Male"
-                      control={<Radio defaultChecked={gender} value="male" />}
-                    />
-                  </RadioGroup>
+                  <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">
+                      Giới tính
+                    </FormLabel>
+                    <RadioGroup
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      value={gender ? gender.toString() : ""}
+                      onChange={(e) => setGender(parseInt(e.target.value))}
+                      row
+                    >
+                      {genderList.map((item, index) => (
+                        <FormControlLabel
+                          key={index}
+                          label={item.name}
+                          value={item.id}
+                          control={<Radio />}
+                        />
+                      ))}
+                    </RadioGroup>
+                  </FormControl>
                 </Grid>
               </Grid>
             </Grid>

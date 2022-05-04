@@ -10,17 +10,16 @@ export default function BackgroundSection() {
     <BackgroundSectionLayout
       sxBackground={{
         backgroundImage: `url(${backgroundImage})`,
-        backgroundColor: "#7fc7d9", // Average color of the background image.
+        backgroundColor: "#7fc7d9",
         backgroundPosition: "center",
       }}
     >
-      {/* Increase the network loading priority of the background image. */}
-      <img
+      {/* <img
         style={{ display: "none" }}
         src={backgroundImage}
         alt="increase priority"
-      />
-      <Typography color="inherit" align="center" variant="h2" marked="center">
+      /> */}
+      {/* <Typography color="inherit" align="center" variant="h2" marked="center">
         Start your startup step by step
       </Typography>
       <Typography
@@ -31,17 +30,7 @@ export default function BackgroundSection() {
       >
         Discover the solution to help you increase your revenue by at least 20%,
         save 30% in cost and processing time!
-      </Typography>
-      <Button
-        color="secondary"
-        variant="contained"
-        size="large"
-        component="a"
-        href="/sign-up"
-        sx={{ minWidth: 200 }}
-      >
-        Register now
-      </Button>
+      </Typography> */}
     </BackgroundSectionLayout>
   );
 }

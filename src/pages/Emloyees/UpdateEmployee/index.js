@@ -24,7 +24,7 @@ import _ from "lodash";
 
 const UpdateEmployee = () => {
   const employee = useSelector((state) => state.admin.employee);
-  console.log(employee)
+  console.log(employee);
   const dispatch = useDispatch();
   const id = useParams();
   const {
@@ -43,8 +43,7 @@ const UpdateEmployee = () => {
     },
   });
 
-  const history = useHistory()
-
+  const history = useHistory();
 
   const [gender, setGender] = useState();
   const [selectedDepartment, setSelectedDepartment] = useState();
@@ -55,7 +54,7 @@ const UpdateEmployee = () => {
       setValue("email", employee.email, "");
       setValue("phone_number", employee.phone_number, "");
       setGender(employee.sex);
-      setSelectedDepartment(_.get(employee.room, "_id", ""));
+      setSelectedDepartment(_.get(employee, "room._id"));
     }
   }, [employee]);
 
@@ -70,11 +69,9 @@ const UpdateEmployee = () => {
     };
 
     try {
-      dispatch(update(employeeToUpdate))
-      history.push(`/employee`)
-    } catch (error) {
-
-    }
+      dispatch(update(employeeToUpdate));
+      history.push(`/employee`);
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -86,9 +83,8 @@ const UpdateEmployee = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-
-  // console.log({ gender: gender, department: selectedDepartment });
-
+  console.log(departments);
+  console.log(typeof selectedDepartment);
   const handleUpdate = () => {
     const employeeUpdate = {};
   };
@@ -167,11 +163,10 @@ const UpdateEmployee = () => {
                   dataList={departments}
                   selectedFieldName="room_name"
                   selectedFieldValue="_id"
-                  selectedItem={selectedDepartment?.room}
-                  setSelectedItem={setSelectedDepartment}
-                  // noPlaceholder={false}
-                  // placeholder={selectedDepartment?.room_name}
-                  multiple={false}
+                  selectedItem={selectedDepartment}
+                  setSelectedItem={(value) => setSelectedDepartment(value)}
+                  defaultValue={selectedDepartment}
+                  onChange
                   size="small"
                   width={"100%"}
                 />
@@ -209,7 +204,7 @@ const UpdateEmployee = () => {
               variant="contained"
               color="primary"
               style={{ margin: "24px" }}
-            // onClick = {() => handleUpdate()}
+              // onClick = {() => handleUpdate()}
             >
               {" "}
               Update

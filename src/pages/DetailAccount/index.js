@@ -18,8 +18,7 @@ import { useSelector } from "react-redux";
 const DetailAccount = () => {
   const history = useHistory();
 
-  const data = useSelector(state => state.admin).employee
-
+  const data = useSelector((state) => state.admin).employee;
 
   return (
     <>
@@ -65,7 +64,10 @@ const DetailAccount = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Giới tính"} value={(data.sex == 1) ? "Nam" : (data.sex == 2) ? "Nữ" : ""} />
+            <InforField
+              fieldName={"Giới tính"}
+              value={data.sex == 1 ? "Nam" : data.sex == 2 ? "Nữ" : ""}
+            />
           </Grid>
           <Grid item xs={5}>
             <InforField fieldName={"Email"} value={data.email} />
@@ -78,7 +80,10 @@ const DetailAccount = () => {
           style={{ marginBottom: " 24px" }}
         >
           <Grid item xs={5}>
-            <InforField fieldName={"Phòng ban"} value={(data.room) ? data.room.room_name : ""} />
+            <InforField
+              fieldName={"Phòng ban"}
+              value={data.room ? data.room.room_name : ""}
+            />
           </Grid>
         </Grid>
       </Paper>

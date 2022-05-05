@@ -21,26 +21,30 @@ const FeedbackCard = (props) => {
   }));
 
   const classes = useStyles();
-  const { typeFeedback, created, handleDetail } = props;
+  const { typeFeedback, created, handleDetail, handleDelete } = props;
   return (
     <>
       <Grid
         direction="row"
         container
         xs={12}
-        borderBottom="1px dashed #ccc"
+        border="1px solid #ccc"
+        style={{
+          "& :hover": { cursor: "pointer" },
+          borderRadius: "12px",
+          marginBottom: "8px",
+        }}
         padding="24px"
         justifyContent="space-between"
-        onClick={handleDetail}
       >
-        <Grid item xs={6}>
-          <Typography color="secondary" variant="body2">
+        <Grid item xs={6} onClick={handleDetail}>
+          <Typography color="secondary" variant="h5">
             {" "}
             {typeFeedback}
           </Typography>
         </Grid>
         <Grid item xs={2}>
-          <Typography color="primary" variant="subtitle2">
+          <Typography color="secondary" variant="subtitle2">
             {created}
           </Typography>
         </Grid>
@@ -53,10 +57,10 @@ const FeedbackCard = (props) => {
           xs={3}
         >
           <Grid item xs={4}>
-            <ReplyIcon className={classes.icon} />
-          </Grid>
-          <Grid item xs={4}>
-            <DeleteForeverIcon className={classes.icon} />
+            <DeleteForeverIcon
+              className={classes.icon}
+              onClick={handleDelete}
+            />
           </Grid>
         </Grid>
       </Grid>

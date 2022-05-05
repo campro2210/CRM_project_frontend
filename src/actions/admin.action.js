@@ -22,7 +22,7 @@ export const getDepartment = () => {
     dispatch({ type: adminConstants.ADMIN_GET_DEPARTMENT_REQUEST });
     const res = await axios.get("/admin/get-department");
     if (res.status === 200) {
-      console.log(res.data)
+      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_DEPARTMENT_SUCCESS,
         payload: res.data,
@@ -34,7 +34,7 @@ export const getDepartment = () => {
 };
 
 export const createEmployee = (employee) => {
-  console.log(employee)
+  console.log(employee);
   return async (dispatch) => {
     dispatch({ type: adminConstants.ADMIN_CREATE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/create-employee", {
@@ -68,18 +68,20 @@ export const getDetailEmployee = () => {
 
 export const getEmployeeByToken = (token) => {
   return async (dispatch) => {
-    dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_REQUEST })
-    const res = await axios.post("/admin/get-empoloyee-by-token", { token: token })
+    dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_REQUEST });
+    const res = await axios.post("/admin/get-empoloyee-by-token", {
+      token: token,
+    });
     if (res.status === 200) {
       dispatch({
         type: adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_SUCCESS,
-        payload: res.data
-      })
+        payload: res.data,
+      });
     } else {
-      dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_FAILURE })
+      dispatch({ type: adminConstants.ADMIN_GET_EMPLOYEE_TOKEN_FAILURE });
     }
-  }
-}
+  };
+};
 
 export const createUser = (user) => {
   return async (dispatch) => {
@@ -178,7 +180,6 @@ export const deleteEmployee = (email) => {
 
 export const updateEmployee = (employee) => {
   return async (dispatch) => {
-
     dispatch({ type: adminConstants.ADMIN_UPDATE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/update-employee", { ...employee });
     if (res.status === 200) {
@@ -211,18 +212,35 @@ export const updateUser = (user) => {
 
 export const loadFeedback = () => {
   return async (dispatch) => {
-    dispatch({ type: adminConstants.ADMIN_LOAD_FEEDBACK_REQUEST })
-    const res = await axios.get("/admin/find-feedback")
+    dispatch({ type: adminConstants.ADMIN_LOAD_FEEDBACK_REQUEST });
+    const res = await axios.get("/admin/find-feedback");
     if (res.status === 200) {
-      console.log(res.data)
+      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_LOAD_FEEDBACK_SUCCESS,
-        payload: res.data.feedback
-      })
+        payload: res.data.feedback,
+      });
     } else {
       dispatch({
         type: adminConstants.ADMIN_LOAD_FEEDBACK_FAILURE,
-      })
+      });
     }
-  }
-}
+  };
+};
+export const getDetailFeedback = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_DETAIL_FEEDBACK_REQUEST });
+    const res = await axios.post("/admin/get-feedback-by-id", { id: id });
+    if (res.status === 200) {
+      console.log(res.data);
+      dispatch({
+        type: adminConstants.ADMIN_GET_DETAIL_FEEDBACK_SUCCESS,
+        payload: res.data.feedback,
+      });
+    } else {
+      dispatch({
+        type: adminConstants.ADMIN_GET_DETAIL_FEEDBACK_FAILURE,
+      });
+    }
+  };
+};

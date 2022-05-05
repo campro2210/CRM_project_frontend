@@ -29,6 +29,7 @@ import SearchText from "./SearchText";
 import theme from "../constant/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions";
+import ModalChangePass from "../components/ModalChangePass";
 
 const drawerWidth = 314;
 
@@ -43,16 +44,16 @@ const AppBar = styled(MuiAppBar, {
   }),
   ...(open
     ? {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: _.get(theme, "transitions.easing.sharp"),
-        duration: _.get(theme, "transitions.duration.enteringScreen"),
-      }),
-    }
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(["width", "margin"], {
+          easing: _.get(theme, "transitions.easing.sharp"),
+          duration: _.get(theme, "transitions.duration.enteringScreen"),
+        }),
+      }
     : {
-      width: `calc(100% - 72px)`,
-    }),
+        width: `calc(100% - 72px)`,
+      }),
   boxShadow: "none",
 }));
 
@@ -99,10 +100,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
-  const admin = "Admin"
+  const admin = "Admin";
   const [open, setOpen] = useState(true);
   const [showProfile, setShowProfile] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [changePasswordState, setChangePasswordState] = useState(false);
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+
   const [notiNumber, setNotiNumber] = useState(0);
 
   const dispatch = useDispatch();
@@ -113,6 +118,10 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   };
   const history = useHistory();
   const classes = useStyles(theme);
+
+  const changePassword = () => {
+    console.log(oldPass, newPass);
+  };
 
   const handleLogout = () => {
     dispatch(signout());
@@ -190,9 +199,10 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                                         )}
                                         fontSize={14}
                                       >
-                                        {
-                                          (userLogin.firstName !== "" || userLogin.lastName !== "") ? `${userLogin.firstName} ${userLogin.lastName}` : `${admin}`
-                                        }
+                                        {userLogin.firstName !== "" ||
+                                        userLogin.lastName !== ""
+                                          ? `${userLogin.firstName} ${userLogin.lastName}`
+                                          : `${admin}`}
                                       </Typography>
                                     </Grid>
                                   </Grid>
@@ -204,9 +214,7 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
                                 alignItems="center"
                                 gap={4}
                                 className={classes.rowItem}
-                                onClick={() =>
-                                  history.push(slugs.changePassword)
-                                }
+                                onClick={() => setChangePasswordState(true)}
                               >
                                 <LockIcon
                                   style={{
@@ -262,7 +270,16 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
               title="Đăng xuất"
               description="Bạn có muốn đăng xuất!"
               submit={handleLogout}
-            ></ModalConfirm>
+            />
+            <ModalChangePass
+              open={changePasswordState}
+              handleClose={() => setChangePasswordState(false)}
+              newPass={newPass}
+              oldPass={oldPass}
+              setNewPass={setNewPass}
+              setOldPass={setOldPass}
+              submit={changePassword}
+            />
           </AppBar>
         )}
 

@@ -1,14 +1,25 @@
 import { Paper, Grid, Typography, TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getDetailFeedback } from "../../../../actions/admin.action";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailFeedBack = (props) => {
+  const dispatch = useDispatch();
+  const feedback = useSelector((state) => state.admin.feedback);
+  console.log(feedback);
+
   const [textEmail, setTextEmail] = useState("");
-  const handleTextEmail = (e) => {
-    setTextEmail(e.target.value);
-  };
+  const [titleEmail, setTitleEmail] = useState("");
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getDetailFeedback(id));
+  }, []);
 
   const handleReplyEmail = () => {
-    console.log(textEmail);
+    console.log(textEmail, textEmail);
   };
   return (
     <>
@@ -28,34 +39,34 @@ const DetailFeedBack = (props) => {
               marginRight: "24px",
             }}
           >
-            <Grid container direction="row" marginBottom="24px">
-              <Grid item>
+            <Grid container direction="row" marginBottom="24px" gap={2}>
+              <Grid item xs={2}>
                 <Typography variant="body1" color="secondary">
                   Email:
                 </Typography>
               </Grid>
               <Grid item>
                 {" "}
-                <Typography variant="body1" color="secondary">
-                  {props.email}{" "}
+                <Typography variant="body2" color="secondary">
+                  {feedback.email}{" "}
                 </Typography>
               </Grid>
             </Grid>
-            <Grid container direction="row" marginBottom="24px">
-              <Grid item>
+            <Grid container direction="row" marginBottom="24px" gap={2}>
+              <Grid item xs={2}>
                 <Typography variant="body1" color="secondary">
                   {" "}
-                  Loại Feedback :
+                  Tiêu đề :
                 </Typography>
               </Grid>
               <Grid item>
                 {" "}
-                <Typography variant="body1" color="secondary">
-                  {props.type}{" "}
+                <Typography variant="body2" color="secondary">
+                  {feedback.title}{" "}
                 </Typography>
               </Grid>
             </Grid>
-            <Grid direction="column" container>
+            <Grid direction="column" container gap={3}>
               <Grid item>
                 <Typography variant="body1" color="secondary">
                   Nội dung Feedback :
@@ -63,8 +74,8 @@ const DetailFeedBack = (props) => {
               </Grid>
               <Grid item>
                 {" "}
-                <Typography variant="body1" color="secondary">
-                  {props.content}{" "}
+                <Typography variant="body2" color="secondary">
+                  {feedback.message}{" "}
                 </Typography>
               </Grid>
             </Grid>
@@ -82,6 +93,18 @@ const DetailFeedBack = (props) => {
             <Grid direction="column" gap={2} container>
               <Grid item>
                 <Typography variant="body1" color="secondary">
+                  Tiêu đề:
+                </Typography>
+              </Grid>
+              <Grid item>
+                <TextField
+                  fullWidth
+                  placeholder="Nhập tiêu đề"
+                  onChange={(e) => setTitleEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item>
+                <Typography variant="body1" color="secondary">
                   Nội dung trả lời :
                 </Typography>
               </Grid>
@@ -91,7 +114,7 @@ const DetailFeedBack = (props) => {
                   placeholder="Nhập nội dung"
                   multiline
                   rows={7}
-                  onChange={(e) => handleTextEmail(e)}
+                  onChange={(e) => setTextEmail(e.target.value)}
                 />
               </Grid>
             </Grid>

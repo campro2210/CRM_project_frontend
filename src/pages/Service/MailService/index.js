@@ -1,10 +1,20 @@
 import { useState } from "react";
 import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
-import { accounts } from "../../../constant/InitData";
 import SelectComponent from "../../../components/SelectComponent";
+import { useSelector } from "react-redux";
 
 const SendEmail = () => {
   const [emailArr, setEmailArr] = useState([]);
+
+  let emailList = useSelector((state) => state.admin.users);
+
+  emailList = emailList.map((item, index) => ({
+    id: index + 1,
+    name: item.firstName + " " + item.lastName,
+    email: item.email,
+  }));
+
+  console.log(emailList);
 
   console.log(emailArr);
   return (
@@ -20,7 +30,7 @@ const SendEmail = () => {
           <Paper style={{ width: "100%", padding: "50px" }}>
             <Grid xs={12} marginBottom="24px">
               <SelectComponent
-                dataList={accounts}
+                dataList={emailList}
                 selectedFieldName="name"
                 selectedFieldValue="email"
                 selectedItem={emailArr}

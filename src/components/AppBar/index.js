@@ -7,7 +7,10 @@ import { Typography } from "@mui/material";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { user_signOut } from "../../actions/index";
+import { domain } from "../../helpers/domain"
+
 import { useEffect } from "react";
+import './AppBar.css'
 const rightLink = {
   fontSize: 16,
   color: "common.white",
@@ -15,9 +18,10 @@ const rightLink = {
 };
 
 function AppBar() {
+  const customer = useSelector(state => state.user).user
   const dispatch = useDispatch();
   const history = useHistory();
-  const customer = localStorage.getItem("customer");
+  const customer_token = localStorage.getItem("customer_token");
   const handleLoggout = () => {
     dispatch(user_signOut());
     history.push("/");
@@ -37,7 +41,7 @@ function AppBar() {
             {"onepirate"}
           </Link>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
-            {!customer && (
+            {!customer_token && (
               <>
                 <Link
                   color="inherit"
@@ -58,19 +62,28 @@ function AppBar() {
                 </Link>
               </>
             )}
-            {customer && (
+            {customer_token && (
               <>
+                <Typography className="topRight">
+                  <img
+                    className='topImg'
+                    src={`${domain.local}/upload/${customer.userImage}`}
+                    alt="" />
+                </Typography>
                 <Typography
                   variant="h5"
-                  onClick={() => history.push("/user/:id")}
+                  onClick={() => history.push("/user")}
                   marginRight="24px"
+                  style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
                 >
-                  {`Hello, ${JSON.parse(customer).fullName}`}
+                  {customer_token ? (`Hello, ${customer.lastName}`) : "Hello"}
                 </Typography>
                 <Typography
                   variant="h5"
                   color="secondary"
                   onClick={handleLoggout}
+                  style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
+
                 >
                   {"Sign Out"}
                 </Typography>

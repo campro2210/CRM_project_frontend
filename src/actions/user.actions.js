@@ -75,8 +75,28 @@ export const userSendMail = (mail) => {
   return async (dispath) => {
     dispath({ type: userConstants.USER_SEND_MAIL_REQUEST })
     if (mail) {
-      console.log({...mail})
+      console.log({ ...mail })
       const res = await axiosUser.post("/send-mail", { ...mail });
     }
   }
 };
+
+
+export const userUpdate = form => {
+  return async (dispath) => {
+    dispath({ type: userConstants.USER_UPDATE_REQUEST })
+    try {
+      if (form) {
+        console.log(form)
+        const res = await axiosUser.post("/update-user", form)
+        if (res.status === 200) {
+          dispath({ type: userConstants.USER_UPDATE_SUCCESS })
+
+        }
+      }
+    } catch (error) {
+
+    }
+
+  }
+}

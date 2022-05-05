@@ -2,16 +2,17 @@ import AppBar from "../../components/AppBar";
 import Footer from "../../components/Footer";
 import { Grid, Paper, Typography, Button } from "@mui/material";
 import { useHistory } from "react-router-dom";
+import { slugs } from "../../constant/slugs";
 import InforField from "../DetailAccount/InforField";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
 import moment from "moment";
 const DetailUserAccount = () => {
-
   const user = useSelector(state => (state.user))
   const data = user.user
   const dateOfBirth = data.date_of_birth
+  const history = useHistory()
   return (
     <>
       <AppBar />
@@ -54,7 +55,7 @@ const DetailUserAccount = () => {
                   style={{ marginBottom: " 24px" }}
                 >
                   <Grid item xs={5}>
-                    <InforField fieldName={"Giới tính"} value={data.sex} />
+                    <InforField fieldName={"Giới tính"} value={(data.sex == 1) ? "Nam" : "Nữ"} />
                   </Grid>
                   <Grid item xs={5}>
                     <InforField fieldName={"Ngày sinh"} value={moment(dateOfBirth).format("YYYY-MM-DD")} />
@@ -77,22 +78,22 @@ const DetailUserAccount = () => {
                   </Grid>
                 </Grid>
               </Grid>
-              <Grid container direction="row" justifyContent="flex-end">
-                <Grid item>
-                  <Button
-                    // onClick={() => history.push(slugs.EditAccount)}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "24px" }}
-                  >
-                    {" "}
-                    Update
-                  </Button>
-                </Grid>
+            </Grid>
+           
+            <Grid container direction="row" justifyContent="center">
+              <Grid item>
+                <Button
+                  onClick={() => history.push(slugs.UpdateUser)}
+                  variant="contained"
+                  color="primary"
+                  style={{ margin: "24px" }}
+                >
+                  {" "}
+                  Update
+                </Button>
               </Grid>
             </Grid>
           </Grid>
-
           :
           <h1>Data loading</h1>
 

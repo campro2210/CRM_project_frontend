@@ -16,15 +16,20 @@ import React, { useEffect, useState } from "react";
 import SelectComponent from "../../components/SelectComponent";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import FieldInfor from "../EditAccount/FieldInfor";
 import moment from "moment";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { userUpdate } from "../../actions/user.actions"
+import { domain } from "../../helpers/domain"
+import "./UpdateUserAccount.css"
 const UpdateUserAccount = () => {
+  const dispatch = useDispatch()
+  const [avatar, setAvatar] = useState(null)
   const genderList = [
     { id: 1, name: "Nam" },
     { id: 2, name: "Nữ" },
@@ -52,6 +57,11 @@ const UpdateUserAccount = () => {
     },
   });
 
+  const handleChangeImage = e => {
+    setAvatar(e.target.files[0])
+    console.log(e.target)
+  }
+
   useEffect(() => {
     if (data) {
       setValue("firstName", data.firstName, "");
@@ -68,17 +78,30 @@ const UpdateUserAccount = () => {
 
   const onSubmit = (values) => {
     const dateOfBirth = moment(birthday).format("YYYY-MM-DD");
+    // const userToUpdate = {
+    //   firstName: values.firstName,
+    //   lastName: values.lastName,
+    //   phone_number: values.phone_number,
+    //   email: values.email,
+    //   address: values.address,
+    //   sex: gender,
+    //   date_of_birth: dateOfBirth,
+    // };
+    // console.log({ userToUpdate });
+    const form = new FormData()
+    form.append('firstName', values.firstName)
+    form.append('lastName', values.lastName)
+    form.append('phone_number', values.phone_number)
+    form.append('email', values.email)
+    form.append('address', values.address)
+    form.append('sex', gender)
+    form.append('date_of_birth', dateOfBirth)
 
-    const userToUpdate = {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      phone_number: values.phone_number,
-      email: values.email,
-      address: values.address,
-      sex: gender,
-      date_of_birth: dateOfBirth,
-    };
-    console.log({ userToUpdate });
+    if (avatar !== null) {
+      form.append('avatar', avatar)
+    }
+    // console.log(avatar)
+    dispatch(userUpdate(form))
   };
   return (
     <>
@@ -144,7 +167,7 @@ const UpdateUserAccount = () => {
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Grid item xs={4}>
+                  <Grid item xs={3}>
                     <Typography variant="body1" color="secondary">
                       Birthday
                     </Typography>
@@ -195,14 +218,33 @@ const UpdateUserAccount = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid container direction="row" justifyContent="flex-end">
+            <Grid item xs={6} container direction="row" justifyContent="center" style={{ paddingLeft: "0px", marginTop: "50px" }}>
+              <div className="settingsPP">
+                <img
+                  src={avatar ? URL.createObjectURL(avatar) : `${domain.local}/upload/${data.userImage}`}
+                  alt=""
+                />
+                <label htmlFor="fileInput">
+                  <AccountCircleIcon className="settingsPPIcon"></AccountCircleIcon>
+                </label>
+                <input
+                  id="fileInput"
+                  type="file"
+                  name="avatar"
+                  style={{ display: "none" }}
+                  className="settingsPPInput"
+                  onChange={(e) => handleChangeImage(e)}
+                />
+              </div>
+            </Grid>
+            <Grid container direction="row" justifyContent="center">
               <Grid item>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={{ margin: "24px" }}
-                  // onClick = {() => handleUpdate()}
+                // onClick = {() => handleUpdate()}
                 >
                   {" "}
                   Update

@@ -4,7 +4,7 @@ export const slugs = {
   SignUp: "/signup",
   VerifyOtp: "/signup/otp/:email",
   SignIn: "/signin",
-  DetailUser: "/user/:id",
+  DetailUser: "/user",
   UpdateUser: "/user/update/:id",
 
   AdminSignIn: "/admin/signin",

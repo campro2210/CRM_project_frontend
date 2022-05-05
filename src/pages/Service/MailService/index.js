@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
-import { accounts } from "../../../constant/InitData";
 import SelectComponent from "../../../components/SelectComponent";
 import { useSelector } from "react-redux";
 

@@ -1,11 +1,13 @@
 import { Paper, Grid, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const DetailFeedBack = (props) => {
   const [textEmail, setTextEmail] = useState("");
   const handleTextEmail = (e) => {
     setTextEmail(e.target.value);
   };
+  const { id } = useParams();
 
   const handleReplyEmail = () => {
     console.log(textEmail);

@@ -21,7 +21,6 @@ const Employees = () => {
   const dispatch = useDispatch();
 
   const employee = useSelector((state) => state.admin.employees);
-  console.log(employee)
   useEffect(() => {
     const getEmployees = async () => {
       await dispatch(getEmployee());

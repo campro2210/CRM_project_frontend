@@ -22,7 +22,6 @@ export const getDepartment = () => {
     dispatch({ type: adminConstants.ADMIN_GET_DEPARTMENT_REQUEST });
     const res = await axios.get("/admin/get-department");
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_DEPARTMENT_SUCCESS,
         payload: res.data,
@@ -34,7 +33,6 @@ export const getDepartment = () => {
 };
 
 export const createEmployee = (employee) => {
-  console.log(employee);
   return async (dispatch) => {
     dispatch({ type: adminConstants.ADMIN_CREATE_EMPLOYEE_REQUEST });
     const res = await axios.post("/admin/create-employee", {
@@ -106,7 +104,6 @@ export const getUser = () => {
     const res = await axios.get("/admin/get-all-user");
 
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_USER_SUCCESS,
         payload: res.data,
@@ -122,7 +119,6 @@ export const getUserBySlug = (_id) => {
     dispatch({ type: adminConstants.ADMIN_GET_USER_BY_SLUG_REQUEST });
     const res = await axios.post(`/admin/get-user/${_id}`);
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_USER_BY_SLUG_SUCCESS,
         payload: res.data,
@@ -150,11 +146,9 @@ export const getEmployeeBySlug = (_id) => {
 
 export const deleteCustomer = (email) => {
   return async (dispatch) => {
-    console.log(email);
     dispatch({ type: adminConstants.ADMIN_DELETE_USER_REQUEST });
     const res = await axios.post("/admin/delete-user", { email: email });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_DELETE_USER_SUCCESS,
       });
@@ -215,7 +209,6 @@ export const loadFeedback = () => {
     dispatch({ type: adminConstants.ADMIN_LOAD_FEEDBACK_REQUEST });
     const res = await axios.get("/admin/find-feedback");
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_LOAD_FEEDBACK_SUCCESS,
         payload: res.data.feedback,
@@ -232,7 +225,6 @@ export const getDetailFeedback = (id) => {
     dispatch({ type: adminConstants.ADMIN_GET_DETAIL_FEEDBACK_REQUEST });
     const res = await axios.post("/admin/get-feedback-by-id", { id: id });
     if (res.status === 200) {
-      console.log(res.data);
       dispatch({
         type: adminConstants.ADMIN_GET_DETAIL_FEEDBACK_SUCCESS,
         payload: res.data.feedback,
@@ -244,3 +236,32 @@ export const getDetailFeedback = (id) => {
     }
   };
 };
+
+export const sendMail = (mail) => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_SEND_MAIL_REQUEST })
+    const res = await axios.post("/admin/send-mail", { ...mail })
+    if (res.status === 200) {
+      dispatch({ type: adminConstants.ADMIN_SEND_MAIL_SUCCESS })
+    } else {
+      dispatch({ type: adminConstants.ADMIN_SEND_MAIL_FAILURE })
+    }
+  }
+}
+
+export const deleteFeedback = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_DELETE_FEEDBACK_REQUEST })
+    const res = await axios.post("/admin/delete-feedback", { id: id })
+    if (res.status === 200) {
+      dispatch({ type: adminConstants.ADMIN_DELETE_FEEDBACK_SUCCESS })
+    }
+  }
+}
+
+export const getUserByEmployee = () => {
+  const tam = []
+  return async (dispatch) => {
+
+  }
+}

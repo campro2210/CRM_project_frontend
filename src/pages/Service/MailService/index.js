@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { Grid, Paper, TextField, Typography, Button } from "@mui/material";
 import SelectComponent from "../../../components/SelectComponent";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, sendMail as sendMailAction } from "../../../actions/admin.action";
+import { useEffect } from "react";
+import swal from "sweetalert";
 
 const SendEmail = () => {
+  const dispatch = useDispatch()
   const [emailArr, setEmailArr] = useState([]);
-
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
   let emailList = useSelector((state) => state.admin.users);
+  console.log(emailList)
 
   emailList = emailList.map((item, index) => ({
     id: index + 1,
@@ -14,9 +20,34 @@ const SendEmail = () => {
     email: item.email,
   }));
 
-  console.log(emailList);
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
 
-  console.log(emailArr);
+  const sendMail = async () => {
+    const emails = emailArr.toString()
+    const mail = {
+      email: emails,
+      title: title,
+      message: content
+    }
+    await dispatch(sendMailAction(mail))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Gửi Mail Thành Công",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Gửi Mail Thất Bại",
+          icon: "warning",
+        });
+      });
+  }
+
   return (
     <>
       <Grid container justifyContent="center">
@@ -31,7 +62,7 @@ const SendEmail = () => {
             <Grid xs={12} marginBottom="24px">
               <SelectComponent
                 dataList={emailList}
-                selectedFieldName="name"
+                selectedFieldName="email"
                 selectedFieldValue="email"
                 selectedItem={emailArr}
                 setSelectedItem={(value) => setEmailArr(value)}
@@ -42,7 +73,7 @@ const SendEmail = () => {
               />
             </Grid>
             <Grid item xs={12} marginBottom="24px">
-              <TextField label="Title" fullWidth placeholder="Nhập tiêu đề" />
+              <TextField label="Title" fullWidth placeholder="Nhập tiêu đề" onChange={e => setTitle(e.target.value)} />
             </Grid>
 
             <Grid item xs={12} marginBottom="24px">
@@ -52,6 +83,7 @@ const SendEmail = () => {
                 placeholder="Nhập nội dung"
                 multiline
                 rows={7}
+                onChange={e => setContent(e.target.value)}
               />
             </Grid>
           </Paper>
@@ -63,7 +95,7 @@ const SendEmail = () => {
             marginTop="24px"
           >
             <Grid item>
-              <Button type="submit" variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={sendMail}>
                 {" "}
                 Send email
               </Button>

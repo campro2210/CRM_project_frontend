@@ -26,8 +26,6 @@ const DetailCustomer = () => {
   useEffect(() => {
     setDataUser(userInfor);
   }, [userInfor]);
-  console.log(userInfor);
-
   const handleDeleteEmployee = () => {
     dispatch(deleteCustomer(dataUser.email))
       .then(() => {
@@ -46,7 +44,6 @@ const DetailCustomer = () => {
         });
       });
   };
-  console.log(dataUser);
   return (
     <>
       <Grid

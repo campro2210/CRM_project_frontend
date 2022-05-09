@@ -25,7 +25,6 @@ import _ from "lodash";
 
 const EditAccount = () => {
   const userLogin = useSelector(state => state.admin).employee
-  console.log(userLogin);
   const dispatch = useDispatch();
   const {
     control,
@@ -59,7 +58,6 @@ const EditAccount = () => {
       sex: gender,
       room: selectedDepartment,
     };
-    console.log(accountUpdate)
   };
 
   useEffect(() => {
@@ -69,7 +67,6 @@ const EditAccount = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-  console.log(departments)
   const genderList = [
     { id: 1, name: "Nam" },
     { id: 2, name: "Nữ" },

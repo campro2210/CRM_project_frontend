@@ -24,7 +24,6 @@ const DetailEmployee = () => {
   const employeeInfor = useSelector((state) => state.admin.employee);
 
   const [dataEmployee, setDataEmployee] = useState({});
-  console.log(dataEmployee)
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {

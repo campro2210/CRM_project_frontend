@@ -129,8 +129,6 @@ const SelectComponent = ({
               ?.map((item) => item[selectedFieldName])
               ?.join(", ");
           }
-          // console.log("selected", selected);
-          // console.log("dataList", dataList);
           if (getAllFieldValue) {
             return dataList.findIndex(
               (item) => item[selectedFieldName] === selected[selectedFieldName]

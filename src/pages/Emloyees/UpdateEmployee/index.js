@@ -24,7 +24,6 @@ import _ from "lodash";
 
 const UpdateEmployee = () => {
   const employee = useSelector((state) => state.admin.employee);
-  console.log(employee);
   const dispatch = useDispatch();
   const id = useParams();
   const {
@@ -83,8 +82,6 @@ const UpdateEmployee = () => {
     getDepartments();
   }, [dispatch]);
   const departments = useSelector((state) => state.admin.department);
-  console.log(departments);
-  console.log(typeof selectedDepartment);
   const handleUpdate = () => {
     const employeeUpdate = {};
   };

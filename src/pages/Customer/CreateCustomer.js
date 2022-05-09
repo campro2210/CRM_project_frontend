@@ -55,7 +55,6 @@ const CreateCustomer = () => {
       date_of_birth: dateOfBirth,
       sex: sex,
     };
-    // console.log(dateOfBirth)
     dispatch(createUser(newCustomer))
       .then(() => {
         swal({

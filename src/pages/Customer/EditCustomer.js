@@ -27,7 +27,6 @@ import swal from "sweetalert";
 const EditCustomer = () => {
   const [birthDay, setBirthDay] = useState();
   const userInfor = useSelector((state) => state.admin.user);
-  console.log(userInfor)
   const dispatch = useDispatch();
   const id = useParams();
   useEffect(() => {
@@ -71,8 +70,6 @@ const EditCustomer = () => {
       setBirthday(userInfor.date_of_birth);
     }
   }, [userInfor]);
-  console.log(birthday);
-
   const onSubmit = (values) => {
     const dateOfBirth = moment(birthDay).format("YYYY-MM-DD")
 
@@ -85,7 +82,6 @@ const EditCustomer = () => {
       sex: gender,
       date_of_birth: dateOfBirth,
     };
-    console.log(userToUpdate);
     dispatch(updateUser(userToUpdate))
       .then(() => {
         history.push(slugs.Customer);

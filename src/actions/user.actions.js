@@ -53,16 +53,12 @@ export const getUserCyclical = (token) => {
       if (token) {
         const res = await axiosUser.post("/getUserByToken", { token: token });
         if (res.status === 200) {
-          console.log(res.data.user)
           dispatch({
             type: userConstants.USER_GET_USER_SUCCESS,
             payload: res.data
           })
 
         }
-        else (
-          console.log("error")
-        )
       }
 
     } catch (error) {
@@ -75,7 +71,6 @@ export const userSendMail = (mail) => {
   return async (dispath) => {
     dispath({ type: userConstants.USER_SEND_MAIL_REQUEST })
     if (mail) {
-      console.log({ ...mail })
       const res = await axiosUser.post("/send-mail", { ...mail });
     }
   }
@@ -87,7 +82,6 @@ export const userUpdate = form => {
     dispath({ type: userConstants.USER_UPDATE_REQUEST })
     try {
       if (form) {
-        console.log(form)
         const res = await axiosUser.post("/update-user", form)
         if (res.status === 200) {
           dispath({ type: userConstants.USER_UPDATE_SUCCESS })

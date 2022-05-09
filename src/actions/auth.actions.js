@@ -4,7 +4,6 @@ import { useHistory, Navigate } from "react-router-dom";
 
 export const login = (Employee) => {
   return async (dispatch) => {
-    console.log(Employee)
     dispatch({ type: authConstants.LOGIN_REQUEST });
     const res = await axios.post("/admin/signin", {
       ...Employee,
@@ -78,7 +77,6 @@ export const signout = () => {
 export const user_signin = (user) => {
   return async (dispatch) => {
     if (user) {
-      console.log(user);
       dispatch({ type: authConstants.LOGIN_REQUEST });
       const res = await axios.post("/signin", { ...user });
       if (res.status == 200) {

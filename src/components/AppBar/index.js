@@ -67,7 +67,7 @@ function AppBar() {
                 <Typography className="topRight">
                   <img
                     className='topImg'
-                    src={`${domain.local}/upload/${customer.userImage}`}
+                    src={customer.userImage ? `${domain.local}/upload/${customer.userImage}` : (customer.sex == 1) ? "../../img/avatar/avatar.png" : "../../img/female.png"}
                     alt="" />
                 </Typography>
                 <Typography

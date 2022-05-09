@@ -19,9 +19,6 @@ const Customer = () => {
     };
     getUsers();
   }, [dispatch]);
-
-  console.log(users);
-
   const [dataTable, setDataTable] = useState([]);
 
   useEffect(() => {
@@ -38,8 +35,6 @@ const Customer = () => {
       );
     }
   }, [users]);
-  console.log(dataTable);
-
   const [skip, setSkip] = useState(0);
   const [pageIndex, setPageIndex] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

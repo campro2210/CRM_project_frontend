@@ -2,7 +2,6 @@ import { Grid, Typography } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { makeStyles } from "@mui/styles";
-
 const FeedbackCard = (props) => {
   const useStyles = makeStyles((theme) => ({
     icon: {
@@ -21,7 +20,7 @@ const FeedbackCard = (props) => {
   }));
 
   const classes = useStyles();
-  const { typeFeedback, created, handleDetail, handleDelete } = props;
+  const { typeFeedback, created, handleDetail, handleDelete, from } = props;
   return (
     <>
       <Grid
@@ -33,12 +32,26 @@ const FeedbackCard = (props) => {
           "& :hover": { cursor: "pointer" },
           borderRadius: "12px",
           marginBottom: "8px",
+          padding: "24px",
+          justifyContent: "space-between",
         }}
-        padding="24px"
-        justifyContent="space-between"
+      // className="wrapper"
       >
-        <Grid item xs={6} onClick={handleDetail}>
+        <Grid item xs={5} onClick={handleDetail}>
           <Typography color="secondary" variant="h5">
+            {" "}
+            {from}
+          </Typography>
+        </Grid>
+        <Grid item xs={2} onClick={handleDetail}>
+          <Typography
+            color="secondary"
+            variant="h5"
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis"
+            }}
+          >
             {" "}
             {typeFeedback}
           </Typography>
@@ -54,9 +67,9 @@ const FeedbackCard = (props) => {
           alignItems="center"
           direction="row"
           justifyContent="flex-end"
-          xs={3}
+          xs={2}
         >
-          <Grid item xs={4}>
+          <Grid item xs={2}>
             <DeleteForeverIcon
               className={classes.icon}
               onClick={handleDelete}

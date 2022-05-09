@@ -24,7 +24,6 @@ import swal from "sweetalert";
 const CreateEmployee = () => {
   const history = useHistory();
   const departments = useSelector((state) => state.admin.department);
-  console.log(departments)
   const dispatch = useDispatch();
   useEffect(() => {
     const getDepartments = async () => {

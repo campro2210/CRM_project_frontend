@@ -1,14 +1,15 @@
 import { Paper, Grid, Typography, TextField, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getDetailFeedback } from "../../../../actions/admin.action";
+import { getDetailFeedback, sendMail as sendMailAction } from "../../../../actions/admin.action";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import swal from "sweetalert";
 
 const DetailFeedBack = (props) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const feedback = useSelector((state) => state.admin.feedback);
-  console.log(feedback);
-
   const [textEmail, setTextEmail] = useState("");
   const [titleEmail, setTitleEmail] = useState("");
 
@@ -18,8 +19,29 @@ const DetailFeedBack = (props) => {
     dispatch(getDetailFeedback(id));
   }, []);
 
-  const handleReplyEmail = () => {
-    console.log(textEmail, textEmail);
+  const handleReplyEmail = async () => {
+    const sendMail = {
+      email: feedback.email,
+      message: textEmail,
+      title: titleEmail,
+      id: id
+    }
+    await dispatch(sendMailAction(sendMail))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Gửi mail thành công",
+          icon: "success",
+        });
+        history.push("/service/feedback/")
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: " Gửi mail thất bại",
+          icon: "warning",
+        });
+      });
   };
   return (
     <>

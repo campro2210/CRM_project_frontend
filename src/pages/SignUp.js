@@ -54,7 +54,7 @@ export default function SignUp() {
         swal({
           title: "Thông báo",
           text: " Đăng kí không thành công!",
-          icon: "warning",
+          icon: "success",
         });
       });
   };
@@ -168,17 +168,17 @@ export default function SignUp() {
                   </FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="female"
+                    defaultValue= {1}
                     name="gender"
                     row
                   >
                     <FormControlLabel
-                      value="female"
+                      value= {1}
                       control={<Radio />}
                       label="Female"
                     />
                     <FormControlLabel
-                      value="male"
+                      value= {2}
                       control={<Radio />}
                       label="Male"
                     />

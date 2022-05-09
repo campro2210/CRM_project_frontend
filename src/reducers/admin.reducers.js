@@ -77,7 +77,6 @@ export default (state = initState, action) => {
         loading: true,
       });
     case adminConstants.ADMIN_GET_USER_SUCCESS:
-      console.log(action.payload);
       return (state = {
         ...state,
         users: action.payload,

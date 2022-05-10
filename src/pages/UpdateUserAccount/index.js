@@ -23,18 +23,25 @@ import moment from "moment";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { userUpdate } from "../../actions/user.actions"
-import { domain } from "../../helpers/domain"
-import "./UpdateUserAccount.css"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { userUpdate } from "../../actions/user.actions";
+import { domain } from "../../helpers/domain";
+import "./UpdateUserAccount.css";
+import ModalChangePass from "../../components/ModalChangePass";
+
 const UpdateUserAccount = () => {
-  const dispatch = useDispatch()
-  const [avatar, setAvatar] = useState(null)
+  const dispatch = useDispatch();
+  const [avatar, setAvatar] = useState(null);
   const genderList = [
     { id: 1, name: "Nam" },
     { id: 2, name: "Nữ" },
   ];
   const [birthday, setBirthday] = useState();
+
+  const [showModal, setShowModal] = useState(false);
+  const [changePasswordState, setChangePasswordState] = useState(false);
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
 
   const data = useSelector((state) => state.user.user);
 
@@ -57,10 +64,10 @@ const UpdateUserAccount = () => {
     },
   });
 
-  const handleChangeImage = e => {
-    setAvatar(e.target.files[0])
-    console.log(e.target)
-  }
+  const handleChangeImage = (e) => {
+    setAvatar(e.target.files[0]);
+    console.log(e.target);
+  };
 
   useEffect(() => {
     if (data) {
@@ -76,6 +83,10 @@ const UpdateUserAccount = () => {
     }
   }, [data]);
 
+  const changePassword = () => {
+    console.log(oldPass, newPass);
+  };
+
   const onSubmit = (values) => {
     const dateOfBirth = moment(birthday).format("YYYY-MM-DD");
     // const userToUpdate = {
@@ -88,20 +99,20 @@ const UpdateUserAccount = () => {
     //   date_of_birth: dateOfBirth,
     // };
     // console.log({ userToUpdate });
-    const form = new FormData()
-    form.append('firstName', values.firstName)
-    form.append('lastName', values.lastName)
-    form.append('phone_number', values.phone_number)
-    form.append('email', values.email)
-    form.append('address', values.address)
-    form.append('sex', gender)
-    form.append('date_of_birth', dateOfBirth)
+    const form = new FormData();
+    form.append("firstName", values.firstName);
+    form.append("lastName", values.lastName);
+    form.append("phone_number", values.phone_number);
+    form.append("email", values.email);
+    form.append("address", values.address);
+    form.append("sex", gender);
+    form.append("date_of_birth", dateOfBirth);
 
     if (avatar !== null) {
-      form.append('avatar', avatar)
+      form.append("avatar", avatar);
     }
     // console.log(avatar)
-    dispatch(userUpdate(form))
+    dispatch(userUpdate(form));
   };
   return (
     <>
@@ -115,7 +126,7 @@ const UpdateUserAccount = () => {
       >
         <Grid item container direction="row" justifyContent="center">
           <Grid item>
-            <Typography variant="h2">Thông tin tài khoản</Typography>
+            <Typography variant="h2">Cập nhật thông tin tài khoản</Typography>
           </Grid>
         </Grid>
         <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
@@ -218,10 +229,21 @@ const UpdateUserAccount = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={6} container direction="row" justifyContent="center" style={{ paddingLeft: "0px", marginTop: "50px" }}>
+            <Grid
+              item
+              xs={6}
+              container
+              direction="row"
+              justifyContent="center"
+              style={{ paddingLeft: "0px", marginTop: "50px" }}
+            >
               <div className="settingsPP">
                 <img
-                  src={avatar ? URL.createObjectURL(avatar) : `${domain.local}/upload/${data.userImage}`}
+                  src={
+                    avatar
+                      ? URL.createObjectURL(avatar)
+                      : `${domain.local}/upload/${data.userImage}`
+                  }
                   alt=""
                 />
                 <label htmlFor="fileInput">
@@ -240,11 +262,22 @@ const UpdateUserAccount = () => {
             <Grid container direction="row" justifyContent="center">
               <Grid item>
                 <Button
+                  variant="contained"
+                  color="grey"
+                  style={{ margin: "24px" }}
+                  onClick={() => setChangePasswordState(true)}
+                >
+                  {" "}
+                  Update Password
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
                   type="submit"
                   variant="contained"
                   color="primary"
                   style={{ margin: "24px" }}
-                // onClick = {() => handleUpdate()}
+                  // onClick = {() => handleUpdate()}
                 >
                   {" "}
                   Update
@@ -253,6 +286,15 @@ const UpdateUserAccount = () => {
             </Grid>
           </Grid>
         </form>
+        <ModalChangePass
+          open={changePasswordState}
+          handleClose={() => setChangePasswordState(false)}
+          newPass={newPass}
+          oldPass={oldPass}
+          setNewPass={setNewPass}
+          setOldPass={setOldPass}
+          submit={changePassword}
+        />
       </Grid>
       <Footer />
     </>

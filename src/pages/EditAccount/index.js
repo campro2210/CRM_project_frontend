@@ -24,7 +24,7 @@ import {
 import _ from "lodash";
 
 const EditAccount = () => {
-  const userLogin = useSelector(state => state.admin).employee
+  const userLogin = useSelector((state) => state.admin).employee;
   const dispatch = useDispatch();
   const {
     control,
@@ -109,6 +109,7 @@ const EditAccount = () => {
                 placeholder=""
                 label="Email"
                 fieldName="email"
+                inputType="email"
                 control={control}
               />
             </Grid>
@@ -118,6 +119,7 @@ const EditAccount = () => {
                 label="Điện thoại"
                 fieldName="phone_number"
                 control={control}
+                minLength={10}
               />
             </Grid>
           </Grid>
@@ -143,7 +145,7 @@ const EditAccount = () => {
                   selectedFieldValue="_id"
                   selectedItem={selectedDepartment}
                   setSelectedItem={setSelectedDepartment}
-                  defaultValue = {selectedDepartment}
+                  defaultValue={selectedDepartment}
                   // onChange
                   // placeholder="Chọn Phòng Ban"
                   multiple={false}
@@ -153,7 +155,9 @@ const EditAccount = () => {
               </Grid>
             </Grid>
             <Grid item xs={5}>
-              <FormLabel id="demo-radio-buttons-group-label">Giới tính</FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Giới tính
+              </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={userLogin.gender}

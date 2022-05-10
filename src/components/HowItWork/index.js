@@ -40,7 +40,6 @@ function HowItWorks() {
           alignItems: "center",
         }}
       >
-        <marquee>Đây là một ví dụ về html marquee </marquee>
         <Box
           component="img"
           src="https://raw.githubusercontent.com/mui/material-ui/master/docs/public/static/themes/onepirate/appCurvyLines.png"

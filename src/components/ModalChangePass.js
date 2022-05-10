@@ -8,6 +8,10 @@ import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword, signout } from "../actions";
+import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -54,18 +58,53 @@ const ModalChangePass = ({
       marginLeft: 12,
     },
   }));
+  const dispatch = useDispatch()
+  const history = useHistory()
   const classes = useStyles();
-
   const [reNewPass, setReNewPass] = useState("");
   const [error, setError] = useState("");
+  const [errorRenew, setErrorRenew] = useState("Mật khẩu xác nhận không trùng khớp");
+  const employee = useSelector((state) => state.admin.employee);
 
   useEffect(() => {
     if (newPass.length <= 8) {
-      setError("Mật khẩu phải nhiều hơn 8 kí tự");
+      setError("Mật khẩu phải ít nhất là 6 kí tự");
     } else if (reNewPass && reNewPass !== newPass) {
       setError("Mật khẩu mới phải trùng khớp nhau");
     }
   }, [reNewPass, newPass]);
+
+  // const handleChangeOldPassword = e => {
+  //   setOldPass(e.target.value)
+  // }
+  const handleChangeConfirmPassword = e => {
+    setOldPass(e.target.value)
+  }
+  const handleSubmit = () => {
+    const data = {
+      id: employee._id,
+      oldPassword: oldPass,
+      password: newPass
+
+    }
+    dispatch(changePassword(data))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thành công",
+          icon: "success",
+        });
+        dispatch(signout())
+        history.push("/admin/signin");
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thất bại thất bại",
+          icon: "warning",
+        });
+      });
+  }
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -79,6 +118,7 @@ const ModalChangePass = ({
             </Grid>
             <Grid item>
               <TextField
+                type={"password"}
                 value={oldPass}
                 onChange={(e) => setOldPass(e.target.value)}
                 fullWidth
@@ -91,9 +131,10 @@ const ModalChangePass = ({
             </Grid>
             <Grid item>
               <TextField
+                type={"password"}
                 fullWidth
                 value={newPass}
-                error={newPass.length <= 8}
+                error={newPass.length <= 5}
                 helperText={error}
                 onChange={(e) => setNewPass(e.target.value)}
               />
@@ -105,10 +146,11 @@ const ModalChangePass = ({
             </Grid>
             <Grid item>
               <TextField
+                type={"password"}
                 fullWidth
                 value={reNewPass}
                 error={reNewPass !== newPass}
-                helperText={error}
+                // helperText={errorRenew}
                 onChange={(e) => setReNewPass(e.target.value)}
               />
             </Grid>
@@ -138,7 +180,7 @@ const ModalChangePass = ({
               variant="contained"
               size="small"
               disabled={newPass !== reNewPass}
-              onClick={submit}
+              onClick={() => handleSubmit()}
               className={clsx(classes.confirm)}
             >
               Xác nhận

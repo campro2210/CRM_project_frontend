@@ -259,9 +259,13 @@ export const deleteFeedback = (id) => {
   }
 }
 
-export const getUserByEmployee = () => {
-  const tam = []
+export const changePassword = (data) => {
   return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_CHANGE_PASSWORD_REQUEST })
+    const res = await axios.post("/admin/change-password", { ...data })
+    if (res.status === 200) {
+      dispatch({ type: adminConstants.ADMIN_CHANGE_PASSWORD_SUCCESS })
 
+    }
   }
 }

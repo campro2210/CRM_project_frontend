@@ -7,13 +7,27 @@ const backgroundImage =
 
 export default function BackgroundSection() {
   return (
-    <BackgroundSectionLayout
-      sxBackground={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundColor: "#7fc7d9",
-        backgroundPosition: "center",
-      }}
-    >
+    <>
+      <div style=
+        {{
+          position: "fixed",
+          fontSize: "18px",
+          width: "100%",
+          color:"#fff",
+          minHeight: "35px",
+          background: "linear-gradient(90deg, rgba(1,0,9,0.7872899159663865) 39%, rgba(0,0,3,1) 100%, rgba(0,212,255,1) 100%)"
+        }}>
+        <marquee>Đây là một ví dụ về html marquee </marquee>
+      </div>
+
+      <BackgroundSectionLayout
+        sxBackground={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundColor: "#7fc7d9",
+          backgroundPosition: "center",
+        }}
+      >
+      </BackgroundSectionLayout>
       {/* <img
         style={{ display: "none" }}
         src={backgroundImage}
@@ -31,6 +45,6 @@ export default function BackgroundSection() {
         Discover the solution to help you increase your revenue by at least 20%,
         save 30% in cost and processing time!
       </Typography> */}
-    </BackgroundSectionLayout>
+    </>
   );
 }

@@ -31,6 +31,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions";
 import ModalChangePass from "../components/ModalChangePass";
 
+import { changePassword } from "../actions";
+import swal from "sweetalert";
+
 const drawerWidth = 314;
 
 const AppBar = styled(MuiAppBar, {
@@ -120,7 +123,28 @@ const Layout = ({ searchText, setSearchText, auth, setAuth, children }) => {
   const classes = useStyles(theme);
 
   const changePassword = () => {
-    console.log(oldPass, newPass);
+    const data = {
+      id: userLogin._id,
+      oldPassword: oldPass,
+      password: newPass,
+    };
+    dispatch(changePassword(data))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thành công",
+          icon: "success",
+        });
+        dispatch(signout());
+        history.push("/admin/signin");
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thất bại thất bại",
+          icon: "warning",
+        });
+      });
   };
 
   const handleLogout = () => {

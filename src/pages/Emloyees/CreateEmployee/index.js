@@ -20,7 +20,6 @@ import { getDepartment, createEmployee } from "../../../actions/admin.action";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 
-
 const CreateEmployee = () => {
   const history = useHistory();
   const departments = useSelector((state) => state.admin.department);
@@ -107,7 +106,12 @@ const CreateEmployee = () => {
           </Grid>
           <Grid direction="row" container justifyContent="space-between">
             <Grid item xs={5}>
-              <FieldInfor label=" Email" fieldName="email" control={control} />
+              <FieldInfor
+                label=" Email"
+                fieldName="email"
+                control={control}
+                inputType="email"
+              />
             </Grid>
             <Grid item xs={5}>
               <FieldInfor
@@ -166,11 +170,7 @@ const CreateEmployee = () => {
                   control={<Radio />}
                   label="Female"
                 />
-                <FormControlLabel
-                  value={1}
-                  control={<Radio />}
-                  label="Male"
-                />
+                <FormControlLabel value={1} control={<Radio />} label="Male" />
               </RadioGroup>
             </Grid>
           </Grid>
@@ -180,6 +180,8 @@ const CreateEmployee = () => {
                 label="Password"
                 fieldName="password"
                 control={control}
+                inputType="password"
+                minLength={6}
               />
             </Grid>
             <Grid item xs={5}></Grid>

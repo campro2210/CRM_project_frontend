@@ -67,16 +67,12 @@ const SignIn = () => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                type="email"
                 id="email"
                 label="Email Address"
                 name="email"
@@ -90,6 +86,7 @@ const SignIn = () => {
                 name="password"
                 label="Password"
                 type="password"
+                inputProps={{ minLength: 6 }}
                 id="password"
                 autoComplete="current-password"
               />

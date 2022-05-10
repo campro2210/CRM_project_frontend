@@ -27,14 +27,14 @@ export default function AdminSignIn() {
   const history = useHistory();
   const [error, setError] = useState(false);
 
-   const handleSubmit =  (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
       email: data.get("email"),
       password: data.get("password"),
     };
-     dispatch(login(user));
+    dispatch(login(user));
     const token = localStorage.getItem("token");
     if (token) {
       history.push(slugs.Home);
@@ -69,12 +69,7 @@ export default function AdminSignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -82,6 +77,7 @@ export default function AdminSignIn() {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
             />
@@ -91,6 +87,7 @@ export default function AdminSignIn() {
               fullWidth
               name="password"
               label="Password"
+              inputProps={{ minLength: 6 }}
               type="password"
               id="password"
               autoComplete="current-password"

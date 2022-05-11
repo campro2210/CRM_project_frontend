@@ -23,6 +23,7 @@ import moment from "moment";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 const CreateCustomer = () => {
+  const employee = useSelector(state => state.admin.employee)
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -54,6 +55,7 @@ const CreateCustomer = () => {
       address: values.address,
       date_of_birth: dateOfBirth,
       sex: sex,
+      employee:employee._id
     };
     dispatch(createUser(newCustomer))
       .then(() => {

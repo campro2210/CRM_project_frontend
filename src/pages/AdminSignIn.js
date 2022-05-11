@@ -27,25 +27,34 @@ export default function AdminSignIn() {
   const history = useHistory();
   const [error, setError] = useState(false);
 
-   const handleSubmit =  (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const user = {
       email: data.get("email"),
       password: data.get("password"),
     };
-     dispatch(login(user));
-    const token = localStorage.getItem("token");
-    if (token) {
-      history.push(slugs.Home);
-    } else {
-      setError(true);
-      swal({
-        title: "Thông báo",
-        text: "Đăng nhập không thành công!",
-        icon: "warning",
+    dispatch(login(user))
+      .then(() => {
+        const token = localStorage.getItem("token");
+        swal({
+          title: "Thông báo",
+          text: "Đăng nhập thành công",
+          icon: "success",
+        });
+        if (token) {
+          history.push(slugs.Home);
+        }
+
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Đăng nhập không thành công",
+          icon: "warning",
+        });
       });
-    }
+
   };
   const token = localStorage.getItem("token");
   if (token) {

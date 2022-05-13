@@ -30,8 +30,8 @@ import theme from "../constant/theme";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../actions";
 import ModalChangePass from "../components/ModalChangePass";
-
 import { changePassword as changePasswordAction } from "../actions";
+
 import swal from "sweetalert";
 
 const drawerWidth = 314;

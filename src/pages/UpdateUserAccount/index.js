@@ -31,6 +31,7 @@ import ModalChangePass from "../../components/ModalChangePass";
 import { signout, userChangePass } from "../../actions";
 import swal from "sweetalert";
 
+
 const UpdateUserAccount = () => {
   const dispatch = useDispatch();
   const [avatar, setAvatar] = useState(null);
@@ -83,7 +84,6 @@ const UpdateUserAccount = () => {
       setBirthday(data.date_of_birth);
     }
   }, [data]);
-
   const userChangePassword = () => {
     const dataChange = {
       id: data._id,
@@ -108,6 +108,7 @@ const UpdateUserAccount = () => {
         });
       });
   };
+
   const onSubmit = (values) => {
     const dateOfBirth = moment(birthday).format("YYYY-MM-DD");
     // const userToUpdate = {
@@ -281,6 +282,9 @@ const UpdateUserAccount = () => {
                         ? URL.createObjectURL(avatar)
                         : `${domain.local}/upload/${data.userImage}`
                       : (data.sex == 1) ? "/img/avatar.png" : "/img/nu.png"
+                    avatar
+                      ? URL.createObjectURL(avatar)
+                      : `${domain.local}/upload/${data.userImage}`
                   }
                   alt=""
                 />
@@ -315,7 +319,7 @@ const UpdateUserAccount = () => {
                   variant="contained"
                   color="primary"
                   style={{ margin: "24px" }}
-                // onClick = {() => handleUpdate()}
+                  // onClick = {() => handleUpdate()}
                 >
                   {" "}
                   Update

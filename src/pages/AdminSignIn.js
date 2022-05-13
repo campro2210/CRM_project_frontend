@@ -54,6 +54,7 @@ export default function AdminSignIn() {
           icon: "warning",
         })
       })
+
     const token = localStorage.getItem("token");
     if (token) {
       history.push(slugs.Home);

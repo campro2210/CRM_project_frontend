@@ -26,12 +26,8 @@ import _ from "lodash";
 import swal from "sweetalert";
 
 const EditAccount = () => {
-  // <<<<<<< HEAD
   const history = useHistory()
   const userLogin = useSelector(state => state.admin).employee
-  // =======
-  // const userLogin = useSelector((state) => state.admin).employee;
-  // >>>>>>> 9d214bc2ec54095ac8335dfcf51122cbedf9a56b
   const dispatch = useDispatch();
   const {
     control,

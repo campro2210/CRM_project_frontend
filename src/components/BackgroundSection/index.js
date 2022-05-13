@@ -17,7 +17,7 @@ export default function BackgroundSection() {
           minHeight: "35px",
           background: "linear-gradient(90deg, rgba(1,0,9,0.7872899159663865) 39%, rgba(0,0,3,1) 100%, rgba(0,212,255,1) 100%)"
         }}>
-        <marquee>Đây là một ví dụ về html marquee </marquee>
+        <marquee>Mọi thắc mắc xin liên hệ 0584282411 hoặc gửi về mail: "minhhoangv190200@gmail.com"</marquee>
       </div>
 
       <BackgroundSectionLayout

@@ -25,7 +25,7 @@ import DatePicker from "@mui/lab/DatePicker";
 import swal from "sweetalert";
 
 const EditCustomer = () => {
-  const [birthDay, setBirthDay] = useState();
+  // const [birthDay, setBirthDay] = useState();
   const userInfor = useSelector((state) => state.admin.user);
   const dispatch = useDispatch();
   const id = useParams();
@@ -70,8 +70,9 @@ const EditCustomer = () => {
       setBirthday(userInfor.date_of_birth);
     }
   }, [userInfor]);
+  // console.log(birthDay)
   const onSubmit = (values) => {
-    const dateOfBirth = moment(birthDay).format("YYYY-MM-DD")
+    const dateOfBirth = moment(birthday).format("YYYY-MM-DD")
 
     const userToUpdate = {
       firstName: values.firstName,
@@ -85,16 +86,17 @@ const EditCustomer = () => {
     dispatch(updateUser(userToUpdate))
       .then(() => {
         history.push(slugs.Customer);
+        window.location.reload()
         swal({
           title: "Thông báo",
-          text: "Cập nhật user thành công!",
+          text: "Cập nhật thành công!",
           icon: "success",
         });
       })
       .catch(() => {
         swal({
           title: "Thông báo",
-          text: "Cập nhật user thất bại!",
+          text: "Cập nhật thất bại!",
           icon: "warning",
         });
       });
@@ -208,9 +210,9 @@ const EditCustomer = () => {
                       openTo="year"
                       views={["year", "month", "day"]}
                       inputFormat="dd/MM/yyyy"
-                      value={birthDay}
+                      value={birthday}
                       onChange={(newValue) => {
-                        setBirthDay(newValue);
+                        setBirthday(newValue);
                       }}
                       renderInput={(params) => (
                         <TextField

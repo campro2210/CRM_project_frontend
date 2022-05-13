@@ -11,10 +11,49 @@ const initState = {
   message: "",
   feedbacks: [],
   feedback: {},
+  userGender: {},
+  userBySelf: {},
+  userByEmployee:{}
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
+    case adminConstants.ADMIN_GET_USER_CREATED_BY_EMPLOYEE_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      })
+    case adminConstants.ADMIN_GET_USER_CREATED_BY_EMPLOYEE_SUCCESS:
+      console.log(action.payload)
+      return (state = {
+        ...state,
+        loading: false,
+        userByEmployee: action.payload
+      })
+    case adminConstants.ADMIN_GET_USER_CREATED_BY_SELF_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      })
+    case adminConstants.ADMIN_GET_USER_CREATED_BY_SELF_SUCCESS:
+      console.log(action.payload)
+      return (state = {
+        ...state,
+        loading: false,
+        userBySelf: action.payload
+      })
+    case adminConstants.ADMIN_GET_USER_BY_GENDER_REQUEST:
+      return (state = {
+        ...state,
+        loading: true,
+      })
+    case adminConstants.ADMIN_GET_USER_BY_GENDER_SUCCESS:
+      console.log(action.payload)
+      return (state = {
+        ...state,
+        loading: false,
+        userGender: action.payload
+      })
     case adminConstants.ADMIN_GET_EMPLOYEE_REQUEST:
       return (state = {
         ...state,

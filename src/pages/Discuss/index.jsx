@@ -19,7 +19,7 @@ function Discuss(props) {
                     <h3>Join A Chat</h3>
                     <input
                         type="text"
-                        placeholder="John..."
+                        placeholder="Your Name..."
                         onChange={(event) => {
                             setUsername(event.target.value);
                         }}

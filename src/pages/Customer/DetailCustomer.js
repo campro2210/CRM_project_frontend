@@ -6,12 +6,15 @@ import InforField from "../DetailAccount/InforField";
 import { useHistory, useParams } from "react-router-dom";
 import { slugs } from "../../constant/slugs";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserBySlug, deleteCustomer } from "../../actions/admin.action";
+import { getUserBySlug, deleteCustomer, getEmployeeBySlug } from "../../actions/admin.action";
 import swal from "sweetalert";
 import moment from "moment";
+import { set } from "date-fns";
 
 const DetailCustomer = () => {
   const userInfor = useSelector((state) => state.admin.user);
+  const employeeCreator = userInfor.employee
+
   const [dataUser, setDataUser] = useState({});
   const dispatch = useDispatch();
   const id = useParams();
@@ -35,6 +38,7 @@ const DetailCustomer = () => {
           icon: "success",
         });
         history.push(slugs.Customer);
+        window.location.reload()
       })
       .catch(() => {
         swal({
@@ -115,6 +119,17 @@ const DetailCustomer = () => {
           <Grid item xs={5}>
             <InforField fieldName={"Email"} value={dataUser.email} />
           </Grid>
+        </Grid>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          style={{ marginBottom: " 24px" }}
+        >
+          <Grid item xs={5}>
+            <InforField fieldName={"Nhân viên giới thiệu"} value={(employeeCreator !== undefined) ? `${employeeCreator.firstName} ${employeeCreator.lastName}` : ""} />
+          </Grid>
+
         </Grid>
       </Paper>
       <Grid container direction="row" justifyContent="flex-end">

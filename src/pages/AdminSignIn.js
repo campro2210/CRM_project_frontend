@@ -34,22 +34,31 @@ export default function AdminSignIn() {
       email: data.get("email"),
       password: data.get("password"),
     };
-    dispatch(login(user));
+    dispatch(login(user))
+      .then(() => {
+        const token = localStorage.getItem("token");
+        swal({
+          title: "Thông báo",
+          text: "Đăng nhập thành công",
+          icon: "success",
+        });
+        if (token) {
+          history.push(slugs.Home);
+        }
+        window.location.reload()
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Đăng nhập không thành công",
+          icon: "warning",
+        })
+      })
+
     const token = localStorage.getItem("token");
     if (token) {
       history.push(slugs.Home);
-    } else {
-      setError(true);
-      swal({
-        title: "Thông báo",
-        text: "Đăng nhập không thành công!",
-        icon: "warning",
-      });
     }
-  };
-  const token = localStorage.getItem("token");
-  if (token) {
-    history.push(slugs.Home);
   }
   return (
     <ThemeProvider theme={theme}>
@@ -126,3 +135,4 @@ export default function AdminSignIn() {
     </ThemeProvider>
   );
 }
+

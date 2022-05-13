@@ -38,7 +38,7 @@ function AppBar() {
             href="/"
             sx={{ fontSize: 24 }}
           >
-            {"onepirate"}
+            {"H & C Group"}
           </Link>
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
             {!customer_token && (
@@ -67,7 +67,7 @@ function AppBar() {
                 <Typography className="topRight">
                   <img
                     className='topImg'
-                    src={customer.userImage ? `${domain.local}/upload/${customer.userImage}` : (customer.sex == 1) ? "../../img/avatar/avatar.png" : "../../img/female.png"}
+                    src={customer.userImage ? `${domain.local}/upload/${customer.userImage}` : (customer.sex == 1) ? "/img/avatar.png" : "/img/nu.png"}
                     alt="" />
                 </Typography>
                 <Typography

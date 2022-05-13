@@ -112,7 +112,7 @@ function HowItWorks() {
             </Grid>
           </Grid>
         </div>
-        <Button
+        {/* <Button
           color="secondary"
           size="large"
           variant="contained"
@@ -121,7 +121,7 @@ function HowItWorks() {
           sx={{ mt: 8 }}
         >
           Get started
-        </Button>
+        </Button> */}
       </Container>
     </Box>
   );

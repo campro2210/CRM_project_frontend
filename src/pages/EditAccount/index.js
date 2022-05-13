@@ -15,6 +15,7 @@ import SelectComponent from "../../components/SelectComponent";
 import { Controller, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
   updateEmployee,
@@ -22,9 +23,11 @@ import {
   getDepartment,
 } from "../../actions/admin.action";
 import _ from "lodash";
+import swal from "sweetalert";
 
 const EditAccount = () => {
-  const userLogin = useSelector((state) => state.admin).employee;
+  const history = useHistory()
+  const userLogin = useSelector(state => state.admin).employee
   const dispatch = useDispatch();
   const {
     control,
@@ -58,6 +61,23 @@ const EditAccount = () => {
       sex: gender,
       room: selectedDepartment,
     };
+    dispatch(updateEmployee(accountUpdate))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thành công",
+          icon: "success",
+        });
+        history.push("/account/detail");
+        window.location.reload()
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thất bại thất bại",
+          icon: "warning",
+        });
+      });
   };
 
   useEffect(() => {
@@ -147,7 +167,7 @@ const EditAccount = () => {
                   setSelectedItem={setSelectedDepartment}
                   defaultValue={selectedDepartment}
                   // onChange
-                  // placeholder="Chọn Phòng Ban"
+                  placeholder={"Chọn Phòng Ban"}
                   multiple={false}
                   size="small"
                   width={"100%"}

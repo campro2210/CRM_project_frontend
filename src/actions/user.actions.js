@@ -88,9 +88,22 @@ export const userUpdate = form => {
 
         }
       }
+    } catch (error) { }
+  }
+}
+
+export const userChangePass = data => {
+  return async (dispatch) => {
+    dispatch({ type: userConstants.USER_CHANGE_PASSWORD_REQUEST })
+    try {
+      if (data) {
+        const res = await axiosUser.post("/user-change-password", { ...data })
+        if (res.status === 200) {
+          dispatch({ type: userConstants.USER_CHANGE_PASSWORD_SUCCESS })
+        }
+      }
     } catch (error) {
 
     }
-
   }
 }

@@ -50,7 +50,7 @@ function Values() {
               <Box sx={item}>
                 <Box
                   component="img"
-                  src="/images/lock.svg"
+                  src="/img/lock.svg"
                   alt="suitcase"
                   sx={{ height: 55 }}
                 />
@@ -68,7 +68,7 @@ function Values() {
               <Box sx={item}>
                 <Box
                   component="img"
-                  src="/images/cloud.svg"
+                  src="/img/cloud.svg"
                   alt="graph"
                   sx={{ height: 55 }}
                 />
@@ -88,7 +88,7 @@ function Values() {
             </Grid>
             <Grid item xs={12} md={4}>
               <Box sx={item}>
-                <Box component="img" src="" alt="clock" sx={{ height: 55 }} />
+                <Box component="img" src="/img/chart2.svg" alt="clock" sx={{ height: 55 }}/>
                 <Typography variant="h5" sx={{ my: 5 }}>
                   statistic
                 </Typography>

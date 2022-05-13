@@ -34,7 +34,7 @@ import VerifyOtp from "./pages/VerifyOtp";
 import DetailUserAccount from "./pages/DetailUserAccount";
 import UpdateUserAccount from "./pages/UpdateUserAccount";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserCyclical, getEmployeeByToken } from "./actions";
+import { getUserCyclical, getEmployeeByToken, getUserByGender, getUserCreatedBySelf, getUserCreatedByEmployee } from "./actions";
 
 const socket = io.connect("http://localhost:5000");
 
@@ -53,6 +53,9 @@ function App() {
     if (employee_token) {
       dispatch(getEmployeeByToken(employee_token))
     }
+    dispatch(getUserByGender())
+    dispatch(getUserCreatedBySelf())
+    dispatch(getUserCreatedByEmployee())
   }, []);
 
   const [auth, setAuth] = useState(false);

@@ -137,7 +137,7 @@ export default function SignUp() {
                     id="address"
                     label="Address"
                     name="address"
-                    //   autoComplete="email"
+                    autoComplete="email"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -149,7 +149,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     inputProps={{ minLength: 6 }}
-                    helperText={"Password phải nhiều hơn 6 kí tự"}
+                    helperText={"Password phải ít nhất 6 kí tự"}
                     autoComplete="new-password"
                   />
                 </Grid>
@@ -178,12 +178,12 @@ export default function SignUp() {
                     row
                   >
                     <FormControlLabel
-                      value={1}
+                      value={2}
                       control={<Radio />}
                       label="Female"
                     />
                     <FormControlLabel
-                      value={2}
+                      value={1}
                       control={<Radio />}
                       label="Male"
                     />

@@ -28,6 +28,9 @@ import { userUpdate } from "../../actions/user.actions";
 import { domain } from "../../helpers/domain";
 import "./UpdateUserAccount.css";
 import ModalChangePass from "../../components/ModalChangePass";
+import { signout, userChangePass } from "../../actions";
+import swal from "sweetalert";
+
 
 const UpdateUserAccount = () => {
   const dispatch = useDispatch();
@@ -66,7 +69,6 @@ const UpdateUserAccount = () => {
 
   const handleChangeImage = (e) => {
     setAvatar(e.target.files[0]);
-    console.log(e.target);
   };
 
   useEffect(() => {
@@ -82,9 +84,29 @@ const UpdateUserAccount = () => {
       setBirthday(data.date_of_birth);
     }
   }, [data]);
-
-  const changePassword = () => {
-    console.log(oldPass, newPass);
+  const userChangePassword = () => {
+    const dataChange = {
+      id: data._id,
+      oldPassword: oldPass,
+      password: newPass,
+    };
+    dispatch(userChangePass(dataChange))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thành công",
+          icon: "success",
+        });
+        dispatch(signout());
+        history.push("/signin");
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thất bại thất bại",
+          icon: "warning",
+        });
+      });
   };
 
   const onSubmit = (values) => {
@@ -112,7 +134,22 @@ const UpdateUserAccount = () => {
       form.append("avatar", avatar);
     }
     // console.log(avatar)
-    dispatch(userUpdate(form));
+    dispatch(userUpdate(form))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thành công",
+          icon: "success",
+        });
+        window.location.reload()
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Cập nhật thất bại thất bại",
+          icon: "warning",
+        });
+      });
   };
   return (
     <>
@@ -240,6 +277,11 @@ const UpdateUserAccount = () => {
               <div className="settingsPP">
                 <img
                   src={
+                    data.userImage ?
+                      avatar
+                        ? URL.createObjectURL(avatar)
+                        : `${domain.local}/upload/${data.userImage}`
+                      : (data.sex == 1) ? "/img/avatar.png" : "/img/nu.png"
                     avatar
                       ? URL.createObjectURL(avatar)
                       : `${domain.local}/upload/${data.userImage}`
@@ -293,7 +335,7 @@ const UpdateUserAccount = () => {
           oldPass={oldPass}
           setNewPass={setNewPass}
           setOldPass={setOldPass}
-          submit={changePassword}
+          submit={userChangePassword}
         />
       </Grid>
       <Footer />

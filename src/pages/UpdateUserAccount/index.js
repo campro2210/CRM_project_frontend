@@ -282,9 +282,6 @@ const UpdateUserAccount = () => {
                         ? URL.createObjectURL(avatar)
                         : `${domain.local}/upload/${data.userImage}`
                       : (data.sex == 1) ? "/img/avatar.png" : "/img/nu.png"
-                    avatar
-                      ? URL.createObjectURL(avatar)
-                      : `${domain.local}/upload/${data.userImage}`
                   }
                   alt=""
                 />

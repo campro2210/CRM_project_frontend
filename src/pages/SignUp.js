@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Radio, FormLabel, RadioGroup } from "@mui/material";
+import { Radio, FormLabel, RadioGroup, Field } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
@@ -47,14 +47,14 @@ export default function SignUp() {
       sex: data.get("gender"),
       date_of_birth: moment(data.get("birthday")).format("YYYY-MM-DD"),
     };
-    // console.log(newUser);
+    console.log(newUser);
     dispatch(signup(newUser))
       .then(() => history.push(`signup/otp/${newUser.email}`))
       .catch(() => {
         swal({
           title: "Thông báo",
           text: " Đăng kí không thành công!",
-          icon: "success",
+          icon: "warning",
         });
       });
   };
@@ -111,8 +111,10 @@ export default function SignUp() {
                   <TextField
                     required
                     fullWidth
+                    variant="outlined"
                     id="email"
                     label="Email Address"
+                    type="email"
                     name="email"
                     onChange={(e) => handleCheckValidEmail(e)}
                     autoComplete="email"
@@ -125,7 +127,7 @@ export default function SignUp() {
                     id="phone-number"
                     label="Phone number"
                     name="phone-number"
-                    //   autoComplete="email"
+                    autoComplete="phone"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -135,7 +137,7 @@ export default function SignUp() {
                     id="address"
                     label="Address"
                     name="address"
-                    //   autoComplete="email"
+                    autoComplete="email"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -146,17 +148,20 @@ export default function SignUp() {
                     label="Password"
                     type="password"
                     id="password"
+                    inputProps={{ minLength: 6 }}
+                    helperText={"Password phải ít nhất 6 kí tự"}
                     autoComplete="new-password"
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                    required
                     id="date"
                     label="Birthday"
                     type="date"
                     name="birthday"
                     fullWidth
-                    defaultValue={"2017-05-24"}
+                    defaultValue={new Date()}
                     InputLabelProps={{
                       shrink: true,
                     }}
@@ -168,17 +173,17 @@ export default function SignUp() {
                   </FormLabel>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue= {1}
+                    defaultValue={1}
                     name="gender"
                     row
                   >
                     <FormControlLabel
-                      value= {1}
+                      value={2}
                       control={<Radio />}
                       label="Female"
                     />
                     <FormControlLabel
-                      value= {2}
+                      value={1}
                       control={<Radio />}
                       label="Male"
                     />

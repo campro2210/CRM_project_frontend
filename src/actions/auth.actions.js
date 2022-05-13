@@ -1,4 +1,4 @@
-import { axiosInstance as axios } from "../helpers/axios";
+import { axiosInstance as axios, axiosUser } from "../helpers/axios";
 import { authConstants, userConstants } from "./constants";
 import { useHistory, Navigate } from "react-router-dom";
 
@@ -78,7 +78,7 @@ export const user_signin = (user) => {
   return async (dispatch) => {
     if (user) {
       dispatch({ type: authConstants.LOGIN_REQUEST });
-      const res = await axios.post("/signin", { ...user });
+      const res = await axiosUser.post("/signin", { ...user });
       if (res.status == 200) {
         const { token, user } = res.data;
         localStorage.setItem("customer_token", token);

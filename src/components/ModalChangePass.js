@@ -8,9 +8,7 @@ import { makeStyles } from "@mui/styles";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { changePassword, signout } from "../actions";
-import swal from "sweetalert";
+
 import { useHistory } from "react-router-dom";
 
 const style = {
@@ -58,13 +56,10 @@ const ModalChangePass = ({
       marginLeft: 12,
     },
   }));
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const history = useHistory();
   const classes = useStyles();
   const [reNewPass, setReNewPass] = useState("");
   const [error, setError] = useState("");
-  const [errorRenew, setErrorRenew] = useState("Mật khẩu xác nhận không trùng khớp");
-  const employee = useSelector((state) => state.admin.employee);
 
   useEffect(() => {
     if (newPass.length <= 8) {
@@ -74,37 +69,7 @@ const ModalChangePass = ({
     }
   }, [reNewPass, newPass]);
 
-  // const handleChangeOldPassword = e => {
-  //   setOldPass(e.target.value)
-  // }
-  const handleChangeConfirmPassword = e => {
-    setOldPass(e.target.value)
-  }
-  const handleSubmit = () => {
-    const data = {
-      id: employee._id,
-      oldPassword: oldPass,
-      password: newPass
-
-    }
-    dispatch(changePassword(data))
-      .then(() => {
-        swal({
-          title: "Thông báo",
-          text: "Cập nhật thành công",
-          icon: "success",
-        });
-        dispatch(signout())
-        history.push("/admin/signin");
-      })
-      .catch(() => {
-        swal({
-          title: "Thông báo",
-          text: "Cập nhật thất bại thất bại",
-          icon: "warning",
-        });
-      });
-  }
+  const handleSubmit = () => {};
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
@@ -150,7 +115,7 @@ const ModalChangePass = ({
                 fullWidth
                 value={reNewPass}
                 error={reNewPass !== newPass}
-                // helperText={errorRenew}
+                helperText={error}
                 onChange={(e) => setReNewPass(e.target.value)}
               />
             </Grid>
@@ -165,7 +130,6 @@ const ModalChangePass = ({
         >
           <Grid item>
             <Button
-              //   disabled={loading}
               variant="contained"
               size="small"
               onClick={handleClose}
@@ -176,11 +140,10 @@ const ModalChangePass = ({
           </Grid>
           <Grid item>
             <Button
-              //   disabled={loading}
               variant="contained"
               size="small"
               disabled={newPass !== reNewPass}
-              onClick={() => handleSubmit()}
+              onClick={submit}
               className={clsx(classes.confirm)}
             >
               Xác nhận

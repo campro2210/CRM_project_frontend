@@ -34,6 +34,7 @@ const SignIn = () => {
     dispatch(user_signin(user))
       .then(() => {
         history.push("/");
+        window.location.reload()
       })
       .catch(() => {
         swal({
@@ -67,16 +68,12 @@ const SignIn = () => {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit}
-              noValidate
-              sx={{ mt: 1 }}
-            >
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
+                type="email"
                 id="email"
                 label="Email Address"
                 name="email"
@@ -90,6 +87,7 @@ const SignIn = () => {
                 name="password"
                 label="Password"
                 type="password"
+                inputProps={{ minLength: 6 }}
                 id="password"
                 autoComplete="current-password"
               />
@@ -108,7 +106,7 @@ const SignIn = () => {
               <Grid container>
                 <Grid item xs></Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

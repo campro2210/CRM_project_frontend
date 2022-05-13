@@ -6,9 +6,12 @@ import AppBar from "../components/AppBar";
 import BackgroundSection from "../components/BackgroundSection";
 import Values from "../components/Values";
 import HowItWorks from "../components/HowItWork";
+import ReactMapGL from "../components/GoogleMap/google"
 import Footer from "../components/Footer";
+import Slider from "../components/Slider/slider"
 import { useDispatch, useSelector } from "react-redux";
 import { userSendMail } from "../actions/user.actions";
+import swal from "sweetalert";
 
 const Landing = () => {
   const dispatch = useDispatch();
@@ -18,19 +21,35 @@ const Landing = () => {
     message: "",
   });
   const handleSubmit = (e) => {
-    dispatch(userSendMail(feedback));
+    dispatch(userSendMail(feedback))
+      .then(() => {
+        swal({
+          title: "Thông báo",
+          text: "Chúng tôi sẽ sớm phản hồi thắc mắc của bạn",
+          icon: "success",
+        });
+      })
+      .catch(() => {
+        swal({
+          title: "Thông báo",
+          text: "Gửi Mail thất bại!",
+          icon: "warning",
+        });
+      });
     setFeedback({
       ...feedback,
       title: "",
       message: "",
-    });
+    })
   };
   return (
     <>
       <AppBar />
-      <BackgroundSection />
+      <Slider />
+      {/* <BackgroundSection /> */}
       <Values />
       <HowItWorks />
+
       <Container
         component="section"
         sx={{
@@ -115,6 +134,9 @@ const Landing = () => {
           </Grid>
         </Grid>
       </Container>
+      <div style={{ width: "100%", height: "500px" }}>
+        <ReactMapGL />
+      </div>
       <Footer />
     </>
   );

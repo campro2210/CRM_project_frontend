@@ -45,20 +45,19 @@ export default function AdminSignIn() {
         if (token) {
           history.push(slugs.Home);
         }
-
+        window.location.reload()
       })
       .catch(() => {
         swal({
           title: "Thông báo",
           text: "Đăng nhập không thành công",
           icon: "warning",
-        });
-      });
-
-  };
-  const token = localStorage.getItem("token");
-  if (token) {
-    history.push(slugs.Home);
+        })
+      })
+    const token = localStorage.getItem("token");
+    if (token) {
+      history.push(slugs.Home);
+    }
   }
   return (
     <ThemeProvider theme={theme}>
@@ -78,12 +77,7 @@ export default function AdminSignIn() {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -91,6 +85,7 @@ export default function AdminSignIn() {
               id="email"
               label="Email Address"
               name="email"
+              type="email"
               autoComplete="email"
               autoFocus
             />
@@ -100,6 +95,7 @@ export default function AdminSignIn() {
               fullWidth
               name="password"
               label="Password"
+              inputProps={{ minLength: 6 }}
               type="password"
               id="password"
               autoComplete="current-password"
@@ -138,3 +134,4 @@ export default function AdminSignIn() {
     </ThemeProvider>
   );
 }
+

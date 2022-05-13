@@ -38,6 +38,7 @@ const DetailCustomer = () => {
           icon: "success",
         });
         history.push(slugs.Customer);
+        window.location.reload()
       })
       .catch(() => {
         swal({

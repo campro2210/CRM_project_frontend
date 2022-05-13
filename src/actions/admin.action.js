@@ -269,3 +269,50 @@ export const changePassword = (data) => {
     }
   }
 }
+
+export const getUserByGender = () => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_USER_BY_GENDER_REQUEST })
+    const res = await axios.get("/admin/get-user-by-gender")
+    if (res.status === 200) {
+      dispatch(
+        {
+          type: adminConstants.ADMIN_GET_USER_BY_GENDER_SUCCESS,
+          payload: res.data
+        }
+      )
+
+    }
+  }
+}
+export const getUserCreatedBySelf = () => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_USER_CREATED_BY_SELF_REQUEST })
+    const res = await axios.get("/admin/get-user-created-by-self")
+    if (res.status === 200) {
+      dispatch(
+        {
+          type: adminConstants.ADMIN_GET_USER_CREATED_BY_SELF_SUCCESS,
+          payload: res.data
+        }
+      )
+
+    }
+  }
+}
+
+export const getUserCreatedByEmployee = () => {
+  return async (dispatch) => {
+    dispatch({ type: adminConstants.ADMIN_GET_USER_CREATED_BY_EMPLOYEE_REQUEST })
+    const res = await axios.get("/admin/get-user-created-by-employee")
+    if (res.status === 200) {
+      dispatch(
+        {
+          type: adminConstants.ADMIN_GET_USER_CREATED_BY_EMPLOYEE_SUCCESS,
+          payload: res.data
+        }
+      )
+
+    }
+  }
+}

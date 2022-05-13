@@ -26,8 +26,12 @@ import _ from "lodash";
 import swal from "sweetalert";
 
 const EditAccount = () => {
+  // <<<<<<< HEAD
   const history = useHistory()
   const userLogin = useSelector(state => state.admin).employee
+  // =======
+  // const userLogin = useSelector((state) => state.admin).employee;
+  // >>>>>>> 9d214bc2ec54095ac8335dfcf51122cbedf9a56b
   const dispatch = useDispatch();
   const {
     control,
@@ -69,6 +73,7 @@ const EditAccount = () => {
           icon: "success",
         });
         history.push("/account/detail");
+        window.location.reload()
       })
       .catch(() => {
         swal({
@@ -128,6 +133,7 @@ const EditAccount = () => {
                 placeholder=""
                 label="Email"
                 fieldName="email"
+                inputType="email"
                 control={control}
               />
             </Grid>
@@ -137,6 +143,7 @@ const EditAccount = () => {
                 label="Điện thoại"
                 fieldName="phone_number"
                 control={control}
+                minLength={10}
               />
             </Grid>
           </Grid>
@@ -172,7 +179,9 @@ const EditAccount = () => {
               </Grid>
             </Grid>
             <Grid item xs={5}>
-              <FormLabel id="demo-radio-buttons-group-label">Giới tính</FormLabel>
+              <FormLabel id="demo-radio-buttons-group-label">
+                Giới tính
+              </FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue={userLogin.gender}

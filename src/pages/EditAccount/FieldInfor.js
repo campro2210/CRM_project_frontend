@@ -8,6 +8,7 @@ const FieldInfor = (props) => {
     control,
     gap = 2,
     placeholder = `${label}`,
+    minLength,
 
     inputType = "text",
   } = props;
@@ -35,11 +36,13 @@ const FieldInfor = (props) => {
                 {...props}
                 placeholder={placeholder}
                 fullWidth
+                required
                 label={""}
                 type={inputType}
                 size="small"
                 {...field}
                 InputProps={{
+                  minLength: { minLength },
                   endAdornment: (
                     <InputAdornment>
                       <Typography

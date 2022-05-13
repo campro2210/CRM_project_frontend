@@ -128,6 +128,7 @@ const UpdateEmployee = () => {
                 placeholder="abcxyz"
                 label=" Email"
                 fieldName="email"
+                type="email"
                 control={control}
               />
             </Grid>
@@ -137,6 +138,7 @@ const UpdateEmployee = () => {
                 label=" Phone number"
                 fieldName="phone_number"
                 control={control}
+                minLength={10}
               />
             </Grid>
           </Grid>

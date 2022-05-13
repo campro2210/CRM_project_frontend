@@ -101,6 +101,9 @@ const Feedback = () => {
                 typeFeedback={item.title}
                 from={item.email}
                 created={moment(item.createdAt).format("l")}
+                handleDetail={() =>
+                  history.push(`/service/feedback/detail/${item._id}`)
+                }
                 handleDelete={() => handleDelete(item._id)}
               />
             ))}

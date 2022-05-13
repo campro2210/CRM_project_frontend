@@ -86,16 +86,17 @@ const EditCustomer = () => {
     dispatch(updateUser(userToUpdate))
       .then(() => {
         history.push(slugs.Customer);
+        window.location.reload()
         swal({
           title: "Thông báo",
-          text: "Cập nhật user thành công!",
+          text: "Cập nhật thành công!",
           icon: "success",
         });
       })
       .catch(() => {
         swal({
           title: "Thông báo",
-          text: "Cập nhật user thất bại!",
+          text: "Cập nhật thất bại!",
           icon: "warning",
         });
       });
